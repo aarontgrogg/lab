@@ -1,0 +1,373 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Git</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+    <body>
+        
+        <h1>Git</h1>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://git-scm.com/">Git</a>
+            </li>
+            <li>
+                <a href="https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository">Get existing repo</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=8JJ101D3knE">Git Tutorial for Beginners (Mosh)</a>
+            </li>
+            <li>
+                <a href="https://www.taniarascia.com/getting-started-with-git/">Getting Started with Git</a>
+            </li>
+            <li>
+                <a href="https://dangitgit.com/">Dangit, Git!</a>
+            </li>
+            <li>
+                <a href="https://www.madebymike.com.au/writing/how-to-git/">How to Git</a>
+            </li>
+            <li>
+                <a href="https://www.atlassian.com/git/tutorials/advanced-overview">Advanced Overview</a>
+            </li>
+            <li>
+                <a href="https://csswizardry.com/2017/05/little-things-i-like-to-do-with-git/">Little Things I Like to do with Git</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=Uszj_k0DGsg&ab_channel=freeCodeCamp.org">Git for Professionals</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <ul>
+                        <li>Distributed, not Centralized, meaning server crashes not an issue, as you can commit to other repos on other computers</li>
+                        <li>Can use via command line, IDE integration (GitLens for VS Code), or stand-along apps (GitKracken, SourceTree (Win/Mac))</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Config</summary>
+                    <pre>
+// system = all users of computer
+// global = all repos for current user
+// local  = current repo only
+
+// setup following global commands for current user
+git config --global user.name aarontgrogg
+git config --global user.email aarontgrogg@gmail.com
+// set default editor to VS Code, telling it to wait until we close VS Code to resume Terminal
+git config --global core.editor "code --wait"
+// setup automated new line characters (Windows should replace `input` with `true`)
+git config --global core.autocrlf input
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Shortcuts</summary>
+                    <pre>
+// check if installed or current version
+git --version
+// install using Homebrew
+brew install git
+// full help
+git help
+// check status of current directory
+git status
+// or reduce terminal output
+git status -s
+// outputs something like: _M file1.js; "column 1" (empty) is Stage, nothing there; "column 2" (M) is local, Modified; ? = untracked; A = Added
+// init new repo (current directory)
+git init
+// add new file(s)
+git add file1.txt
+git add file1.txt file2.txt
+git add .
+// commit to repo (-m means with a short message)
+git commit -m "descriptive commit message"
+// commit to repo (initially without message)
+git commit
+// above will open default editor; add short description, 2 line breaks (1 empty row), then a longer description
+// can skip the staging area and commit all (-a) with a message (-m) using a single command, like:
+git commit -a -m "removed unused code"
+// or even combine the -a and -m like:
+git commit -am "removed unused code"
+// get list of files *in staging area*
+git ls-files
+// see a history of git actions
+git log
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Creating new repo locally: `init`, `add`</summary>
+                    <pre>
+// init new repo, within repo to init...
+git init
+// creates hidden directory called `.git`
+
+// add new files to the repo staging area
+git add file2.txt file2.txt
+
+// push to the repo
+git commit -m "Initial commit"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Updating files: `add`</summary>
+                    <pre>
+// when changing a file, need to `add` it again,
+(edit file in IDE)
+git add file1.txt
+// then commit that change
+git commit -m "Fix bug #123456"
+
+// can also do *partial* file add, to related changes into separate commits
+git diff file1.txt
+// each "section" of changes will be broken into "patches" (-p)
+git add -p file1.txt
+// will walk you through each patch, type "y" or "n" to include or not
+git status
+// will show file1.txt in both "staged" and not staged sections
+git commit -m "Removed old navigtion items"
+// can then commit *only* these changes, then do another
+git add -p file1.txt
+git commit -m "added new product to hero section"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Deleting a file: `git rm`</summary>
+                    <pre>
+// when *removing* a file, we *also* need to `add` it (think like "adding a change"), then commit it...
+(delete file2.txt from local repo)
+git add file2.txt
+git commit -m "Remove unused code"
+
+// git also has a shortcut that removes from local *and* staging at the same time: `git rm...`
+git rm file2.txt
+git rm file2.txt image1.jpg
+git rm *.log
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Moving or Renaming a file: `git mv`</summary>
+                    <pre>
+// using `mv` and a diff name will rename the file
+git mv file1.txt file1.js
+// `git status` will say file1.txt has been deleted and file1.js is untracked
+// add the "removal" change
+git add file1.txt
+// add the "new" file
+git add file1.js
+// `git status` will now recognize that file1.txt was renamed to file1.js
+git commit -m "Rename js file"
+
+// git also has a shortcut that renames in a single command, both locally and in staging: `git mv...`
+git mv file1.txt file1.js
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Ignoring files / directories: `.gitignore`</summary>
+                    <pre>
+// perhaps we have a logs dir that we don't want in the sahred repo
+mkdir logs
+echo hello > /logs/dev.log
+// `git status` says we have an untracked directory: `/logs`
+// create a `.gitignore` file, adding `logs/` to it
+echo logs/ > .gitignore
+// ignore multiple directories, files or patterns
+// `git status` no longer sees `/logs`, but says we have an untracked file: `.gitignore`
+git add .gitignore
+git commit -m "Add .gitignore file"
+
+// NOTE: once something is added to stage, `.gitignore` will no longer ignore it...
+// to remove from *stage* but *not local*, remove from "index" (old name for stage), recursively
+git rm --cached -r bin/
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>View Stage changes before committing: `diff`</summary>
+                    <pre>
+// compare local & staged
+git diff
+// compare staged & repo
+git diff --staged
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>View git history using Log</summary>
+                    <pre>
+// view history of actions taken, by whom
+git log
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Clone existing repo</summary>
+                    <pre>
+// pulling an existing repo to your local hard-drive: git clone [url]
+git clone https://github.com/aarontgrogg/aarontgrogg.git
+
+// NOTE: git clone *creates a new directory and downloads into that*, it does *not* download repo into the *current* directory
+
+// you can also clone the repo into a differently-named directory:
+git clone https://github.com/aarontgrogg/aarontgrogg.git newDirectoryName
+
+// you can also pair-up an existing local directory with an existing Git repo
+git remote add origin https://github.com/aarontgrogg/aarontgrogg.git
+git push origin master
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Branches</summary>
+                    <p>Two basic approaches:</p>
+                    <ol>
+                        <li>Always be integrating<br>
+                            Minimal branches, small commits, requires high quality testing & QA
+                        </li>
+                        <li>State, Release, Feature<br>
+                            Different types of branches, different jobs
+                        </li>
+                    </ol>
+                    <p>Both above include Long-Running and Short-Lived Branches:</p>
+                    <ul>
+                        <li>Long-Running<br>
+                            Exist for lifetime of project, mirror dev cycle "stages", and receive commits only after testing, etc., to keep tight control for releases.
+                        </li>
+                        <li>Short-Lived<br>
+                            New features, bug fixes, refactoring, experiements, delted after integrated into project.
+                        </li>
+                    </ul>
+                    <p>Two basic approaches:</p>
+                    <ol>
+                        <li>GitHub Flow: Always be integrating</li>
+                        <li>Git Flow: State, Release, Feature</li>
+                    </ol>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Pull Request</summary>
+                    <p>Invite others to review your work, provide feedback, modify if necessary, eventually merge into main branch.</p>
+                    <p>Often used for contributions to pubic repos: you submit a pull request, others review, either accept or deny.</p>
+                    <p>This pubic pull request is done by creating a "fork".</p>
+                    <pre>
+// in GitHub, click "Fork", creates "my own version"
+// then clone to local machine
+git clone https://github.com/aarontgrogg/aarontgrogg.git newDirectoryName
+// create new branch for my changes
+git branch new-branch-name
+// switch to that branch
+git checkout new-branch-name
+// make changes, add, commit and push (to personal GitHub repo)
+// go back to GitHub, shows message that change was added, asks if you want to create a Pull Request into main repo
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Merge / Rebase: Pushing changes into "main"</summary>
+                    <pre>
+// first step is to switch back to the main branch
+git checkout master
+// then merge the branch with master
+git merge new-branch-name
+// as long as the master has not changed since the branch was created, git performs a "fast-forward" merge, just combing the two branches and "pushing the pointer forward"
+// if the master DOES have changes of its own, git does a three-way merge:
+// 1) new branch into common ancestor
+// 2) main into common ancestor
+// 3) common ancestor back into main
+// this is called a "merge commit"
+
+// once a branch has been merged back into main, it should be deleted
+git branch -d new-branch-name
+
+// again, first step is to switch back to the main branch
+git checkout master
+// then rebase the branch with master
+git rebase new-branch-name
+// but the rebase process is a bit different from merge:
+// 1) remove all commits from main branch since common ancestor split
+// 2) merges new branch into master branch
+// 3) commits from step 1 are reintegrated
+// this gives the main branch a more linear appearance, as if all dev had happened in a single line
+
+// Note:
+// - rebase completely rewrites the commit history of a branch,
+// - this can cause major conflicts if the former main branch had already been shared,
+// - because someone else's branch could be based on that old branch...
+// - so NEVER rebase on anything that has already been shared,
+// - use ONLY for cleaning up local commits BEFORE sharing.
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Merge Conflicts</summary>
+                    <pre>
+// can always "undo" a merge conflict, to continue working, and resolve later
+git merge --abort
+// or
+git rebase --abort
+// even if you already started trying to fix, realized its more than you expected
+
+// to resolve, while "in" a conflict, open file in editor, git shows conflicting code in markers
+// clean the file as needed, maybe talk to coworkers, get code right
+// can also use mergetool for visual rep of conflict
+git mergetool
+// displays options, asks your choice
+/* Look into Mac app "Kaleidescope" */
+// once conflict is resolved, can commit and should be done!
+git commit -m "some useful message"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+                    </pre>
+                </details>
+            </li>
+        </ul>
+
+    <script src="../js/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+        });
+    </script>
+    </body>
+</html>

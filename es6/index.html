@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html class="no-js">
+	
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>ES6</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="../css/normalize.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" href="../css/stackoverflow-dark.min.css" />
+	</head>
+
+	<body>
+		
+		<h1>ES6</h1>
+
+		<h2>Resources</h2>
+
+		<ul>
+			<li>
+				<a href="https://caniuse.com/?search=es6">Can I Use <strong>ES6</strong>?</a><br />
+				* Note: Only IE6-10 and Opera Mini
+				<strong>completely</strong> lack support; IE11 has minimal
+				support.
+			</li>
+			<li>
+				<a href="https://kangax.github.io/compat-table/es6/">Kangax: CanIUse for ES6</a>
+			</li>
+			<li>
+				<a href="https://scrimba.com/learn/introtoes6/introduction-to-the-es6-course-cWV4JUb">Scrimba - Intro to ES6 Course</a>
+			</li>
+			<li>
+				<a href="https://classroom.udacity.com/courses/ud356">Udacity - ES6</a>
+			</li>
+			<li>
+				<a href="https://github.com/udacity/course-es6">Udacity - ES6 GitHub repo</a>
+			</li>
+			<li>
+				<a href="https://classroom.udacity.com/courses/ud898">Udacity - Promises</a>
+			</li>
+			<li>
+				<a href="https://www.taniarascia.com/javascript-modules-import-export/">Modules</a>
+			</li>
+			<li>
+				<a href="https://www.youtube.com/watch?v=3LOEGS4qcRM&list=PLDlWc9AfQBfZGZXFb_1tcRKwtCavR7AfT">JS Array methods</a>
+			</li>
+		</ul>
+
+		<h2>Notes</h2>
+		<button>Toggle Details</button>
+
+		<ul>
+			<li>
+				<details>
+					<summary><code>let</code> and <code>const</code></summary>
+					<pre>
+// previously, we used `var`
+var example = 1;
+// but `var` allows itself to be hoisted, so:
+if (false) {
+    var example = 1;
+}
+// becomes:
+var example;
+if (false) {
+    example = 1;
+}
+// because JS hoists the declaration out of the `if`, so it is `null`:
+console.log(example); // null
+
+// both `let` and `const` have *block scope*, meaning they only exist in the block they were declared:
+if (false) {
+    let example = 1;
+}
+console.log(example); // Error
+// this is because `example` was declared within the `if`, so it only exists in there...
+
+// `let` is redefinable; `const` is not
+// however, once defined, arrays and objects can be *modified*, like:
+const arr1 = [1, 2, 3];
+arr1.push(4); // totally fine, is now 1, 2, 3, 4
+const obj1 = { first: "Aaron", last: "Grogg" };
+obj1.city = "Hohenecken"; // totally fine
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Template Literals:
+						<code>`My name is ${firstName} ${lastName}`</code>
+					</summary>
+					<pre>
+// rather than:
+const printName = (name) => {
+    return 'Hello, my name is '+name+'.';
+};
+printName('Aaron'); // Hello, my name is Aaron
+// or even:
+const printName = (name) => {
+    return '<p>Hello, my name is '+name+'.</p>'
+            +'<p>It is nice to meet you.</p>';
+};
+// we can do:
+const printName = (name) => {
+    return `<p>Hello, my name is ${name}.</p>
+            <p>It is nice to meet you.</p>`;
+};
+// NOTE: use backticks to surround the string,
+// the ${} to include variable data into the string,
+// and the ability to write multiple lines within the backticks...
+// also able to do compley JS within the ${}, like loops, etc.
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Modular JS: <code>import</code> and <code>export</code>
+					</summary>
+					<pre>
+// purpose is for breaking code into "modules", for cleaner, easier maintainable code
+// file1.js
+export const data = [1, 2, 3];
+// file2.js
+import { data } from '/file1.js';
+
+// can export object, class, string, whatever
+
+// can import multiple items from the same import file:
+import { data, test } from '/file1.js';
+// or import multiple items from multiple files:
+import { data } from '/file1.js';
+import { test } from '/file3.js';
+
+// can rename fns as they are imported: sum => add, difference => subtract
+import {
+  sum as add,
+  difference as subtract
+} from './file1.js'
+add(1, 2); // 3
+
+// can also import all contents of a file into a single object:
+import * as mathFunctions from './file1.js'
+mathFunctions.sum(1, 2) // 3
+
+// you can export any data type, as long as it is named
+export const number = 100
+export const string = 'string'
+export const sum = (x, y) => x + y
+export const book = new Book('Lord of the Rings', 'J. R. R. Tolkein')
+
+// NOTE: `import` statements must precede all other code in a JS file.
+// NOTE: Any code that uses import or export must use the `type="module"` attribute:
+&lt;script type="module" src="functions.js"&gt;&lt;/script&gt;
+// NOTE: modules are not supported in *any* version of IE... (does WebPack solve this?)
+// NOTE: modules require a server environment (so no file://... browsing/testing)
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Destructuring Arrays:
+						<code>const [ firstName, lastName ] = arr1;</code>
+					</summary>
+					<pre>
+/* pull an array apart into individual variables */
+// start with an array:
+const arr1 = [ "Aaron", "Grogg" ];
+// this pushes the first item into firstName and the next item into lastName:
+const [firstName, lastName] = arr1;
+console.log(`${firstName} ${lastName}`); // Aaron Grogg
+
+// it will ignore any other items in the array:
+const arr1 = [ "Aaron", "Grogg", "Hohenecken", "Germany" ];
+const [ firstName, lastName ] = arr1;
+console.log(`${firstName} ${lastName}`); // Aaron Grogg
+
+// and you can even skip some items
+const [firstName, , cityName] = arr1;
+console.log(`${firstName} lives in ${cityName}`); // Aaron lives in Hohenecken
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Destructuring Objects:
+						<code>const { firstName, lastName } = obj1;</code>
+					</summary>
+					<pre>
+/* pull an object apart into individual variables */
+// start with an object:
+const obj1 = { 
+    firstName : "Aaron", 
+    lastName  : "Grogg"
+};
+// this pushes firstName into firstName and lastName into lastName:
+const { firstName, lastName } = obj1;
+console.log(`${firstName} ${lastName}`); // Aaron Grogg
+
+// it will ignore any other items in the object:
+const obj1 = { 
+    firstName : "Aaron", 
+    lastName  : "Grogg",
+    city      : "Hohenecken",
+    country   : "Germany"
+};
+const { firstName, lastName } = obj1;
+console.log(`${firstName} ${lastName}`); // Aaron Grogg
+
+// you can even access nested items
+const obj1 = {
+    firstName : "Aaron", 
+    lastName  : "Grogg",
+    address   : {
+        city      : "Hohenecken",
+        country   : "Germany"
+    }
+};
+const { firstName, lastName, address: { city } } = obj1;
+console.log(`${firstName} ${lastName} lives in ${city}`); // Aaron Grogg lives in Hohenecken
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Object Literals:
+						<code>const address = { city, state };</code>
+					</summary>
+					<pre>
+/* push function variables into an object */
+// to build an object using these variables, we would have done this:
+function test( city, state ) {
+    const address = {
+        city: city,
+        state: state
+    };
+    console.log( address );
+}
+test( "Austin", "Texas" ); // {city: "Austin", state: "Texas"}
+
+// we can now just do this, and ES6 will assume we want the variable names as the object keys:
+function test( city, state ) {
+    const address = { city, state };
+    console.log( address );
+}
+test( "Austin", "Texas" ); // {city: "Austin", state: "Texas"}
+
+// this can also happen within Objects:
+const firstName = "Aaron";
+const lastName = Grogg";
+const obj1 = { 
+    firstName,
+    lastName
+};
+console.log(obj1); // { firstName = "Aaron", lastName: "Grogg" }
+
+// NOTE: Objects can also take functions, which no longer require the `function` keyword:
+const obj1 = { 
+    firstName : "Aaron", 
+    lastName  : "Grogg",
+    showName() {
+        // code in there...
+    }
+};
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Spread operator:
+						<code>const arr3 = [ ...arr1, ...arr2 ];</code>
+					</summary>
+					<pre>
+/* use ... to clone arrays or objects */
+// this creates a *reference* to arr1:
+const arr1 = [ 1, 2, 3 ];
+const arr2 = arr1;
+// this means if you change anything in arr1, it will *also* change in arr2!
+
+// if you want to create a *clone* of arr1, use the Spread operator:
+const arr2 = [ ...arr1 ];
+// now if you change something in arr1, it will *not* affect arr2.
+
+// the Spread operator works for both arrays and objects:
+const obj1 = {
+    name: "Aaron",
+    city: "Hohenecken"
+}
+// this creates a reference, so changes to obj1 *will* affect obj2:
+const obj2 = obj1;
+// but this will create a *clone* of obj1, so changes will *not* affect obj2:
+const obj2 = {
+    ...obj1
+}
+
+// NOTE: both have their place and can be useful.
+// perhaps you have info in obj1 that *should* update in obj2 (an employee's salary, job title, etc.),
+// updating in the "origin" and having the "copy" also update would be desirable.
+
+// NOTE: Spread is also a good way to just print the contents of an iterable object:
+const arr1 = [ 1, 2, 3 ];
+console.log( ...arr1 ); // 1 2 3 
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Rest parameter:
+						<code>function test( ...num ) {...}</code>
+					</summary>
+					<pre>
+/* use ... to receive any number of variables into a function */
+// this function expects, and only acknowledges, 1 variable:
+function test( num ) {
+    console.log( num );
+}
+test(1); // 1
+test(1, 2, 3); // 1
+
+// to allow for any number of variables to be sent, add the Rest operator:
+function test( ...num ) {
+    console.log( num );
+}
+test(1); // 1
+test(1, 2, 3); // 1, 2, 3
+
+// can also use this to collect an indefinite number of items:
+const arr1 = [ 1, 2, 3, 4, 5, 6 ,7 ,8, 9 ];
+const [var1, var2, var3, ...others] = arr1;
+console.log(var1, var2, var3, others); // 1, 2, 3, [ 4, 5, 6 ,7 ,8, 9 ]
+
+// NOTE: while we always had `arguments` that would collect anything send to the function, 
+// it is an object, whereas the Rest operator is an array, and is thus iterable!
+
+// NOTE: the spread variable must be the LAST in a function declaration; this will cause an error:
+function test( ...num, var1, var 2 ) { ... }
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						<code>for...of</code> Loop:
+						<code>for ( const digit of digits ) {...}</code>
+					</summary>
+					<pre>
+// this replaces `for`, `for...in` and even `forEach` loops
+const digits = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+for ( const digit of digits ) {
+    console.log(digit); // 123456789
+}
+
+// you can also skip values using `continue`
+for ( const digit of digits ) {
+    if (digit % 2 === 0) {
+        continue;
+    }
+    console.log(digit); // 13579
+}
+
+// NOTE: `forEach` is still quite valuable for in-place looping; it iterates through all items in the array, updating in the same array.
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Arrow functions:
+						<code
+							>const full = (first, last) => `${first}
+							${last}`</code
+						>
+					</summary>
+					<pre>
+// a < ES6 function could be written like:
+var test = function() {
+    return 'Test';
+}
+// an ES6 function could be written like:
+const test = () => {
+    return 'Test';
+}
+
+// you can pass variables like this:
+const test = (var1) => {
+    return var1;
+}
+test('Test'); // Test
+
+// if only *return* a single line, can remove `return` and shorten to a single line:
+const test = (var1) => var1;
+test('Test'); // Test
+
+// and if only *receiving* a single variable, can even remove `()` from the variable, like:
+const test = var1 => var1;
+test('Test'); // Test
+
+// NOTE: `this` inside arrow functions does not work as regular function declarations work... 
+// the context changes based on *where* it is used...
+
+// NOTE: arrow functions can ONLY be used to replace Function Expressions (var test = function(){...})
+// and NOT to replace Function Declarations (function test() {...})
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Default function parameters:
+						<code>const test = (var1 = 'Test') => {...}</code>
+					</summary>
+					<pre>
+// if a function can have default variable values, they can be included in the function declaration, like in PHP:
+const test = (var1 = 'Test') => {
+    return var1;
+}
+test(); // Test
+test('Test'); // Test
+
+// can also use a default parameter for functions expecting an array
+function createGrid([width = 5, height = 5]) {
+  return `Generates a ${width} x ${height} grid`;
+}
+createGrid([]); // Generates a 5 x 5 grid
+createGrid([2]); // Generates a 2 x 5 grid
+createGrid([2, 3]); // Generates a 2 x 3 grid
+createGrid([undefined, 3]); // Generates a 5 x 3 grid
+// but this throws an error, because the fn expects an array:
+createGrid(); // Error
+// so add a default parameter to the array in the fn declaration:
+function createGrid([width = 5, height = 5] = []) {...}
+// or for objects passed:
+function createSundae({scoops = 1, toppings = ['Hot Fudge']} = {}) {...}
+
+// when passing an object, you can use the default of one, and pass something for another, parameter:
+createSundae({toppings: ['Hot Fudge', 'Sprinkles', 'Caramel']});
+// but for arrays, you need to pass `undefined` to skip a parameter:
+createSundae([undefined, ['Hot Fudge', 'Sprinkles', 'Caramel']]);
+
+// NOTE: the variable can be a String, Array, Object, Boolean, etc.
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Includes function: <code>arr1.includes(1);</code>
+					</summary>
+					<pre>
+/* is a value in an array? */
+// previously, to test for a value in an array, you would do something like this:
+let arr1 = [1, 2, 3];
+arr1.indexOf(0); // -1
+// above works, but gives a truthy/falsey reply
+
+// can now do:
+arr1.includes(1); // true
+arr1.includes(0); // false
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Some function:
+						<code
+							>const test1 = arr1.some( number => number > 4
+							);</code
+						>
+					</summary>
+					<pre>
+/* is there at least one? */
+const arr1  = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const test1 = arr1.some( number => number > 4 ); // true
+const test2 = arr1.some( number => number > 10 ); // false
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Every function:
+						<code
+							>const test = items.every( item => item.price > 1
+							);</code
+						>
+					</summary>
+					<pre>
+/* does every item in an array meet some condition? */
+const items = [
+    { id: 1, price: 1.23 },
+    { id: 2, price: 3.45 },
+    { id: 3, price: 6.78 },
+];
+// check if all prices are greater than $1
+const test1 = items.every( item => item.price > 1 );
+console.log(test1); // true
+// check if all prices are greater than $3
+const test2 = items.every( item => item.price > 3 );
+console.log(test2); // false
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Reduce function:
+						<code
+							>const total = items.reduce( (acc, curr) => { ... },
+							0 );</code
+						>
+					</summary>
+					<pre>
+/* accumulate some value for an entire array ("total price of all items in array") */
+const items = [
+    { id: 1, price: 1.23 },
+    { id: 2, price: 3.45 },
+    { id: 3, price: 6.78 },
+];
+// accepts callback which expects "accumulater" and "current" (item), and an initial value (0)
+const total = items.reduce( (acc, curr) => { return acc + curr.price }, 0 );
+console.log(total); // 11.46
+
+// count items with same value
+const items = [
+    { id: 1, color: 'red' },
+    { id: 2, color: 'blue' },
+    { id: 3, color: 'green' },
+    { id: 4, color: 'blue' },
+    { id: 5, color: 'red' },
+];
+// still passing accumulater and current item, but an empty initial value
+const total = items.reduce( (acc, curr) => {
+    // initialize "current" color
+    const color = curr.color;
+    // if this color was already seen, increment count
+    if ( acc[color] ) {
+        acc[color]++;
+    // else initialize this color
+    } else {
+        acc[color] = 1;
+    }
+    return acc;
+}, {} );
+console.log(total); // { red: 2, blue: 2, green: 1 }
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Map function:
+						<code
+							>const arr1 = names.map( name => name.toUpperCase()
+							);</code
+						>
+					</summary>
+					<pre>
+/* in-place array loop */
+// an Array's `map` method receives a function, performs that function on all array items, and outputs a new array
+const names = ['Farrin', 'Kagure', 'Asser'];
+const upperizedNames = names.map( name => name.toUpperCase() );
+console.log( upperizedNames ); // [ "FARRIN", "KAGURE", "ASSER" ]
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Filter function:
+						<code
+							>const arr1 = names.filter( name => name.length > 6
+							);</code
+						>
+					</summary>
+					<pre>
+/* in-place array reduction */
+// an Array's `filter` method receives a function, performs that function on all array items, and outputs a new array
+const names = ['Afghanistan', 'Aruba', 'Bahamas', 'Chile', 'Fiji', 'Gabon', 'Luxembourg', 'Nepal', 'Singapore', 'Uganda', 'Zimbabwe'];
+const longNames = names.filter( name => name.length > 6 );
+console.log( longNames ); // [ "Afghanistan", "Bahamas", "Luxembourg", "Singapore", "Zimbabwe" ]
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Sort function:
+						<code>const sorted = arr.sort( (a, b) => a - b );</code>
+					</summary>
+					<pre>
+/* sort array, require custom sort function */
+const arr = [1,5,4,8];
+const sorted = arr.sort( (a, b) => a - b );
+console.log( sorted ); // [1,4,5,8]
+
+// also possible to sort assoc arrays
+const arr = [{id: 1},{id: 5},{id: 4},{id: 8}];
+const sorted = arr.sort( (a, b) => a.id - b.id );
+console.log( sorted ); // [{id: 1},{id: 4},{id: 5},{id: 8}]
+
+// also posible to do custom Boolean-type sorts
+const arr = [{result: true},{result: false},{result: true},{result: false}];
+const sorted = arr.sort( (a, b) => {
+    // sort `true first
+    if ( a.result ) return -1;
+    return 1;
+});
+console.log( sorted ); // [{result: true},{result: true},{result: false},{result: false}]
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Array: Set: <code>new Set([1,2,1,3,4,1,3,4,]);</code>
+					</summary>
+					<pre>
+// create new Set with duplicate values
+const example = new Set([1,2,1,3,4,1,3,4,]);
+console.log(example.size); // 4, does NOT include duplicate values!
+
+// can add
+example.add(5);
+console.log(example.size); // 5
+// note that .add() returns the Set, so could chain
+
+// and delete
+example.delete(5);
+console.log(example.size); // 4
+// note that .delete() returns a Boolean, reflected whether the value was found & deleted
+
+// check if a value exists
+example.has(5); // false
+
+// and clear completely
+example.clear();
+console.log(example.size); // 0
+
+// NOTE: Sets :: Arrays, as Maps :: Objects
+
+// NOTE: Set is iterable, so all `for` etc. work just fine
+
+// NOTE: can also create a `new WeakSet()`, which is still an Array, but can only contain Objects, is not iterable, and has no `clear.
+// benefit is automatic garbage collection, even for references to it.
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Object: Map: <code>const employees = new Map();</code>
+					</summary>
+					<pre>
+/* store key-value pairs */
+// both the keys and the values can be objects, primitive values, or a combination of the two
+const employees = new Map();
+
+// add items to a Map
+employees.set( 'james.parkes@udacity.com', { 
+    firstName: 'James',
+    lastName: 'Parkes',
+    role: 'Content Developer' 
+});
+employees.set( 'julia@udacity.com', {
+    firstName: 'Julia',
+    lastName: 'Van Cleve',
+    role: 'Content Developer'
+});
+
+// check if item exists
+employees.has('julia@udacity.com'); // true
+
+// and retrieve an item
+const emp1 = employees.get('julia@udacity.com');
+
+// delete items from a Map
+employees.delete('julia@udacity.com');
+
+// clear the Map
+employees.clear();
+
+// NOTE: Sets :: Arrays, as Maps :: Objects
+
+// NOTE: adding a key that already exists overwrites the previous item
+
+// NOTE: can loop through Maps using: .keys(), .values(),and next(); for...of loops; or forEach loops
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Promise:
+						<code>new Promise( (resolve, reject) => {...});</code>
+					</summary>
+					<pre>
+/* a placeholder for the results of a deferred computation */
+// Promises are preferred because of flexibility, intuitive syntax and improved error-handling
+
+// create a promise when a task’s completion is uncertain or may take a long time
+// a Promise is like an airplane ticket: you give money, airline "promises" you have a seat on a future flight
+// a Promise is async
+// a Promise has three "stages": pending, resolve, reject
+const buyFlightTicket = () => {
+    // a Promise expects a function, which expects two parameters, typically named `resolve` and `reject`
+    // `resolve` and `reject` are also functions that will be called in each respective event
+    return new Promise( (resolve, reject) => {
+        // do some time-consuming work
+        const workDone = true;
+        //const workDone = false;
+
+        // check if done successfully or not
+        if ( workDone ) {
+            // resolve the Promise
+            resolve('Promise was successful');
+        } else {
+            // reject the Promise
+            reject('Promise failed');
+        }
+    })
+}
+// the Promise function sends the "resolve" or "reject" to `then` or `catch`
+// `then` will receive whatever the "resolve" function in the Promise sends to it
+// `catch` will receive whatever the "reject" function in the Promise sends to it
+buyFlightTicket()
+    .then( (success) => console.log(success) )
+    .catch( (error) => console.log(error) );
+// can also chain multiple `then`/`catch` statements
+buyFlightTicket()
+    .then( (success) => console.log(success) )
+    .catch( (error) => console.log(error) )
+    .then( (success) => console.log(success) )
+    .catch( (error) => console.log(error) );
+
+// NOTE: check into `.all()`, `.race()`
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Fetch:
+						<code>fetch('https://example.com/', {id: 1});</code>
+					</summary>
+					<pre>
+// MDN: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// good placeholder JSON for testing: https://jsonplaceholder.typicode.com/comments/1
+// `fetch` takes a URL...
+fetch('https://jsonplaceholder.typicode.com/comments/1')
+    // returns a Promise, in this case JSON, which needs to be parsed...
+    .then(response => response.json())
+    // which returns another Promise, before we can log it:
+    .then(data => console.log(data));
+// above (default) is a GET, can also do POST, PUT, DELETE
+// POST & PUT also take a data object
+fetch('https://jsonplaceholder.typicode.com/comments', {
+        method: "POST",
+        body: JSON.stringify({
+            name:  "Aaron",
+            email: "aarontogrgg@gmail.com"
+            body:  "This is the comment body."
+        })
+    })
+    .then( (response) => response.json() )
+    .catch( (error) => console.log('Error, no response returned: ', error) )
+    .then( (data) => console.log(data) )
+    .catch( (error) => console.log('Error, not able to parse JSON: ', error) );
+
+// NOTE: the additional init object can be passed for any `method`, including `headers`, `cors` mode, `credentials`, etc.
+// https://developer.mozilla.org/en-US/docs/Web/API/fetch
+// NOTE: Most examples will receive JSON, but if you get HTML, then `.then(response => response.json())` becomes `.then(response => response.text())`; you can also get a "Blob": `.then(response => response.blob())`
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary><code>async</code> and <code>await</code></summary>
+					<pre>
+/* wait until Promise resolves, then continue */
+// `async` goes before a `function` declaration
+async function photoUpload() { ... }
+// `await` goes inside that function, inside a variable declaration that relies on the Promise resolution
+let uploadStatus = new Promise(...);
+let result = await uploadStatus;
+// result will wait for uploadStatus to resolve before allowing function to continue
+
+// fetch random Chuck Norris joke
+const apiUrl = "https://api.chucknorris.io/jokes/random";
+// set fn as async
+async function getJoke() {
+    // await fetch response
+    let response = await fetch(apiUrl);
+    // then await json() response
+    let joke = await response.json();
+    // the log joke value
+    console.log(joke.value);
+}
+getJoke();
+
+// NOTE: kind of ironic, because `async` sort of turns that function into sync...
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Classes: <code>class Animal {...}</code></summary>
+					<pre>
+// a Class is a "parent object", which will serve as a "blueprint" for children objects
+// the classic example is a Class called `Person`, which is used to create individual people, previously like:
+var Person = {
+    first: '',
+    last: '',
+    birthdate: '',
+    ...
+}
+// this could be used to create different people like:
+var Aaron = new Person;
+    Aaron.first = 'Aaron';
+    ...
+
+// Classes allow us to include constructors, functions, static properties, get/set and more, like:
+class Animal {
+    // constructor, defines the class
+    constructor(type, legs){
+        this.type = type;
+        this.legs = legs;
+    }
+    // static (not really sure of purpose/benefit); cat.returnType(); // Cat
+    static returnType() {
+        return this.type;
+    }
+    // function; cat.makeNoise('Loud Noise'); // Loud Noise
+    makeNoise( sound = 'Loud Noise' ) {
+        console.log(sound);
+    }
+    // function; cat.answersTo('Aaron'); // Aaron
+    answersTo( ownerName ) {
+        console.log(ownerName);
+    }
+    // get, return data; cat.metaData; // Type: Cat, Legs: 4 (Note: NOT a function call)
+    get metaData() {
+        return `Type: ${this.type}, Legs: ${this.legs}`;
+    }
+}
+// instantiate a new Animal
+let cat = new Animal('Cat', 4);
+
+// can also *extend* a Class, like:
+class Cat extends Animal {
+    // nothing will change unless you change something below...
+    // inherit using `super`, then add new stuff
+    constructor( type, legs, tail = true ) {
+        super(type, legs); // brings these from parent
+        this.tail: tail;   // add a new property (default is true`)
+    }
+    // can override functions from parent; cat.makeNoise(); // Meow
+    makeNoise( sound = 'Meow' ) {
+        console.log(sound);
+    }
+    // inherit from Animal, but override; cat.answersTo('Aaron'); // No one...
+    answersTo( ownerName ) {
+        super.answersTo( ownerName );
+        ownerName = 'No one...';
+        console.log(ownerName);
+    }
+}
+// instantiate a new Cat
+let cat = new Cat('Cat', 4);
+// all other aspects of Animal are inherited into Cat
+cat.returnType(); // Cat
+
+// NOTE: ES6 Classes are just a "mirage"; under the hood, a `class` is still a function with properties
+
+// NOTE: ES6 Classes do NOT separate their properties and methods using commas, like JS Objects do.
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>_ ("declared but never used" parameters)</summary>
+					<pre>
+// it is now acceptable to use `_` in place of a variable that you do not intend to use
+const test = _ => {...};
+setTimeout(_ => {...}, 3000);
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Symbol (unique identifiers to help disseminate similar
+						objects)
+					</summary>
+					<pre>
+// create an object with some items in it
+const bowl = {
+  'apple': { color: 'red', weight: 136.078 },
+  'banana': { color: 'yellow', weight: 183.151 },
+  'orange': { color: 'orange', weight: 170.097 },
+};
+console.log(bowl); // {apple: Object, banana: Object, orange: Object}
+
+// but what if we need to add another "banana" object?
+const bowl = {
+  'apple': { color: 'red', weight: 136.078 },
+  'banana': { color: 'yellow', weight: 183.151 },
+  'orange': { color: 'orange', weight: 170.097 },
+  'banana': { color: 'yellow', weight: 176.845 }
+};
+// rather than add another "banana", the new one overwrites the previous one...
+console.log(bowl); // {apple: Object, banana: Object, orange: Object}
+
+// to handle this, we convert the `key`s to Symbols:
+const bowl = {
+  [Symbol('apple')]: { color: 'red', weight: 136.078 },
+  [Symbol('banana')]: { color: 'yellow', weight: 183.15 },
+  [Symbol('orange')]: { color: 'orange', weight: 170.097 },
+  [Symbol('banana')]: { color: 'yellow', weight: 176.845 }
+};
+console.log(bowl); // {Symbol(apple): Object, Symbol(banana): Object, Symbol(orange): Object, Symbol(banana): Object}
+
+// NOTE: not sure how we access these Object items now...
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>
+						Proxy (object to intercept actions for another object)
+					</summary>
+					<pre>
+// start a simple object
+const actor = { status: 'Looking for work' };
+// the Proxy receives two objects: the object it will Proxy for, and the methods it handles for the other object (called the "handler")
+const agent = new Proxy( actor, {} );
+console.log(agent.status); // 'Looking for work' (from the `actor` object)
+
+// the handler can have a "get trap" (it traps the request and handles it...)
+const handler = { 
+    get(target, propName) {
+        console.log(target); // actor
+        console.log(propName); // status
+        return target[propName]; // 'Looking for work'
+    }
+};
+const agent = new Proxy( actor, handler );
+console.log(agent.status); // actor, status, 'Looking for work'
+
+// the handler can also have a "set trap"
+const handler = { 
+    // `set` also takes a `value`, that is to be "set"
+    set(target, propName, value) {
+        if ( propName === 'payRate' ) {
+            // take commission and pay actor the rest
+            value = vale * 0.85;
+        }
+        target[propName] = value;
+    }
+};
+const agent = new Proxy( actor, handler );
+agent.payRate = 1000; // give 1000 to agent, for actor
+agent.payRate; // 850, what the actor actually gets paid
+
+// NOTE: this allows for greater method flexibility, being able to apply the same process for ad hoc methods
+// (though, it seems like a `get`/`set` function on the initial object could do this similarly...)
+
+// NOTE: there are many other handler methods, would need to review
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Generators (pausable functions)</summary>
+					<pre>
+// all that is required to *create* a generator function is adding the `*` in the function declaration:
+function* getEmployees() { ... }
+// technically, can also be function *getEmployees or function * getEmployees, but above is the most common pattern
+
+// a generator does NOT actually run when first called, it is used to create an Iterator
+const generatorIterator = getEmployee(); // the function has *not* run yet
+// now we interact with the Iterator
+generatorIterator.next();
+
+// to create a "pause" in a generator function, add the `yield` keyword
+function* getEmployees() {
+    // do something here
+    yield;
+    // do something else here
+}
+const generatorIterator = getEmployee(); // create Iterator
+generatorIterator.next(); // will now run until `yield`, then pause
+generatorIterator.next(); // will now run until the next `yield`, then pause
+
+// `yield` can also return data back to the `.next()` that called it
+function* getEmployees() {
+    // do something here
+    yield someCalculatedValue; // maybe 25
+    // do something else here
+}
+let result = generatorIterator.next(); // 25
+
+// can also pass data *into* each iteration via the `next()`
+let result = generatorIterator.next('Sending this string into the function');
+
+/*
+    Slightly confused by how `yield` can send and receive data,
+    but moving on for now, something to review if these are ever useful...
+*/
+
+// NOTE: each `next()` will pause at the yield, meaning you will need one more `next()` to complete the function
+// (if looping through a data set, yielding each value back out, the last yield will pause after returning the last data point,
+// but the function still hasn't finished, so need one more "kick" to wrap it up)
+                    </pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Compiler vs. Transpiler</summary>
+					<pre>
+// compiler converts something like C++ to machine code (human > computer)
+// transpiler (translate > compile) converts something like ES6 to ES5 (human to human)
+
+// Babel transpiles things like ES6 to ES5:
+https://babeljs.io/repl/
+// using a series of plugins:
+http://babeljs.io/docs/plugins/
+// but no need to hunt for all, can just use presets, like 'es2015'
+
+// NOTE: Requires Node & NPM
+                    </pre>
+				</details>
+			</li>
+		</ul>
+
+		<script src="../js/highlight.min.js"></script>
+		<script>
+			// add listener to `Toggle Details` button
+			document
+				.querySelectorAll('h2 + button')[0]
+				.addEventListener('click', () => {
+					document
+						.querySelectorAll('details > summary')
+						.forEach((el) => el.click());
+				});
+			// add highlighting
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('code, pre').forEach((el) => {
+					hljs.highlightElement(el);
+				});
+			});
+		</script>
+	</body>
+</html>
