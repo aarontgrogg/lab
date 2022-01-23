@@ -1,7 +1,9 @@
 # Ignore everything in this directory
 *
+
 # Except this file
 !.gitignore
 !README.md
 !LICENSE
-!es6
+!css/
+!es6/
