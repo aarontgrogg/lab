@@ -110,6 +110,9 @@ dist
 .temp
 .cache
 
+# Sass cache
+.sass-cache*
+
 # Docusaurus cache and generated files
 .docusaurus
 
