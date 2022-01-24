@@ -1,0 +1,182 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Svelte</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+
+    <body>
+
+        <h1>Svelte</h1>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://www.youtube.com/watch?v=AdNJ3fydeao&ab_channel=YouGottaLoveFrontend">Rich Harris presentation</a>
+            </li>
+            <li>
+                <a href="https://svelte.dev/tutorial/basics">Svelte tutorial</a>
+            </li>
+            <li>
+                <a href="https://svelte.dev/docs">Svelte docs</a>
+            </li>
+            <li>
+                <a href="https://svelte.dev/blog/the-easiest-way-to-get-started">Get Started</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=zojEMeQGGHs&ab_channel=TheNetNinja">Svelte Tutorial for Beginners #1 - Introduction</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=Nxum0e1Xvs8&ab_channel=MaksimIvanov">Svelte Beginners Intro - How To Make a Basic Svelte App</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=l38uRsg81ok&ab_channel=Pluralsight">An intro to Svelte with John Papa</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=UU7MgYIbtAk&ab_channel=JamesQQuick">SvelteKit Crash Course</a>
+            </li>
+            <li>
+                <a href="link">Text</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>Glossary</summary>
+                    <dl>
+                        <dt>Component</dt>
+                            <dd>Reusable HTML, could be button, widget, module, etc.</dd>
+                        <dt>term</dt>
+                            <dd>def</dd>
+                    </dl>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Primer</summary>
+                    <ul>
+                        <li>App framework, similar to React/Vue</li>
+                        <li>Biggest diff is Svelte is a compiler, shipping ONLY what is needed to the client</li>
+                        <li>Can create full app or mere component</li>
+                        <li>Much faster, and smaller, than similar frameworks</li>
+                        <li>Create JS as components, export/import into .svelte files</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Insert Variables into HTML using `{}`</summary>
+                    <pre>
+// declare variables
+let src = 'logo.jpg';
+// then insert into HTML
+&lt;img src="{src}" alt="Logo"&gt;
+// if attribute and variable name are the same, can use shortcuts
+let src    = 'logo.jpg';
+let width  = 100;
+let height = 100;
+let alt    = 'Logo';
+// insert variables without attribute name, = or ""
+&lt;img {src} {width} {height} {alt}&gt;
+// output:
+&lt;img src="logo.jpg" width="100" height="100" alt="Logo"&gt;
+
+// NOTE: if your string has HTML, you need to encapsulate it within `{@html xxxxx}``
+let str = 'Hello &lt;strong&gt;World&lt;/strong&gt;!';
+&lt;p&gt;{@html str}&lt;/p&gt;
+// NOTE: Svelte performs NO sanitation on imported data, so escape yourself to prevent XSS
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Insert styles right into component, output is scoped</summary>
+                    <pre>
+// add `style`right into component
+&lt;style&gt;
+    #title { color: purple; }
+    p { color: red; }
+&lt;/style&gt;
+&lt;h1 id="title"&gt;
+	Title
+&lt;/h1&gt;
+&lt;p&gt;
+    Hello World!
+&lt;/p&gt;
+// output is scoped with component-level hash; '4uj140' below
+&lt;style id="svelte-4uj140"&gt;
+    #title.svelte-4uj140{color:purple}
+    p.svelte-4uj140{color:red}
+&lt;/style&gt;
+&lt;h1 class="svelte-4uj140"&gt;This is a paragraph.&lt;/h1&gt;
+&lt;p class="svelte-4uj140"&gt;This is a paragraph.&lt;/p&gt;
+
+// NOTE: Svelte will actually warn you about any unused CSS, so you know it is safe to remove!
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Import/Export components</summary>
+                    <pre>
+// import a component
+&lt;script&gt;
+    import ComponentName from './Component/Path/Filename.svelte';
+&lt;/script&gt;
+// and consume
+&lt;p&gt;Hello World!&lt;/p&gt;
+&lt;ComponentName/&gt;
+
+// NOTE: imported components are neither affected by local CSS, nor does their CSS affect this component
+// NOTE: the convention is to Capitalize component names, to help differentiate from native HTML elements
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+
+                    </pre>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+
+</html>

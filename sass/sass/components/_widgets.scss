@@ -1,0 +1,19 @@
+.alert {
+    margin: 10px 0;
+    padding: 10px;
+    h1 {
+        margin-top: 0;
+    }
+    p:last-child {
+        margin-bottom: 0;
+    }
+}
+.alert-default { 
+	@include alert;
+ }
+.alert-danger {
+	@include alert($color: $alert-color-danger);
+}
+.alert-info {
+	@include alert($color: $alert-color-info);
+}

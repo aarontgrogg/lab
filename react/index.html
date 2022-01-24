@@ -1,0 +1,3070 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>React</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+
+    <body>
+
+        <h1>React</h1>
+
+        <details>
+            <summary>Primer</summary>
+            <ul>
+                <li>Open source library, not framework</li>
+                <li>Developed by Facebook in 2011</li>
+                <li>Can be complete project, or added into existing pages/sites</li>
+                <li>Used to build a frontend, the "View" in MVC</li>
+                <li>Builds "components", or reusable HTML (elements, sections, widgets, modules)</li>
+                <li>Starts with Root component</li>
+                <li>JSX is "JavaScript XML"; all tags must be explicitly closed.</li>
+                <li>Stores data as `state` and `prop`</li>
+                <li>Use `.setState({...})` to update `state`</li>
+                <li>`.setState` triggers a re-render of a Component, and it's children</li>
+                <li>16.8 introduced Hooks, so Functional Components can handle State and Lifecycle Methods</li>
+                <li>State cannot be altered by a child component; in order for a child to affect the parent's state, the parent must pass its "change" functon to the child component as a `prop`</li>
+            </ul>
+        </details>
+
+        <details>
+            <summary>Glossary</summary>
+            <dl>
+                <dt>Component</dt>
+                    <dd>Reusable function that returns HTML, could be button, widget, module, etc.</dd>
+                <dt>JSX</dt>
+                    <dd>React markup language: JavaScript XML</dd>
+                <dt>Props</dt>
+                    <dd>Properties, read-only data passed to a Component as an <code>array</code></dd>
+                <dt>State</dt>
+                    <dd>Temporary, read/write data store; think "To Do list" or "Shopping Cart", before committing</dd>
+                <dt>Lifting State</dt>
+                    <dd>Moving the `state` of a Component to a parent Component, to help coordinate `state` among similar Components</dd>
+                <dt>Mount</dt>
+                    <dd>Refers to an element being inserted into the DOM</dd>
+                <dt>Unmount</dt>
+                    <dd>Refers to an element being removed from the DOM (or not included in a re-render)</dd>
+                <dt>Lifecycle</dt>
+                    <dd>Order in which methods are called</dd>
+                <dt>Lifecycle Methods</dt>
+                    <dd>Methods called at certain points during the lifecycle, such as `componentDidMount`</dd>
+                <dt>Hooks</dt>
+                    <dd>Functions that add Lifecycle Methods to Functional Components, such as `useState` and `useEffect`</dd>
+                <dt>`useState`</dt>
+                    <dd>Tracks variables/values to determine when components need to be re-rendered</dd>
+                <dt>`useEffect`</dt>
+                    <dd>Integrates activities from "outside" React with those "inside" React, such as network requests, syncing multiples state objects, etc.</dd>
+                <dt>`useMemo`</dt>
+                    <dd>Compares previous render with new render, only updating the parts that have changed</dd>
+                <dt>React.Fragment</dt>
+                    <dd>Used to return multiple siblling elements, like:
+<pre>
+    return (
+        &lt;React.Fragment>
+            &lt;h1>Hello World!&lt;/h1>
+            &lt;p>Child&lt;/p>
+        &lt;/React.Fragment>
+    )
+</pre>
+                        This is the same as the empty <code>&lt;></code>/<code>&lt;/></code></dd>
+                <dt>term</dt>
+                    <dd>def</dd>
+                <dt>term</dt>
+                    <dd>def</dd>
+                <dt>term</dt>
+                    <dd>def</dd>
+                <dt>term</dt>
+                    <dd>def</dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary>Resources</summary>
+            <ul>
+                <li>
+                    <a href="https://www.taniarascia.com/getting-started-with-react/">Tania Rascia</a>
+                </li>
+                <li>
+                    <a href="https://beta.reactjs.org/">React Docs [beta]</a>
+                </li>
+                <li>
+                    <a href="https://reactjs.org/docs/getting-started.html">React Docs</a>
+                </li>
+                <li>
+                    <a href="https://click.et.oreilly.com/?qs=476fa5d842075a16c81daa854e009af7014197ce238e75ac0ce85a2c5facab04ccccbd356c1a97b209ac8540ba719bf290a3cf8e820a5a31">O'Reilly book</a>
+                </li>
+                <li>
+                    <a href="https://reactjs.org/tutorial/tutorial.html">Intro to React</a>
+                </li>
+                <li>
+                    <a href="https://nextjs.org/learn/basics/create-nextjs-app">Create a Next.js App</a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=hQAHSlTtcmY&ab_channel=WebDevSimplified">Learn React In 30 Minutes</a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=dGcsHMXbSOA&ab_channel=DevEd">React Tutorial For Beginners</a>
+                </li>
+                <li>
+                    <a href="https://blog.glitch.com/post/react-starter-kit">Build a Web App with React</a>
+                </li>
+                <li>
+                    <a href="https://scrimba.com/learn/learnreact/welcome-to-an-introduction-to-react-coaaf455789c2a9addc20dd24">Scrimba: Learn React</a>
+                </li>
+                <li>
+                    <a href="https://medium.com/@christine_tran/deploying-a-simple-react-application-using-ftp-filezilla-dreamhost-1e5ff6b8abd6">Deploying a Simple React Application using FTP, FileZilla, & DreamHost</a>
+                </li>
+                <li>
+                    <a href="url">title</a>
+                </li>
+            </ul>
+        </details>
+
+        <h3>Notes</h3>
+        <ul>
+            <li>
+                <details>
+                    <summary>Static HTML, using ES6</summary>
+                    <p>Can run React as a stand-alone, all-React app, or add to an existing HTML page/site:<br>
+                        <a href="https://reactjs.org/docs/add-react-to-a-website.html" target="_blank">https://reactjs.org/docs/add-react-to-a-website.html</a>
+                    </p>
+                    <pre>
+// add React component container to existing HTML:
+&lt;div id="like_button_container">&lt;/div>
+
+// add React JS
+// Note: when deploying, replace "development.js" with "production.min.js"
+&lt;script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin>&lt;/script>
+&lt;script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin>&lt;/script>
+
+// add custom React script
+&lt;script src="like_button.js">&lt;/script>
+
+// init App inside `like_button.js`
+'use strict';
+const e = React.createElement;
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like'
+    );
+  }
+}
+const domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(e(LikeButton), domContainer);
+                    </pre>
+                    <div id="like_button_container"></div>
+                    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+                    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+                    <script src="like_button.js"></script>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Static HTML, using JSX</summary>
+                    <p><a href="https://www.taniarascia.com/getting-started-with-react/">Getting Started with React</a></p>
+                    <pre>
+// add React, React DOM and Babel
+&lt;script src="https://unpkg.com/react@^16/umd/react.production.min.js">&lt;/script>
+&lt;script src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js">&lt;/script>
+&lt;script src="https://unpkg.com/babel-standalone@6.26.0/babel.js">&lt;/script>
+
+// add React root element
+&lt;div id="root">&lt;/div>
+
+// add App class to render HTML
+class App extends React.Component {
+    render() {
+        return &lt;h1>Hello World!&lt;/h1>
+    }
+}
+
+// then init react
+ReactDOM.render(&lt;App/>, document.getElementbyId('root'));
+
+// Note: If `render()` is only returning 1 line, can do like:
+return &lt;h1>Hello World!&lt;/h1>
+// but if multiple lines, must wrap JSX in parentheses:
+return (
+    &lt;div className="App">
+        &lt;h1>Hello World!&lt;/h1>
+    &lt;/div>
+)
+
+// Note: instead of:
+import React from 'react'
+// and:
+class App extends React.Component {...}
+// you can also do:
+import React, {Component} from 'react'
+// and:
+class App extends Component {...}
+                    </pre>
+<script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+<div id="root">
+    <noscript>You need JavaScript for this page.</noscript>
+</div>
+<script type="text/babel">
+    class App extends React.Component {
+        render() {
+            return <h1>Hello World!</h1>
+        }
+    }
+    ReactDOM.render(<App/>, document.getElementById('root'));
+</script>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Create React App</summary>
+                    <p>Static HTML is cool, but not scalable. FB created "Created React App", a Node package to install pre-configured dev environment:</p>
+                    <pre>
+// install environment via Terminal
+npx create-react-app react-app-demo
+// Node confirms installation, then downloads everything
+
+// navigate into new dir and start Node
+cd react-app-demo && npm start
+
+// add dependency to existing project
+// 1) look-up project name in npm
+// 2) in Terminal, navigate into project directory
+// 3) npm install [project-name] --save-dev
+// npm will automatically install and update project dependencies
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>JSX</summary>
+                    <ul>
+                        <li><code>className</code> instead of <code>class</code></li>
+                        <li>Properties and methods are camelCase (<code>onclick</code> => <code>onClick</code>)</li>
+                        <li>Must close all tags: <code>&lt;img></code> => <code>&lt;img /></code></li>
+                        <li>Use variables inside <code>{}</code>: <code>&lt;h1>Hello, {name}&lt;/h1></code></li>
+                    </ul>
+                    <pre>
+// ES6 would have to do:
+const heading = React.createElement('h1', {className: 'site-heading'}, 'Hello, React!')
+// but JSX allows:
+const heading = &lt;h1 className="site-heading">Hello, React&lt;/h1>
+
+// Note: no quotes around the JSX, as it is NOT a String
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Components</summary>
+                    <ul>
+                        <li>Nearly everything in React is a component</li>
+                        <li>Components can contain components</li>
+                        <li>Typically each component would be its own JS file</li>
+                        <li>Simple (Functional) Component is Function-driven</li>
+                        <li>Class Component is Class-driven</li>
+                    </ul>
+                    <pre>
+// Simple (Functional) Component: just a JS function that returns JSX
+const SimpleComponent = () => {
+  return &lt;div>Example&lt;/div>
+}
+// Class Component: JS class used to render JSX
+class ClassComponent extends Component {
+  render() {
+    return &lt;div>Example&lt;/div>
+  }
+}
+
+// Big diffs
+- Func is just a JS function; Class is a JS class object
+- Func uses `return`; Class must `render` the `return
+- Func is stateless, but can easily add Hooks; Class is stateful, handled via constructor()
+- Func cannot use lifecycle methods; Class can use lifecycle methods (i.e. componentDidMount)
+- Func has no constructor; Class has
+- thinking is that Func will become more and more common: easier to code & debug, smaller code base
+
+/* Comparisons */
+
+// Basic:
+import React from "react";
+const FunctionalComponent = () => {
+    return &lt;h1>Hello, world&lt;/h1>;
+};
+// vs.
+import React, { Component } from "react";
+class ClassComponent extends Component {
+    render() {
+        return &lt;h1>Hello, world&lt;/h1>;
+    }
+}
+// Note class must extend from React.Component, and must use `render()`
+
+// Props: &lt;Component name="Shiori" />
+const FunctionalComponent = ({ name }) => {
+    return &lt;h1>Hello, {name}&lt;/h1>;
+};
+// vs.
+class ClassComponent extends React.Component {
+    render() {
+        const { name } = this.props;
+        return &lt;h1>Hello, { name }&lt;/h1>;
+    }
+}
+// both can use destructure or not
+
+// State
+const FunctionalComponent = () => {
+    const [count, setCount] = React.useState(0);
+    return (
+        &lt;div>
+            &lt;p>count: {count}&lt;/p>
+            &lt;button onClick={() => setCount(count + 1)}>Click&lt;/button>
+        &lt;/div>
+    );
+};
+// `useState` received init value, returns current value (destructured into `count`) and fn to change it (destructured into `setCount`)
+// vs.
+class ClassComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            count: 0
+        };
+    }
+    render() {
+        return (
+            &lt;div>
+                &lt;p>count: {this.state.count} times&lt;/p>
+                &lt;button onClick={() => this.setState({ count: this.state.count + 1 })}>
+                    Click
+                &lt;/button>
+            &lt;/div>
+        );
+    }
+}
+// uses `constructor()` to create init state, `super(props)` to inherit props, and automatically has `this.setState`
+// Note: as `useState` runs with each re-render, if it is doing anything that hurts performance, 
+// can use "lazy initialization", by simply wrapping the init "value" with a fn that returns the end value, 
+// so something like:
+const [state, setState] = React.userState(
+    JSON.parse(localStorage.getItem('notes'))
+)
+// becomes:
+const [state, setState] = React.userState(
+    () => JSON.parse(localStorage.getItem('notes'))
+)
+*/
+
+// Lifecycle Methods
+const FunctionalComponent = () => {
+    React.useEffect(() => {
+        console.log("Hello");
+    }, []);
+    return &lt;h1>Hello, World&lt;/h1>;
+};
+// `useEffect` Hook works as `componentDidMount`, receives fn to perform on state changes, and array of states to react to; empty array (as above) says "only on mount"
+// vs.
+class ClassComponent extends React.Component {
+    componentDidMount() {
+        console.log("Hello");
+    }
+    render() {
+        return &lt;h1>Hello, World&lt;/h1>;
+    }
+}
+// `componentDidMount` is automatically called when the component is added to the DOM
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Props</summary>
+                    <p>Properties, passing data to a dynamic Component</p>
+                    <pre>
+/* App.js */
+// start with a data store
+const characters = [
+    {
+        name: 'Charlie',
+        job: 'Janitor',
+    },
+    {
+        name: 'Mac',
+        job: 'Bouncer',
+    },
+    {
+        name: 'Dee',
+        job: 'Aspring actress',
+    },
+    {
+        name: 'Dennis',
+        job: 'Bartender',
+    },
+];
+// pass data to Component
+class App extends React.Component {
+  render() {
+    return (
+      &lt;div className="App">
+        &lt;TableProps characterData={characters}/>
+      &lt;/div>
+    )
+  }
+}
+
+/* Table.js */
+// Component receives data and consumes it
+const TableBody = ( props ) => {
+    // loop thru props and build `tr` for each 
+    const rows = props.characterData.map( (row, index) => {
+        return (
+            &lt;tr key={index}>
+                &lt;td>{row.name}&lt;/td>
+                &lt;td>{row.job}&lt;/td>
+            &lt;/tr>
+        )
+    })
+    // return the `tbody` with above `rows` inside
+    return(
+        &lt;tbody>{rows}&lt;/tbody>
+    )
+}
+// Note: Always use `key` on the iteration parent, to help identify
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>State</summary>
+                    <pre>
+/* App.js */
+class App extends Component {
+    // set `state` in App class
+    state = {
+        characters: [
+            {
+                name: 'Charlie',
+                job: 'Janitor',
+            },
+            {
+                name: 'Mac',
+                job: 'Bouncer',
+            },
+            {
+                name: 'Dee',
+                job: 'Aspring actress',
+            },
+            {
+                name: 'Dennis',
+                job: 'Bartender',
+            },
+        ]
+    }
+    // create var with state
+    render() {
+        // pass characters to Table Component
+        return (
+            &lt;div className="App">
+                &lt;Table characterData={this.state.characters}/>
+            &lt;/div>
+        )
+    }
+}
+
+/* Table.js */
+// Component receives data and consumes it
+const TableBody = ( props ) => {
+    // loop thru props and build `tr` for each 
+    const rows = props.characterData.map( (row, index) => {
+        return (
+            &lt;tr key={index}>
+                &lt;td>{row.name}&lt;/td>
+                &lt;td>{row.job}&lt;/td>
+            &lt;/tr>
+        )
+    })
+    // return the `tbody` with above `rows` inside
+    return(
+        &lt;tbody>{rows}&lt;/tbody>
+    )
+}
+// 
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Interact with State</summary>
+                    <pre>
+/* App.js */
+class App extends Component {
+    ...
+    // create method to remove array node
+    removeCharacter = ( index ) => {
+        // get current state
+        const { characters } = this.state
+        // update state by filtering out the `index` passed
+        // (returns all *except* `index`)
+        // Note: Must use `.setState` to alter `state`
+        this.setState({
+            characters: characters.filter((character, i) => {
+                return i !== index
+            })
+        })
+    }
+    render() {
+        // pass `characters` and `removeCharacter` to Table Component
+        return (
+            &lt;Table characterData={this.state.characters} removeCharacter={this.removeCharacter} />
+        )
+    }
+}
+
+/* Table.js */
+const Table = ( props ) => {
+    // receive via `props` in Table Component
+    const { characterData, removeCharacter } = props;
+    // make available as Table props
+    return (
+    &lt;table>
+      &lt;TableHeader />
+      &lt;TableBody characterData={characterData} removeCharacter={removeCharacter} />
+    &lt;/table>
+  )
+}
+// addEventListener to button in each `row`
+const TableBody = ( props ) => {
+  const rows = props.characterData.map( (row, index) => {
+    return (
+        &lt;tr key={index}>
+            &lt;td>{row.name}&lt;/td>
+            &lt;td>{row.job}&lt;/td>
+            &lt;td>&lt;button onClick={()=>props.removeCharacter(index)}>&times;&lt;/button>&lt;/td>
+        &lt;/tr>
+    )
+  })
+  return(
+    &lt;tbody>{rows}&lt;/tbody>
+  )
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Test Site: WebDevSimplified</summary>
+                    Created from: <a href="https://www.youtube.com/watch?v=hQAHSlTtcmY&ab_channel=WebDevSimplified">Learn React In 30 Minutes</a><br>
+                    Installed in: <a href="http://127.0.0.1:5500/react/wds/public/index.html">http://127.0.0.1:5500/react/wds/public/index.html</a>
+                    <pre>
+// install starter
+npx create-react-app
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Test Site: DevEd</summary>
+                    Created from: <a href="https://www.youtube.com/watch?v=dGcsHMXbSOA&ab_channel=DevEd">React Tutorial For Beginners</a><br>
+                    Installed in: <a href="http://127.0.0.1:5500/react/deved/public/index.html">http://127.0.0.1:5500/react/deved/public/index.html</a>
+                    <pre>
+// install starter
+npx create-react-app
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Test Site: Glitch</summary>
+                    Created from: <a href="https://blog.glitch.com/post/react-starter-kit">React Starter</a><br>
+                    Installed in: <a href="http://127.0.0.1:5500/react/glitch/public/index.html">http://127.0.0.1:5500/react/deved/public/index.html</a>
+                    <pre>
+// uses WebPack, Node & Express
+https://glitch.com/edit/#!/starter-react
+
+// React.Router
+https://glitch.com/edit/#!/starter-react-router
+allows "page navigation"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Test Site: Scrimba - Learn React</summary>
+                    Created from: <a href="https://scrimba.com/learn/learnreact/welcome-to-an-introduction-to-react-coaaf455789c2a9addc20dd24">Learn React</a><br>
+                    Installed in: <a href="http://127.0.0.1:5500/react/scrimba/learn-react-static/">http://127.0.0.1:5500/react/scrimba/learn-react-static/</a>
+                    <pre>
+// learn how to "think" in React
+// declarative vs. imperative
+// starting with static page:
+https://www.figma.com/file/xA1rJVQOorqMW6xjGdBLcI/ReactFacts?node-id=0%3A1
+// can just add React libraries to any HTML page to use React in that page:
+https://reactjs.org/docs/cdn-links.html
+
+// why React? it's composable...
+// by using components, code becomes modular, easier to code, easier to update
+function NavBar() {
+    return (
+        <nav>
+            // nav code here...
+        </nav>
+    )
+}
+ReactDOM.render(
+    &lt;NavBar />,
+    document.querySelector('#root')
+)
+
+// React is declarative, "just tell me what you want done"
+// not imperative, "please describe every single step to me"
+// "React, take this string and stuff it inside #root"
+ReactDOM.render(
+    &lt;h1 className="header">Hello World!&lt;/h1>,
+    document.querySelector('#root')
+)
+would be:
+// "JS, create an H1, add some text inside of it, give it a className, then append it to #root"
+const h1 = document.createElement('h1');
+    h1.textContent = 'Vanilla';
+    h1.className = 'header';
+document.querySelector('#root').appendChild(h1);
+
+// JSX (JavaSscrip XML)
+const element = &lt;h1 className="header">This is JSX&lt;/h1>
+console.log(element)
+// creates a JS object that React can use to create the HTML
+{
+    type: "h1", 
+    key: null, 
+    ref: null, 
+    props: {
+        className: "header", 
+        children: "This is JSX"
+    }, 
+    _owner: null, 
+    _store: {}
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Scrimba - Learn React - Facts</summary>
+                    Created from: <a href="https://scrimba.com/learn/learnreact/welcome-to-an-introduction-to-react-coaaf455789c2a9addc20dd24">Learn React</a><br>
+                    Installed in: <a href="http://localhost:3000/">/Sites/react/scrimba/learn-react-facts/</a>
+                    <pre>
+// to start above:
+cd react/scrimba/learn-react-facts
+npm start
+
+// adding images
+// add file in /src directory:
+/src/images/logo.png
+// in component JS, import, then reference:
+import Logo from '../images/logo.png'
+&lt;img src={Logo} alt... />
+
+// passing props to component
+&lt;Component prop1="foo" prop2="bar" />
+// receiving props in component
+function Component(props){
+    return(
+        &lt;p>{props.prop1} {props.prop2}&lt;/p>
+    )
+}
+// can also destructure props as they arrive in the component
+function Component({prop1, prop2}){
+    return(
+        &lt;p>{prop1} {prop2}&lt;/p>
+    )
+}
+// Note no longer need `props.` in `return`
+// Note cannot rename props as they arrive, must match incoming prop name
+/* Actually, *can* rename, like `({prop1: newName, prop2: notherName})` */
+
+// can pass any data type as a prop, but if not a string, must pass value in {}
+&lt;Component prop1="foo" prop2="bar" isCool={true} propArr={[{name: 'aaron', title: 'web dev'}]} />
+
+// JSX can loop thru an array an output HTML elements
+function App() {
+    const jokeElements = jokesData.map(joke => {
+        return &lt;Joke 
+            setup={joke.setup}
+            punchline={joke.punchline}
+         />
+    })
+    return (
+        &lt;div>
+            {jokeElements}
+        &lt;/div>
+    )
+}
+// above is okay for a couple props, but if many props, gets outta hand...
+// instead, can pass entire data object to component...
+        return &lt;Component 
+            key={data.id}
+            data={data}
+         />
+// then pull apart within component, like before, but pulling from the `data` prop:
+function Component(props){
+    return(
+        &lt;p>{props.data.prop1} {props.data.prop2}&lt;/p>
+    )
+}
+// or, can use spread operator, so single line creates individual props...
+        return &lt;Component 
+            {...data}
+         />
+// then need to go back to referencing from main `prop`
+function Component(props){
+    return(
+        &lt;p>{props.prop1} {props.prop2}&lt;/p>
+    )
+}
+
+// can conditionally display elements within a component
+{props.openSpots === 0 && &lt;div className="card--badge">SOLD OUT&lt;/div>}
+
+// 
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Scrimba - Learn React - AirBnB</summary>
+                    Created from: <a href="https://scrimba.com/learn/learnreact/welcome-to-an-introduction-to-react-coaaf455789c2a9addc20dd24">Learn React</a><br>
+                    Installed in: <a href="http://localhost:3000/">/Sites/react/scrimba/learn-react-airbnb/</a>
+                    <pre>
+// to start above:
+cd react/scrimba/learn-react-airbnb
+npm start
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Scrimba - Learn React - Meme</summary>
+                    Created from: <a href="https://scrimba.com/learn/learnreact/welcome-to-an-introduction-to-react-coaaf455789c2a9addc20dd24">Learn React</a><br>
+                    Installed in: <a href="http://localhost:3000/">/Sites/react/scrimba/learn-react-meme/</a>
+                    <pre>
+// to start above:
+cd react/scrimba/learn-react-meme
+npm start
+
+// Event Listeners
+&lt;button onClick={myFunction}>Click me&lt;/button>
+// React Event Listeners
+https://reactjs.org/docs/events.html#mouse-events
+
+// State: react to data changes and refresh the UI
+// Props: properties passed into a component (like params being passed into a function), often for component configuration; cannot be mutated in component itself
+// State: properites managed or created by a component, and maintained between life cycles; usually any values that should be stored and/or displayed somewhere
+
+// to use state, use `useState()`
+import React, {useState} from 'react'
+export default function Component(){
+    useState();
+    ...
+}
+// or
+import React from 'react'
+export default function Component(){
+    React.useState();
+    ...
+}
+
+// userState receives a starting value, and returns a two-item array:
+// 1) current state, 2) function to change state
+const [count, setCount] = useState(0);
+// convention gives function name "set" + variable name, this `setCount`
+// count = 0; setCount(1) changes the score value to 1
+function updateCount() {
+    setCount(prevCount => prevCount + 1)
+}
+&lt;button onClick={updateCount}>Update&lt;/button>
+// NOTE: cannot use `count++`, as this would *directly* update `count`
+// NOTE: convention also does not like `count = count + 1`,
+// so if set fn uses current state, use a callback, like above...
+// convention says use "prev" + variable name, this `prevCount`
+
+// when state is an array, cannot just:
+setTasks(tasks.push(`Task ${tasks.length + 1}`))
+// because this would alter the current state directly
+// also cannot:
+setTasks(prevTasks => prevTasks.push(`Task ${prevTasks.length + 1}`))
+// because a) prevTasks is just a reference to tasks,
+// and b) .push returns the new array.length, not the updated array...
+// so need to create a new array, using the spread operator, then append to it:
+setTasks(prevTasks => [...prevTasks, `Task ${prevTasks.length + 1}`])
+
+// the spread operator can also be used for states that are objects
+setContact(prev => {
+    return {...prev, isFavorite: !prev.isFavorite}
+})
+// in the above case, isFavorite actually already exists in the state,
+// but by adding the "udpate" at the end, it will *overwrite* the prev value with the new...
+// NOTE: in order to use the implicit return, and put the object on a single line,
+// must wrap the object in () or React will interpret {} as the function brackets:
+setContact(prev => ({...prev, isFavorite: !prev.isFavorite}))
+
+// passing props to a child component is pretty easy:
+&lt;Component name={contact.fullName} />
+// ...
+&lt;input type="text" name="fullName" value={props.fullName} />
+// in order to have a child component send something *back* to the parent component,
+// create the update function in the parent, then pass that function down to the child as a pro:
+&lt;Component name={contact.fullName} handleClick={submitForm} />
+// ...
+&lt;input type="text" name="fullName" value={props.fullName} />
+&lt;input type="submit" onClick={props.handleClick} />
+
+// "Raising State" happens when you realize a sibling component needs access to state
+// you would move the state code up a level, but as local as possible,
+// then pass that state down to whatever components need it as Props
+const [user, setUser] = useState('Joe')
+return (
+    &lt;div>
+        &lt;Header user={user} />
+        &lt;Body user={user} />
+    &lt;/div>
+)
+
+// can do inline `style` on an element in React, but not exactly how you do in HTML
+// in HTML:
+&lt;div style="width: 100px"></div>
+// in React, need {} to indicate "switch to JS", and another set to create a JS Object to pass the styles:
+&lt;div style={{width: 100px}}></div>
+// a common practice would be to create the object before, like:
+const styles = {width: 100px}
+&lt;div style={styles}></div>
+// Note that styles must use camelCase, like backgroundColor
+
+/* 
+ * If you find yourself initializng state based on incoming props,
+ * it is probably better to set state via the parent component.
+ * Termed "derived state". Creates "two sets of truth": parent & children...
+ */
+// to change state in a parent, you have to manually pass an id
+function toggle(id) {
+    setState(prev => {
+        return prev.map((square) => {
+            return square.id === id ? {...square, on: !square.on} : square
+        })
+    })
+}
+&lt;Box id={box.id} handleClick={toggle} />
+...
+&lt;div onClick={()=>{props.handleClick(props.id)}}>
+
+// the `toggle` function can also be passed as a Closure, like:
+&lt;Box id={box.id} handleClick={() => toggle(box.id)} />
+// then the component can simply call the function, which knows is own id
+&lt;div onClick={props.handleClick}>
+
+// 
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Conditional Rendering</summary>
+                    <pre>
+// if toggling an entire element, can use `&&`
+{props.isTrue && &lt;h1>Hello&lt;/h1>}
+// if toggling part of an element, can use ternary
+&lt;h1>Hello{firstName !== '' ? ', {firstName}' : ''}&lt;/h1>
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Forms</summary>
+                    <pre>
+// React docs
+https://reactjs.org/docs/forms.html
+// normal HTML forms work fine in React, but usually want a JS submit
+// but form elements control own state, as user updates,
+// and React controls state via `setState`.
+// combine the two so React is the "single source of truth".
+// form elements controlled by React are called a "controlled components".
+// event handlers update the React state with every keystroke,
+// and then update the display text with `this.state.value`, with every keystroke.
+/* above works for input, select, textarea; file is considered "uncontrolled", as it is read-only: https://reactjs.org/docs/uncontrolled-components.html */
+/* can also look into pre-existing form handlers, including validation, like: https://jaredpalmer.com/formik */
+
+// to start, need state
+const [firstName, setFirstname] = React.useState('')
+// then need an event handler:
+function handleChange(event){
+    console.log(event.target)
+}
+// and to add it to your form element:
+&lt;input type="text" onChange={handleChange} />
+// above can quickly get crazy with large forms...
+
+/** Saving form data as an Object **/
+const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: ''
+})
+// then handleChange can be expanded to handle multiple form fields
+function handleChange(event){
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [event.target.name]: event.target.value
+        }
+    })
+}
+/* note the [] around [event.target.name]; this allows us to use variable names within React */
+// give the form element a `name` attribute, ideally same as the state prop name
+&lt;input type="text" name="firstName" onChange={handleChange} />
+&lt;input type="text" name="lastName" onChange={handleChange} />
+
+/** Controlled Inputs **/
+// to ensure that React's truth is the Single Source of Truth,
+// we add one simple line to each `input`:
+&lt;input type="text" name="firstName" value={formData.firstName} onChange={handleChange} />
+// yes, a bit circular (users types into input, React takes input value, pushes to state, then state updates input value), but this means a single source of truth exists, and React controls it
+
+/** Additional Inputs **/
+/* `textarea` */
+// HTML = not self-closing, "value" is between open and close tags
+&lt;textarea>My comment is here&lt;/textarea>
+// React = self-closing, "value" is in `value` attribute
+&lt;textarea value="My comment is here" />
+
+/* `checkbox` */
+// handles only Boolean states, not String values
+// so uses `checked` attribute instead of `value`
+// and `checked` must be `true` or `false`
+&lt;input type="checkbox" name="acceptTerms" checked={formData.acceptTerms} onChange={handleChange} />
+// note this breaks `handleChange`, which expects `event.target.value`,
+// so need to update:
+// note: best practice deconstructs `event.target` Object
+// to get `name` and `value` variables,
+// but we will also need additional values from the `event.target` Object,
+/ and will use a ternary to use either `value` or `checked` based on `type`:
+function handleChange(event){
+    const {name, value, type, checkbox} = event.target
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [name]: (type === 'checkbox' ? checked : value)
+        }
+    })
+}
+/* `radio` */
+// like regular HTML radio buttons, multiple elements are used to indicate
+// the value for a single state (i.e. "Employment: Unemployed, Full-Time, Part-time")
+&lt;input type="radio" name="employment" value="unemployed" onChange={handleChange} />
+&lt;input type="radio" name="employment" value="full-time" onChange={handleChange} />
+&lt;input type="radio" name="employment" value="part-time" onChange={handleChange} />
+// however, since `value` is needed to designate that button's *value*, we sort of bastardize `checked`: if the state matches that radio's value, then its `checked` is true...
+&lt;input type="radio" name="employment" value="part-time" checked={formData.employment === 'part-time'} onChange={handleChange} />
+// if `formData.employment` is 'part-time', above will be checked
+// meaning, all others will not...
+// amazingly, the above will also *just work* with our existing `handleClick`, since `type` is *not* 'checkbox', we still store `value`
+
+/* `select` */
+// after all above, pretty easy...
+// `name`, `value` and `onChange` all work as above,
+// and correct `option` will be chosen to reflect the current `state`
+&lt;select 
+    id="favColor"
+    name="favColor"
+    value={formData.favColor}
+    onChange={handleChange}
+>
+    &lt;option value="">-- Choose --&lt;/option>
+    &lt;option value="red">Red&lt;/option>
+    ...
+&lt;/select>
+
+/* `submit` */
+// submission is also pretty easy...
+// `form` gets an `onSubmit` attribute:
+&lt;form onSubmit={handleSubmit}>
+// along with a `button` to submit it (*not* an `input type="submit"`):
+&lt;button>Submit&lt;/button>
+// and since we have been updated the `formData` all along,
+// the data is actually ready to send, as a JS Object...
+function handleSubmit(event) {
+    event.preventDefault()
+    submitToApi(formData)
+}
+// (still have to `preventDefault`)
+
+/** Labels **/
+// note that `label` elements need to use `htmlFor` instead of `for`
+
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Side Effects</summary>
+                    <pre>
+/*
+ * Consider: React's main tasks:
+    1) render UI
+    2) manage state between renders
+    3) keep UI updated
+ * What React can NOT handle well:
+ * (Out)Side Effects (things React is not in charge of)
+    - localStorage
+    - API/BD interactions
+    - subscriptions (web workers, etc.)
+    - Syncing 2 internal states
+ */
+// Solution: `useEffect` (the Effect Hook)
+https://reactjs.org/docs/hooks-effect.html
+
+// from React, allows us to interact with "outside React"
+// a tool that allows us to sync React state with outside systems
+// "Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects"
+// (similar, but different, from `componentDidMount`, `componentDidUpdate` and `componentWillUnmount` in Class-based lifecycles; more: https://overreacted.io/a-complete-guide-to-useeffect/)
+
+// `useEffect` tells React to do someting *after* render
+// the "Effect" is the function you pass to `useEffect`
+function Component() {
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        document.title = `You clicked ${count} times`;
+    });
+    return (
+        &lt;button onClick={() => setCount(count + 1)}>
+        Click me&lt;/button>
+    );
+}
+// because Effect is inside Component, is within scope, so has access to local variables and state; do not need to pass around
+// runs after every render (initial and updates, unlike separate Class-based functions)
+// 
+
+// "There are two common kinds of side effects in React components: those that don't require cleanup, and those that do"
+// Don't: network requests, manual DOM updates, logging
+// Do: something that might cause memory leaks
+// cleanup is handled by returning a cleanup function from the `useEffect`
+useEffect(() => {
+    function handleStatusChange(status) {
+        setIsOnline(status.isOnline);
+    }
+    ChatAPI.subscribe(id, handleStatusChange);
+    // Specify how to clean up after this effect
+    return function cleanup() {
+        ChatAPI.unsubscribe (id, handleStatusChange);
+    };
+});
+// React will store the `cleanup` function and use it when it is time to cleanup (when the component unmounts)
+// (doesn't have to be a "named" function, can be anonymous; only named above for clarity above)
+
+// in the event where the cleanup/re-setup after each render might cause performance issues, can pass previous state into `useEffect` telling it to only process if the state has changed
+useEffect(() => {
+    document.title = `You clicked ${count} times`;
+}, [count]);
+// Only re-run the effect if `count` changes
+
+// so, earlier example using Star Wars API *would* be:
+React.useEffect(() => {
+    fetch('https://swapi.dev/api/people/1')
+        .then(res => res.json())
+        .then(data => setData(data))
+});
+// except... this has the same problem: infinite loop.
+// solution: Dependencies Array (the extra bit added above to avoid cleanup/re-render performance issues...)
+// so, the Star Wars example would now be:
+React.useEffect(() => {
+    fetch('https://swapi.dev/api/people/1')
+        .then(res => res.json())
+        .then(data => setData(data))
+}, []);
+// note that the Dependencies Array is empty, telling React that there are no Dependencies to watch (and re-render for), therefore should run only once, on the intiial render
+
+// if, however, the Effect *should* re-run, to react to some state change, would need to pass in the state to monitor:
+React.useEffect(() => {
+    // update count will trigger re-render
+}, [count])
+
+/* Cleanup */
+// need to watcch for any events that might remain after an unmount,
+// which will create a memory leak
+// event listeners, web sockets, etc., are all possible leaks
+// to cleanup Side Effects, `return` another function to handle cleanup
+React.useEffect(() => {
+    // create event listener
+    function watchWidth() {
+        setWindowWidth(window.innerWidth)
+    }
+    // attach event lsitener
+    window.addEventListener("resize", watchWidth)
+    // return function to remove event lsitener (cleanup)
+    return function() {
+        window.removeEventListener("resize", watchWidth)
+    }
+}, [])
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>API interaction</summary>
+                    <pre>
+/* 
+ * Two step process:
+ * 1) get data (fetch)
+ * 2) save to state 
+ */
+// fetch from Star Wars API, extract JSON, push into state:
+fetch('https://swapi.dev/api/people/1')
+    .then(res => res.json())
+    .then(data => setData(data))
+
+/** ¡OJO! Possible to create infinite loop... **/
+// if fetch is in main component,
+// it fetches data from the API,
+// uses that to update state, 
+// which triggers the component to re-render,
+// which fetches the data from the API,
+// ... infinitely...
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Deploy to Live Web Server</summary>
+                    <p>In order to deploy a React app to a live server, so the rest of the world can see it, the process is slightly more difficult than the old "FTP to server, refresh page" with traditional HTML or PHP websites.</p>
+                    <p>Since I use Dreamhost as my web host, I found this article, but I do not see anything specific about Dreamhost in it, so hopefully it will work for you, too:<br>
+                    <a href="https://medium.com/@christine_tran/deploying-a-simple-react-application-using-ftp-filezilla-dreamhost-1e5ff6b8abd6">Deploying a Simple React Application using FTP, FileZilla, & DreamHost</a></p>
+                    <pre>
+// follow steps in article above
+// had to rewrite all relative URLs to absolute, because app was nested in several directories
+// `script src="budle.js"` did not get created, so removed that from `index.html`
+// logo192 was not added to build, so removed that from `index.html`
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Patterns</summary>
+                    <p>I realized as I was learning (and re-learning) all of this, that what I was struggling to remember were "patterns": "only show this if..."; "update only this/there element(s)", keeping two state in sync, etc.</p>
+                    <p>So, below are several patterns, for ease of learning & applying.</p>
+                    <pre>
+// insert React into existing project
+// create new React project
+// add new dependency to existing project
+// loop through array and apply same thing to all items
+// loop through array and remove some item(s)
+// create a state
+// update a state
+// lift state to parent component
+// pass props down to child component
+// call function from parent component
+                    </pre>
+                </details>
+            </li>
+        </ul>
+
+        <h1>React Bootcamp</h1>
+
+        <a href="https://scrimba.com/learn/react">https://scrimba.com/learn/react</a>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>Intro</summary>
+                    <pre>
+// if doing Class components, can use arrow functions, which use a lexical `this`, meaning their `this` will be the Class, so no need for `bind``
+// arrow functions also have an implicit `return`, so probably don't need `return` statement, as long as it is single-line
+// Note: returning an Object is tricky, because the fn sees the {} as the start fo the fn; wrap {} with () to avoid issues
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Default Props</summary>
+                    <p>Define default values for props</p>
+                    <pre>
+// define component
+function Card(props) {
+    return &lt;div style="backgroundColor: {props.cardColor}">&lt;/div>
+}
+// would be called like this:
+&lt;Card cardColor="red" />
+// but if someone forgets to add the prop...
+&lt;Card />
+// it could break things, so can define defaults like:
+Card.defaultProps = {
+    cardColor : 'blue'
+}
+
+// can also do in Class components, proposal would allow...
+class Card extends React.Component {
+    static defaultPros = {
+        ...
+    }
+    ...
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Prop Types</summary>
+                    <p>Adding validation for prop type checking:
+                        <a href="https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes">https://reactjs.org/docs/typechecking-with-proptypes.html#proptypes</a>
+                    </p>
+                    <p>Really good idea to add PropTypes for any component that receives props, especially if it can break if some prop is missing, or of the wrong data type.</p>
+                    <pre>
+// need to import module
+npm i prop-types
+
+// now can import into component
+import PropType from 'prop-types'
+
+// then create type requirements
+Card.propTypes = {
+    cardColor: PropTypes.string
+}
+// and even extend for require props
+Card.propTypes = {
+    cardColor: PropTypes.string.isRequired
+}
+
+// Note: Only for development, only used in dev environment, nothing happens in prod
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Reusability</summary>
+                    <pre>
+// DRY > Inheritance > Compositon
+1. Create components with props
+2. Children
+3. Higher-order Components
+4. Render props
+
+// though Hooks have somewhat made 3 & 4 irrelevant, but still need to know, as will still see in code
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Children</summary>
+                    <p>Making components even more flexible, by allowing them receive child components</p>
+                    <pre>
+// just as HTML elements can have children, like the LIs below...
+&lt;ul>
+    &lt;li>&lt;/li>
+&lt;/ul>
+// so can React Components
+
+// where we have only seen self-closing components thus far...
+&lt;Box />
+// you can also have components that accept children:
+&lt;Box>
+    &lt;h1>Hello!&lt;/h1>
+&lt;/Box>
+
+// will then "receive" these children as `props` in the component:
+function Box(props) {
+    return (
+        &lt;div className="box">
+            {props.children}
+        &lt;/div>
+    )
+}
+
+// so the same component "wrapper" can receive *any* kind of content
+&lt;Box>
+    &lt;h1>Hello!&lt;/h1>
+&lt;/Box>
+&lt;Box>
+    &lt;h1>Good-bye!&lt;/h1>
+&lt;/Box>
+
+// these components can still pass props, just as before
+&lt;Box tooltip="My toolip">
+    &lt;h1>Hello!&lt;/h1>
+&lt;/Box>
+function Box(props) {
+    return (
+        &lt;div className="box" title="{props.tooltip}">
+            {props.children}
+        &lt;/div>
+    )
+}
+
+// think modals, modules, widgets, sections, etc.
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Higher-Order Components (HOC)</summary>
+                    <p>Based on higher-order functions (functions that can receive other functions (callbacks => .map(), .filter(), .reduce(), etc.).</p>
+                    <p>Higher-Order Components take another *component*.giving it "super powers".</p>
+                    <p>A function that takes a component as its first argument, and returns a new, augmented component that wraps the passed component, providing extra capabilities to it.</p>
+                    <p><strong>Modern coding with likely NOT use HOCs, but will use Hooks instead, but existing projects might use them, so might see them, thus need to understand them...</strong></p>
+                    <pre>
+// create new component, based on other component
+const componentWithToggle = withToggle(Component)
+export default componentWithToggle
+// convention uses the "with" indicator for new component
+// and above two lines are usually combined into one:
+export default withToggle(Component)
+
+// withFavoriteNumber.js
+export function withFavoriteNumber(Component) {
+    return function(props) {
+        return (
+            &lt;Component favoriteNumber="3" {...props} />
+        )
+    }
+}
+// above passes `favoriteNumber` to whatever component is passed to it
+// so, when we import that into App.js...
+import {withFavoriteNumber} from './withFavoriteNumber'
+function App(props) {
+    // we magically have access to `favoriteNumber` via props, even though it is not "natively" in App.js
+    return (
+        &lt;div>My fave number is {props.favoriteNumber}!&lt;/div>
+    )
+}
+// we now export App through the HOC (which is really just a function)
+export default withFavoriteNumber(App)
+// this allows us to pass new props into any component that we pass through the HOC, without doing any editing to the original component!
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>HOC Example: Adding "Toggler"</summary>
+                    <p>Setup:</p>
+                    <ul>
+                        <li>Multiple components with similar functionality: a Boolean toggle that switches part of the UI "on" or "off"</li>
+                        <li>This means both components need to manage state, and both components needs to toggle state</li>
+                        <li>By lifting state management to a HOC, we can greatly simplify both components, and pass that current state and change functionality to each component via props from the HOC</li>
+                    </ul>
+                    <pre>
+// Favorite.js: toggles a "favorite" icon on/off
+class Favorite extends Component {
+    state = {
+        isFavorited: false
+    }
+    toggleFavorite = () => {
+        this.setState(prevState => {
+            return {
+                isFavorited: !prevState.isFavorited
+            }
+        })
+    }
+    render() {
+        return (
+            &lt;div>
+                &lt;h3>Click heart to favorite&lt;/h3>
+                &lt;h1>
+                    &lt;span 
+                        onClick={this.toggleFavorite}
+                    >
+                        {this.state.isFavorited ? "❤️" : "♡"}
+                    &lt;/span>
+                &lt;/h1>
+            &lt;/div>
+        ) 
+    }
+}
+export default Favorite
+</pre>
+<pre>
+// Menu.js: toggles the menu open/closed
+class Menu extends Component {
+    state = {
+        show: true
+    }
+    toggleShow = () => {
+        this.setState(prevState => {
+            return {
+                show: !prevState.show
+            }
+        })
+    }
+    render() {
+        return (
+            &lt;div>
+                &lt;button onClick={this.toggleShow}>{this.state.show ? "Hide" : "Show"} Menu &lt;/button>
+                &lt;nav style={{display: this.state.show ? "block" : "none"}}>
+                    &lt;h6>Signed in as Coder123&lt;/h6>
+                    &lt;a>Your Profile&lt;/a>
+                    &lt;a>Your Repositories&lt;/a>
+                    &lt;a>Your Stars&lt;/a>
+                    &lt;a>Your Gists&lt;/a>
+                &lt;/nav>
+            &lt;/div>
+        ) 
+    }
+}
+export default Menu
+</pre>
+<pre>
+/*
+    Note:
+    - both are a Classs component, because they maintain state
+    - both have an internal state object
+    - both have a toggle function to toggle state
+    - both render HTML based on state
+    We should be able to move the state & toggle fn to an HOC, then pass both down to the simplified components, which also means they no longer need to be Class components, and could now just be Simple Components.
+*/
+</pre>
+<pre>
+// Favorite.js
+// Class => function
+function Favorite(props) {
+    // props includes state & function, so change `this` to `props`
+    return (
+        &lt;div>
+            &lt;h3>Click heart to favorite&lt;/h3>
+            &lt;h1>
+                &lt;span 
+                    onClick={this.props.toggle}
+                >
+                    {this.props.on ? "❤️" : "♡"}
+                &lt;/span>
+            &lt;/h1>
+        &lt;/div>
+    ) 
+}
+// export component through HOC
+export default withToggler(Favorite)
+</pre>
+<pre>
+// Menu.js
+// Class => function
+function Menu(props) {
+    // props includes state & function, so change `this` to `props`
+    return (
+        &lt;div>
+            &lt;button onClick={this.props.toggle}>{this.props.on ? "Hide" : "Show"} Menu &lt;/button>
+            &lt;nav style={{display: this.props.on ? "block" : "none"}}>
+                &lt;h6>Signed in as Coder123&lt;/h6>
+                &lt;a>Your Profile&lt;/a>
+                &lt;a>Your Repositories&lt;/a>
+                &lt;a>Your Stars&lt;/a>
+                &lt;a>Your Gists&lt;/a>
+            &lt;/nav>
+        &lt;/div>
+    ) 
+}
+// export component through HOC
+export default withToggler(Menu)
+</pre>
+<pre>
+// withToggler.js: receive component, add toggle state & function
+// handles `state`, so its a Class
+class Toggler extends Component {
+    // set initial state
+    state = {
+        on: false
+    }
+    // fn to toggle state
+    toggle = () => {
+        this.setState(prevState => {
+            return {
+                on: !prevState.on
+            }
+        })
+    }
+    // render receives component, generates a new component, including current state, state toggle fn, and any other props the passed component might already receive
+    render() {
+        const Component = this.props.component
+        return (
+            &lt;Component on={this.state.on} toggle={this.toggle} {...this.props} />
+        )
+    }
+}
+// export a function that receives a componenet, augments it, and outputs it through the above Class...
+export function withToggler(component) {
+    return function(props) {
+        return (
+            &lt;Toggler component={component} {...props}/>
+        )
+    }
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Render Props</summary>
+                    <p>Similar to callback functions, like <code>addEventListener</code>, which kindly accepts a function from us, then uses it when it should.</p>
+                    <p>We don't have to figure out <em>how</em> or <em>when</em> the event listeners should be called, we just know they will.</p>
+<pre>
+// as we can pass string, numbers, arrays, etc. via props...
+&lt;Component name="Aaron" />
+// we can also pass functions...
+&lt;Component name={function() {return "Aaron"}} />
+// and then can call that function within the component:
+return (
+    &lt;h1>Hello {props.name()}&lt;/h1>
+)
+
+// note that our prop function can accept a param, like:
+&lt;Component name={function(name) {return name}} />
+// which we can consume like:
+return (
+    &lt;h1>Hello {props.name('Aaron')}&lt;/h1>
+)
+
+// and since we can "name" a prop anything, like we used "onClick" for passing <code>onClick</code> functions as props, we can also use "render" to pass <code>render</code> props (thus the name), so:
+&lt;Component render={function(name) {return name}} />
+// ...
+return (
+    &lt;h1>Hello {props.render('Aaron')}&lt;/h1>
+)
+
+// so the app can easily pass Booleans, Arrays, Objects, etc. to the component,
+// and the component can receive and react to any of those,
+// which means the app could pass state to the component,
+// and the component can receive that state as a prop and react to that!
+&lt;Component render={function(arr){
+    return (
+        &lt;ol>
+            {arr.map(item => {
+                return &lt;li>{item}&lt;/li>
+            })}
+        &lt;/ol>
+    )
+}}/>
+// ...
+return (
+    &lt;>
+        {props.render([1, 2, 3, 4, 5, 6, 7, 8, 9])}
+    &lt;/>
+)
+
+// similar to HOC, the main idea here is to reduce repetition in code
+// if choosing between HOC and Render Props, almost always reach for Render Props
+
+/** Converting Toggler HOC above to Render Props... **/
+/* /HOCs/withToggler.js > /components/Toggler.js */
+class Toggler extends Component {
+    // set initial state
+    state = {
+        on: this.props.defaultOnValue
+    }
+    // fn to toggle state
+    toggle = () => {
+        this.setState(prevState => {
+            return {
+                on: !prevState.on
+            }
+        })
+    }
+    render() {
+        // render no longer receives the Component
+        /*const Component = this.props.component*/
+        return (
+            // and instead of passing props to component...
+            /*&lt;Component on={this.state.on} toggle={this.toggle} {...this.props} />*/
+            // passes render props
+            &lt;>
+                {this.props.render(this.state.on, this.toggle)}
+            &lt;/>
+        )
+    }
+}
+// instead of exporting through HOC...
+/*export function withToggler(component) {
+    return function(props) {
+        return (
+            &lt;Toggler component={component} {...props}/>
+        )
+    }
+}*/
+// just export
+export default Toggler
+
+/* /components/Favorite.js */
+import Toggler from './components/Toggler'
+// no longer needs `props`
+function Favorite() {
+    return (
+        // push all JSX into render prop for Toggler component
+        &lt;Toggler render={
+            // receive props from Toggler.js
+            (on, toggle) => {
+                &lt;div>
+                    &lt;h3>Click heart to favorite&lt;/h3>
+                    &lt;h1>
+                        &lt;span 
+                            // remove `this.props`
+                            onClick={toggle}
+                        >
+                            {on ? "❤️" : "♡"}
+                        &lt;/span>
+                    &lt;/h1>
+                &lt;/div>
+            }
+        } />
+    ) 
+}
+// export normally
+export default Favorite
+</pre>
+                    <p>Can also render the component as open/close tags, and put the render functionality *inside* of those tags, like:</p>
+<pre>
+&lt;Toggler>
+    {
+        (on, toggle) => {
+            return(
+                // do stuff here
+            )
+        }
+    }
+&lt;/Toggler>
+</pre>
+                    <p>Then the Toggler component would need to change a bit, to pass the props to the "children" of this component, like:</p>
+<pre>
+render() {
+    return(
+        this.props.children(this.state.on, this.toggle)
+    )
+}
+</pre>
+                    <p>The above *does* come out slightly clearner looking, especially in the Toggler component: rather than the `render` attribute function stretching down multiple lines, and having to remember to close that component, this has a nice, clean open & close tag, and all the render functionality happens between the two.</p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Render Props Challenge</summary>
+                    <pre>
+// NOTE: API URL has changed: https://swapi.dev/api/people/1/
+/* DataFetcher.js */
+import React, {Component} from "react"
+class DataFetcher extends Component {
+    // set initial states
+    state = {
+        loading: false,
+        data: null
+    }
+    // function to call after mounting
+    componentDidMount() {
+        this.setState({loading: true})
+        fetch(this.props.url)
+            .then(res => res.json())
+            .then(data => this.setState({data: data, loading: false}))
+    }
+    // once data is received, essentially return this information to App
+    render() {
+        return this.props.render(this.state.loading, this.state.data)
+    }
+}
+export default DataFetcher
+
+/* App.js */
+import React from "react"
+import DataFetcher from "./DataFetcher"
+function App() {
+    return (
+        &lt;DataFetcher url="https://swapi.dev/api/people/1/" render={
+            (loading, data) => loading ? &lt;h1>Loading...&lt;/h1> : &lt;p>{JSON.stringify(data)}&lt;/p>
+        } />
+    )
+}
+export default App
+        // DataFetcher is sort of like an Ajax call:
+            // url = "fetch this"
+            // render = "success callback"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>React Rendering Tree / Performance Optimization</summary>
+                    <p>React recursively renders down one branch of the tree until there is nothing left to render there, then will start rendering the next branch, so something like:</p>
+<pre>
+1. App
+2.    GP
+3.        P
+4.            C
+5.                GC
+6.                GC
+7.            C
+8.                GC
+9.                GC
+10.       P
+11.           C
+12.               GC
+13.               GC
+14.           C
+15.               GC
+16.               GC
+17.  GP
+18.      P
+etc.
+</pre>
+                    <p>So when state changes on any component, it and all of its children will be re-rendered, whether anything below has changed or not.</p>
+                    <p>This means that if component 10's state changes, then components 10-16 will all be re-rendered.</p>
+                    <p>This is one reason to why state should be as local as possible to the component(s) affected by it.</p>
+                    <p>But this doesn't fix the problem of component 10 *needing* to change, to reflect the new state, but components 11-16 *not* needing to change, as the are not affected by the state change...</p>
+                    <p>To determine if a component should re-render or not, we would need to compare the previous and upcoming props and states to see if something *needs* to update.</p>
+                    <p>But while comparing primitive data types (string, number, boolean) is really easy (<code>1 === 1</code>), comparing complex data types (array, object) is not, because of how each is stored in memory: complex data types are unique memory stores, so two seemingly identical objects are *not* the same...</p>
+                    <p>This concept deals with "shallow comparison". Meaning, if you compare two JS Objects, even if their content is identical, JS will say false:</p>
+<pre>
+const obj1 = {name: "Atg"}
+const obj2 = {name: "Atg"}
+console.log(obj1 === obj2) // false
+</pre>
+                    <p>Because JS considers each Object a unique instance.</p>
+                    <p>But if you compare the the Object *values*, they are true:</p>
+<pre>
+const obj1 = {name: "Atg"}
+const obj2 = {name: "Atg"}
+console.log(obj1.name === obj2.name) // true
+</pre>
+                    <p>This is kind of like a "shallow comparison": if the top-level "values" are the same, then the shallow comparison will pass.</p>
+                    <p>JS will see top-level as equal, but any nested arrays/objects will NOT be the same...</p>
+                    <p>To help with this, React has: <code>shouldComponentUpdate()</code>, <code>React.PureComponent</code> and <code>React.memo()</code>.</p>
+                    <p><code>shouldComponentUpdate()</code> is a Class Component method that is used to determine whether a component... should update (re-render). It receives the upcoming props & state and returns <code>true</code> if it should update, and <code>false</code> if it should not:</p>
+<pre>
+class Component extends React.Component {
+    state = {
+        count: 1
+    }
+    shouldComponentUpdate(
+        // this will be run right before 
+        // the component would normally update,
+        // but you need to write code here
+        // that manually determines if the 
+        // component should update or not,
+        // returning `true` if it should, 
+        // and `false` if it should not.
+    )
+    ...
+}
+</pre>
+                    <p>In the end, <code>shouldComponentUpdate()</code> is really difficult to implement correctly, because JS Objects do not compare well, so React created <code>React.PureComponent</code>.</p>
+                    <p><code>React.PureComponent</code> is an alternative to <code>React.Component</code> that automatically implements <code>shouldComponentUpdate()</code> and performs the shallow comparison for you, skipping re-rendering of itself and any children if the result is <code>false</code>:</p>
+<pre>
+class Component extends React.PureComponent {
+    state = {
+        count: 1
+    }
+    // shouldComponentUpdate is inheritent, 
+    // so we don't need to do anything...
+    ...
+}
+</pre>
+                    <p>If you do update some props or state to a PureComponent, React *will* re-render the component.</p>
+                    <p>Note: Both versions of "should this update" block re-rendering of ALL components in that branch, so if something down the branch *does* need to update, this cannot work.</p>
+                    <p>Also note that, as the trend moves toward Functional Components, both above become kind of irrelevant...</p>
+                    <p>Which takes us to <code>React.memo</code>, which is a HOC added in v16.6 that compares prevProps and nextProps, but does not state checking.</p>
+                    <p>Important note: Where <code>shouldComponentUpdate()</code> returns <code>true</code> if the component *should* update, <code>React.memo</code> returns true if it should *not* update... Sort of like "Are these the same? Yes".</p>
+                    <p><code>React.memo</code> can be applied using any of these options...</p>
+<pre>
+function MyComponent(){
+    ...
+}
+export default React.memo(MyComponent)
+</pre>
+<pre>
+export default React.memo(function MyComponent(){
+    ...
+})
+</pre>
+<pre>
+import React, {memo} from 'react'
+function MyComponent(){
+    ...
+}
+export default memo(MyComponent)
+</pre>
+<pre>
+import React, {memo} from 'react'
+export default memo(function MyComponent(){
+    ...
+}
+</pre>
+                    <p>Whichever way you init it, no other changes are required.</p>
+                    <p>Now, <code>React.memo</code> will create a "cached" version of the component, including props and state, and compare *that* via memoization. If it finds no change, it uses the cached version; if it sees a change, it will re-render.</p>
+                    <p><code>React.memo</code> also allows you to write your own comparison function and pas it to <code>React.memo</code>.</p>
+                    <p>Convention calls this function <code>areEqual</code>. It will receive two parameters, <code>prevProps</code> and <code>nextProps</code>:</p>
+<pre>
+// create your own function
+function areEqual(prevProps, nextProps) {
+    /*
+        Remember: Return `true` if they are the same, 
+        and `false` if they are not!
+    */
+}
+// then pass it into React.memo with your component
+export default React.memo(MyComponent, areEqual)
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Context</summary>
+                    <p>Initially suggested against, even by React, now considered much more stable.</p>
+                    <p>Consider a multi-layered app, with many branches and branches and branches. Eventually, some component needs tate, so we create it there and all's great. But then its sibling needs that same state. So we lift state to a common ancestor, then pass it down as props. But what if some distant cousin of a cousin suddenly needs it? Would have to life state, possibly to the top App, then rewrite all components down and down through all necessary ancestors, in order to pass props down to that asshole cousin...</p>
+                    <p>This is called "prop drilling", and would majorly suck...</p>
+                    <p>This is also where "Context" comes into play.</p>
+                    <p>Context allows us to pass props through the app without pasing props to every intermediary component.</p>
+                    <p>To do this, we wrap that parent component in a "Provider", and any component that needs that state in a "Consumer", and React will create a Context "tunnel" through which we can pass anything, including state and stateChange functions.</p>
+                    <p>To get started, wherever your top-level ancestor is, create the Context; convention puts this in its own component file:</p>
+<pre>
+import React from 'react'
+const MyContext = React.createContext()
+export default MyContext
+</pre>
+                    <p><code>React.createContext</code> returns an object with two properties: 1) <code>MyContext.Provider</code>, and 2) <code>MyContext.Consumer</code></p>
+                    <p>So now we can wrap the ancestor in a Provider:</p>
+<pre>
+ReactDOM.render(
+    &lt;MyContext.Provider value="Something Cool!">
+        &lt;App />
+    &lt;/MyContext.Provider>,
+    document.getElementById("root")
+)
+</pre>
+                    <p>Note the <code>value</code> attribute in the opening Provider. This is the bit that we are wanting to pass down to the Consumer, and eventually be able to update.</p>
+                    <p>We can consume this information in a child component in a few different ways:</p>
+<pre>
+// add it to the class after the class is closed
+import MyContext from './MyContext'
+class Header extends React.Component {
+    render() {
+        const message = this.context
+        return (
+            &lt;h1>{message}&lt;/h1>
+        )
+    }
+}
+Header.contextType = MyContext
+</pre>
+<pre>
+// add it as a `static` property
+import MyContext from './MyContext'
+class Header extends React.Component {
+    static contextType = MyContext
+    render() {
+        const message = this.context
+        return (
+            &lt;h1>{message}&lt;/h1>
+        )
+    }
+}
+</pre>
+                    <p>In both cases, we "set the context" of this Class Component.</p>
+                    <p>One major drawback thus far is that this context is only "consumable"... We have no way of updating the information back up the tree to the Provider...</p>
+                    <p>But if we switch to Functional Components, we can, by passing render props via a "Consumer"...</p>
+<pre>
+// convert above to a Functional Component,
+// and add the theme context Consumer
+import MyContext from './MyContext'
+function Header(props) {
+    return (
+        &lt;MyContext.Consumer>
+            {theme => (
+                &lt;h1>{message}&lt;/h1>
+            )}
+        &lt;/MyContext.Consumer>
+    )
+}
+</pre>
+                    <p><code>&lt;MyContext.Consumer></code> is imported at the top, and thus has a connection to the Provider in <code>index.js</code>, so it receives the <code>theme</code> from it!</p>
+                    <p>But the Consumer can still on consume from the Provider; it still cannot update the Provider...</p>
+                    <p>To do this, the Context needs to be converted to a Class...</p>
+                    <p>See files located in:<br>
+                        <pre>/Users/aarontgrogg/Sites/react/scrimba/react-bootcamp-usercontext</pre>
+                    </p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Hooks</summary>
+                    <p>"Hook" into lifecycle methods wihout using Class Components, allowing Functional Components nearly everywhere.</p>
+                    <p>This course only covers:</p>
+https://reactjs.org/docs/hooks-reference.html#usestate
+https://reactjs.org/docs/hooks-reference.html#useeffect
+https://reactjs.org/docs/hooks-reference.html#usecontext
+https://reactjs.org/docs/hooks-reference.html#useref
+https://reactjs.org/docs/hooks-reference.html#usereducer
+                    <p>But might want to look into:</p>
+https://reactjs.org/docs/hooks-reference.html#usememo
+https://reactjs.org/docs/hooks-reference.html#usecallback
+https://reactjs.org/docs/hooks-reference.html#useimperativehandle
+https://reactjs.org/docs/hooks-reference.html#uselayouteffect
+https://reactjs.org/docs/hooks-reference.html#usedebugvalue
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>useState</summary>
+                    <p>https://reactjs.org/docs/hooks-reference.html#usestate</p>
+<pre>
+import React, {useState} from 'react'
+
+function App() {
+    const state = useState()
+    console.log(state) // [null, f()]
+}
+</pre>
+                    <p><code>useState</code> accepts 1 parameter as its initial state, and returns a 2-item array:<br>
+                        1) current state<br>
+                        2) change state function<br>
+                        so get those via destructuring:
+                    </p>
+<pre>
+function App() {
+    const [ state ] = useState('on')
+    console.log(state) // ['on', f()]
+}
+</pre>
+                    <p>Adding the change state function:</p>
+<pre>
+function App() {
+    const [ state, setState ] = useState('on')
+    const updateState = () => {
+        setState(prev => prev === 'on' ? 'off' : 'on')
+    }
+    return &lt;button onClick={updateState} />
+}
+</pre>
+                    <p>Above works okay for simple, single String states, but if you need to track multiple state items, would have to use an object as the state, which requires a slightly more advanced "update" function, using the Spread Operators, to cede a new variable with all old values, the updating only the new value.</p>
+                    <p>You can also simply create multiple states...</p>
+<pre>
+function App() {
+    const [ state, setState ] = useState('on')
+    const [ name, setName ] = useState('Atg')
+    const updateState = () => {
+        setState(prev => prev === 'on' ? 'off' : 'on')
+    }
+    const updateName = () => {
+        setState(prev => prev === 'Atg' ? 'Aaron' : 'Atg')
+    }
+    return (
+        &lt;>
+            &lt;button onClick={updateState}>Update State&lt;/button>
+            &lt;button onClick={updateName}>Update Name&lt;/button>
+        &lt;/>
+    )
+}
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>useEffect</summary>
+                    <p><code>useEffect</code> is considered a replacement for three Class Component Lifecycle methods:<br>
+                        1) componentDidMount<br>
+                        2) componentDidUpdate<br>
+                        3) componentWillUnmount<br>
+                    </p>
+                    <p><code>useEffect</code> handles anything that is "outside" React's normal scope, including:<br>
+                        1) Network requests<br>
+                        2) Manual DOM manipulation<br>
+                        3) Event listeners, timeouts or intervals<br>
+                    </p>
+                    <p><code>useEffect</code> runs immediately <em>after</em> the component is rendered.</p>
+                    <p><code>useEffect</code> can also be told to watch some state and react again if that state changes. For example:</p>
+<pre>
+// import required React components
+import React, {useState, useEffect} from 'react'
+// imort component that returns random hex color
+import randomcolor from 'randomcolor'
+
+function App() {
+    // init states for `count` and `color`
+    const [count, setCount] = useState(0)
+    const [color, setColor] = useState('')
+
+    // functions to in- and decrement `count`
+    function increment() {
+        setCount(prev => prev + 1)
+    }
+    function decrement() {
+        setCount(prev => prev - 1)
+    }
+
+    // effect to change `randomcolor` any time `count` changes
+    useEffect(() => {
+        setColor(randomcolor())
+    }, [count])
+
+    // render markup including random colored `count``
+    // and fns to update the count, triggering re-renders,
+    // thus triggering `useEffect`
+    return (
+        &lt;div>
+            &lt;h1 style={{color: color}}>{count}&lt;/h1>
+            &lt;button onClick={increment}> + &lt;/button>
+            &lt;button onClick={decrement}> - &lt;/button>
+        &lt;/div>
+    )
+}
+</pre>
+                    <p>Note that without <em>some</em> state to monitor, <code>useEffect</code> would create an infinite loop, because after it runs, changing the `randomcolor` state, this would trigger another render, which would trigger <code>useEffect</code>, which would trigger another render, etc.</p>
+                    <p>If you only wanted the <code>useEffect</code> to only run once, on load, pass an empty array:</p>
+<pre>
+    useEffect(() => {
+        setColor(randomcolor())
+    }, [])
+</pre>
+                    <p>Another important role of <code>useEffect</code> is cleanup when something unmounts, to prevent memory leaks, like event listeners, works, timeouts/intervals, etc.:</p>
+<pre>
+    useEffect(() => {
+        setInterva(()=>{
+            increment()
+        }, 1000)
+    }, [])
+</pre>
+                    <p>In the above code, if the component was removed, the <code>setInterval</code>> will continue running.</p>
+                    <p>Instead, assign <code>setInterval</code> to a variable, then pass the <code>clearInterval</code> function as a <code>return</code> to <code>useEffect</code>:</p>
+<pre>
+    useEffect(() => {
+        const intervalId = setInterval(()=>{
+            increment()
+        }, 1000)
+        return () => clearInterval(intervalId)
+    }, [])
+</pre>
+                    <p><code>useEffect</code> will now watch for the component to unmount, then it will run that <code>return</code> function.</p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>useRef</summary>
+                    <p>Allows you to create a "reference" to an HTML element for the lifetime of the app.</p>
+                    <p>Once that reference is created, it can be used throughout the app, by using its `current` property...</p>
+<pre>
+// import `useRef` into component
+import React, {useRef} from 'react'
+
+// create reference; convention uses `null` during init
+const inputRef = useRef(null)
+
+// add `ref` to HTML element
+&lt;input ref={inputRef}... />
+
+// can then do something like:
+function handleSubmit() {
+    // force focus to that element after submitting form
+    inputRef.current.focus()
+}
+// Note `current` is a `useRef` property, allowing access
+// to the HTML element and its properties.
+// Note that it might not work to set focus on a field that "was" disabled,
+// might need to manually set `inputRef.current.disable = false`
+// before `focus()` can work...
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>useContext</summary>
+                    <p>Let's you share a "context" to other components, without having to manually pass `props` form component to component to component...</p>
+                    <p>Allow us to convert this:</p>
+<pre>
+import React from "react"
+import {ThemeContextConsumer} from "./themeContext"
+
+function Header(props) {
+    return (
+        &lt;ThemeContextConsumer>
+            {context => (
+                &lt;header className={`${context.theme}-theme`}>
+                    &lt;h2>{context.theme === "light" ? "Light" : "Dark"} Theme&lt;/h2>
+                &lt;/header>
+            )}
+        &lt;/ThemeContextConsumer>
+    )    
+}
+</pre>
+                    <p>Into this:</p>
+<pre>
+// import `useContext` & ThemeContext component
+import React, {useContext} from 'react'
+import ThemeContext from './ThemeContext'
+
+// pull directly into component
+function Header(props) {
+    const context = useContext(ThemeContext)
+    return (
+        &lt;header className={`${context.theme}-theme`}>
+            &lt;h1>{context.theme === 'light' ? 'Light' ? 'Dark'}&lt;/h1>
+        &lt;/header>
+    )
+}
+</pre>
+                    <p>Note that we are now importing the entire `ThemeContext` object, not just the `Consumer` property, and that we pass that entire object into `useContext` when we init it.</p>
+                    <p>No longer need to export Consumer, pass render props, etc.</p>
+                    <p>Could also destructure during `context` into:</p>
+<pre>
+    const {theme, toggleTheme} = useContext(ThemeContext)
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Custom Hooks</summary>
+                    <p>Nothing special in React built for this, like Render Props, just another pattern.</p>
+                    <p>Aids greatly reusability.</p>
+<pre>
+/* create new component file */
+// use Hook naming convention
+useCounter.js
+
+/* create custom "count" hook */
+// import `useState`
+// Note: Don't need React, as not rendering anything
+import {useState} from 'react'
+
+// add functionality from component
+function userCounter() {
+    const [count, setCount] = userState(0)
+
+    function increment() {
+        setCount(prev => prev + 1)
+    }
+
+    // return for use in components
+    return [count, increment]
+}
+
+// export the function
+export default useCounter
+
+/* use custom Hook in component */
+// import just like regular Hooks
+import useCounter from './useCounter'
+
+function App() {
+    const [count, increment] = useCounter()
+}
+</pre>
+                    <p>You can also pass default/init values to the custom hook:</p>
+<pre>
+// pass default value during init
+const [count, increment] = useCounter(0)
+
+// receive init value, and even offer a default just in case none is given
+function userCounter(defaultValue = 0) {
+    const [count, setCount] = userState(defaultValue)
+    ...
+}
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>React Router</summary>
+                    <a href="https://v5.reactrouter.com/web/guides/quick-start">https://v5.reactrouter.com/web/guides/quick-start</a>
+                    <p>Not an official part of React, but sort of the de facto routing add-on.</p>
+                    <aside>NOTES: 
+                        <ul>
+                            <li>&lt;Switch/> has been replaced with &lt;Routes/></li>
+                            <li>&lt;Route> can no longer have children, so this:
+                            <pre>&lt;Route exact path="/">&lt;Home />&lt;/Route></pre>
+                            must now be this:
+                            <pre>&lt;Route exact path="/" element={&lt;Home />} /></pre>
+                            </li>
+                        </ul>
+                    </aside>
+<pre>
+// basically, switching pages can be done with conditional rendering
+function App() {  
+    const [page, setPage] = useState("home")
+    
+    function swapPages(newPage) {
+        setPage(prevPage => newPage)
+    }
+    
+    return (
+        &lt;>
+            &lt;nav>
+                &lt;button onClick={() => swapPages("home")}>Home&lt;/button>
+                &lt;button onClick={() => swapPages("about")}>About&lt;/button>
+            &lt;/nav>
+            {
+                page === "home" ?
+                &lt;h1>Home Page&lt;/h1> :
+                &lt;h1>About page&lt;/h1>
+            }
+        &lt;/>
+    )
+}
+</pre>
+                    <p>But React Router also offers a declaritive API and Hooks.</p>
+                    <p>Primary Components:</p>
+                    <ol>
+                        <li>Routers: &lt;BrowserRouter/>, &lt;HashRouter/></li>
+                        <li>Route Matchers: &lt;Switch/>, &lt;Route/></li>
+                        <li>Navigation: &lt;Link/>, &lt;NavLink/>, &lt;Redirect/></li>
+                    </ol>
+                    <p>Hooks:</p>
+                    <ol>
+                        <li>useHistory</li>
+                        <li>useLocation</li>
+                        <li>useParams</li>
+                    </ol>
+                    <p>Need to add React Router DOM:<br>
+                        <a href="https://www.npmjs.com/package/react-router-dom">https://www.npmjs.com/package/react-router-dom</a>
+                    </p>
+<pre>
+// add to component; often renamed
+import {BrowserRouter as Router} from 'react-router-dom'
+
+// wrap App with Router Context Provider
+ReactDOM.render(
+    &lt;Router>
+        &lt;App />
+    &lt;/Router>,
+    document.getElementById('root')
+)
+</pre>
+                    <p>Within components, to navigate from page to page, need to use &lt;Link>, which takes has `to` attribute, &lt;Switch> and &lt;Route>:</p>
+                    <aside>Note: v5.1 changed how `Route` worked, so there are now 3 ways to structure a `Route`.</aside>
+<pre>
+import {Link} from 'react-router-dom'
+
+import Home from './Home'
+import About from './About'
+import Contact from './Contact'
+
+function App(){
+    return (
+        &lt;>
+            &lt;ul>
+                &lt;li>&lt;Link to="/">Home&lt;/Link>&lt;/li>
+                &lt;li>&lt;Link to="/about">About&lt;/Link>&lt;/li>
+                &lt;li>&lt;Link to="/contact">Contact&lt;/Link>&lt;/li>
+            &lt;/ul>
+            &lt;Switch>
+                &lt;Route exact path="/" render={() => &lt;Home />} />
+                &lt;Route exact path="/about" component={About} />
+                &lt;Route exact path="/about">&lt;About />&lt;/Route>
+            &lt;/Switch>
+        &lt;/>
+    )
+}
+</pre>
+                    <aside>Note the `exact` property in each `Link`. That is because `path` is actually saying "If the path <em>starts with</em> "/", which all paths are going to do, and since `Switch` reacts to the first correct value it finds, without `exact`, all pages will render the `Home` component...<br>
+                    Can either order all `Route` components so that the cascade reacts properly, or use `exact` to require an exact match.</aside>
+                    <p>`Route` structures:</p>
+                    <ol>
+                        <li>Using the manual `render` property, a `Route` can take a function to render whatever you pass it.</li>
+                        <li>Instead of the manual `render` property, a `Route` can also take a `component` attribute.</li>
+                        <li>Instead of self-closing the `Route`, we can pass a component as a child. </li>
+                    </ol>
+                    <p>Note that using the `component` attribute, we are not *calling* the `Home` component (no `&lt; >`), just passing the name.</p>
+                    <p>But because we are not including the `&lt; >`, we also cannot pass any custom props, while this *is* possible with the `render` property above.</p>
+                    <p>Passing components as children of the `Route` was included as of v5.1.</p>
+                    <p>However, while options 1 and 2 *do* both pass along some very useful React props (`history`, `location`, `match`), option 3 *does not* receive these...</p>
+                    <p>To gain access to these props, we use... Hooks!<br>
+                    useLocation, useParams, useHistory, useRouteMatch</p>
+
+                    <h2>Nested Routes</h2>
+                    <p>Assume our app has two top-level nav items:</p>
+                    <code>/home</code> and <code>/profile</code>
+                    <p>Now assume Profile has two sub-sections:</p>
+                    <code>/profile/info</code> and <code>/profile/settings</code>
+                    <p>When you navigate to Profile, we want a sub-nav to toggle nested sections within the Profile page.</p>
+                    <p>If we want to access these sub-pages to replace the main content, we can add new `Link` components to the main `Switch`, just make sure to use `exact` to protect any similar path names:</p>
+<pre>
+&lt;Switch>
+    &lt;Route exact path="/">
+        &lt;Home />
+    &lt;/Route>} />
+    &lt;Route exact path="/profile">
+        &lt;Profile />
+    &lt;/Route>} />
+    &lt;Route exact path="/profile/info">
+        &lt;ProfileInfo />
+    &lt;/Route>} />
+    &lt;Route exact path="/profile/settings">
+        &lt;ProfileSettings />
+    &lt;/Route>} />
+&lt;/Switch>
+</pre>
+                    <p>And if we wanted the sub-page content to appear *within the existing Profile page*, like a tabbed section or something, we could add a new `Switch` inside the Profile page to conditionally render those sections there.</p>
+
+                    <h2>Dynamic Routes</h2>
+                    <p>Suppose your site is something like a blog or some other dynamically-generated content, like a list of products pulled from the company database</p>
+                    <p>For this, you would need a dynamically-generated set of links.</p>
+<pre>
+// it's easy enough to create the dynamic links...
+const products = productsData.map(product => (
+    &lt;h3 key={product.id}>
+        &lt;Link to={`/products/${product.id}`}>{product.name}&lt;/Link>
+    &lt;/h3>
+))
+
+// but for the `Switch`, we need dynamic `Route`s
+// to use variables in `Route`s, called "Route params",
+// we use a semi-colon...
+&lt;Route path="products/:productId">
+    &lt;ProductDetail/>
+&lt;/Route>
+
+// then in our ProductDetail component,
+// first import the `useParams` Hook:
+import {useParams} from 'react-router-dom'
+
+// then grab the params using the Hook
+function ServiceDetail(props) {
+    const params = useParams()
+    console.log(params) // {productId: "2"}
+}
+</pre>
+                    <p>Note how React Router passes the `productId` key/value that we specified in the `Link`, and how `useParams` retrieves them for us (actually from the URL)!</p>
+                    <p>Lastly, we need to fetch that product's details in the ProductDetail component:</p>
+<pre>
+// typically we would fetch from the server/API, using productId
+// in our case, we will use the same productsData array
+function ServiceDetail(props) {
+    // get the params
+    const {productId} = useParams()
+    // find that product in our data
+    const product = productsData.find(product => product._id === productId)
+    // output the details
+    return (
+        &lt;main>
+            &lt;h1>{product.name}&lt;/h1>
+            &lt;p>Price: ${product.price}&lt;/p>
+            &lt;p>Description: {product.description}&lt;/p>
+        &lt;/main>
+    )
+}
+</pre>
+
+                    <h2>useRouteMatch</h2>
+                    <a href="https://reacttraining.com/blog/react-router-v5-1/#useroutematch">https://reacttraining.com/blog/react-router-v5-1/#useroutematch</a>
+                    <p>What happens above if <code>/profile</code> ever changes to something like <code>/user</code>?</p>
+                    <p>All `Link` components wouldbe broken, but so would all nested components...</p>
+                    <p>React Router provides a Hook to protect against something like this by letting you use "variables" in your `Links`s and `Route`s:</p>
+<pre>
+// import useRouteMatch
+import {useRouteMatch} from 'react-router-dom'
+
+// bring into component
+/* useRouteMatch returns an object:
+    {
+        path: "/user", 
+        url: "/user", 
+        isExact: true, 
+        params: {}
+    }
+*/
+function Profile() {
+    // destructure just the `path` and `url` for now
+    const {path, url} = useRouteMatch()
+    // rewrite `Link`s from:
+    &lt;Link to="/profile/info">Profile Info&lt;/Link>
+    // to:
+    &lt;Link to={`${url}/info`}>Profile Info&lt;/Link>
+    // rewrite `Route`s from:
+    &lt;Route path="/profile/info">
+    // to:
+    &lt;Route path={`${path}/info`}>
+}
+</pre>
+                    <p>This makes your nested components much more dynamic, as it reacts to whatever parent component you are currently in.</p>
+
+                    <h2>useHistory</h2>
+                    <p>For most `href` links, the `Link` component is just fine. `useHistory` allows you to do other things between the suer's click and the actual action. Perhaps you need to calculate something or update something before sending the user on?</p>
+<pre>
+// import `useHistory`
+import {useHistory} from 'react-router-dom'
+
+// bring into component
+function App() {
+    const history = useHistory()
+    /* `useHistory` returns an object:
+        {
+            length: 13, 
+            action: "PUSH", 
+            location: {
+                pathname: "/services/2", 
+                search: "", 
+                hash: "", 
+                state: null, 
+                key: "nulft8"
+            }, 
+            createHref: createHref(location), 
+            push: push(path, state), 
+            replace: replace(path, state), 
+            go: go(n), 
+            goBack: goBack(), 
+            goForward: goForward(), 
+            block: block(prompt), 
+            listen: listen(listener)
+        }
+    */
+    // use as part of click handler
+    function handleClick() {
+        // do something that takes a bit,
+        // then manually add to the `history` stack
+        history.push('/services')
+    }
+}
+</pre>
+                    <p>The above `history.push()` will behave as if you clicked a link to the "Services" page.</p>
+                    <p>Note the `go(n)` and `goBack()` methods go back, and `history.replace()` alters the URL, but doesn't push anything new into the stack.</p>
+
+                    <h2>useLocation</h2>
+                    <p>Gives access to the URL:</p>
+<pre>
+// import `useLocation`
+import {useLocation} from 'react-router-dom'
+
+// bring into component
+function App() {
+    const location = useLocation()
+    /* `useLocation` returns an object:
+        {
+            pathname: "/services",  // full url path
+            search: "",             // querystring
+            hash: "",               // hash
+            state: null,            // complicated, check docs
+            key: "qyfp8w"
+        }
+    */
+}
+</pre>
+                    <p>Mostly useful for search/hash.</p>
+
+                    <h2>Redirect</h2>
+                    <p>If rendered, will redirect app:</p>
+<pre>
+// import
+import {Redirect} from 'react-router-dom'
+
+// use in component
+function App() {
+    return (
+        &lt;Redirect to="/new-path"/>
+    )
+}
+</pre>
+                    <p>Mostly used for authentication, like "if not logged in, send to login":</p>
+<pre>
+// route requires login
+&lt;Route path="/private">
+    {
+        isLoggedIn ?
+        &lt;p>This is private content.&lt;/p> :
+        &lt;Redirect to="/login" />
+    }
+&lt;/Route>
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Redux</summary>
+                    <p>A system to handle global app state, before React's Context API was stable and recommended.</p>
+                    <p>Intended to bring all state managment into a single location, rather than a bunch of random states all over the place.</p>
+                    <p>Probably no longer needed, as React's Context API is now really good, but still going to be found in the wild, so probably still good to know.</p>
+                    <p>Three guiding principles:</p>
+                    <ol>
+                        <li>"Single source of truth" (global state)</li>
+                        <li>"State is read-only"</li>
+                        <li>"Changes are made with pure functions" (reducers)</li>
+                    </ol>
+                    <p>Fundamentals:</p>
+                    <ul>
+                        <li>Actions & action creators</li>
+                        <li>Dispatch</li>
+                        <li>Reducers</li>
+                        <li>Store</li>
+                    </ul>
+                    <p>Analogy, a restaurant:</p>
+                    <ul>
+                        <li>You place an order (the action)</li>
+                        <li>Your server takes the order (dispatch)</li>
+                        <li>The chef makes your order (reducer)</li>
+                        <li>Store?</li>
+                    </ul>
+                    <aside>Note: Redux can be used with, or without, React.</aside>
+                    
+                    <h2>Redux, without React:</h2>
+<pre>
+// bring Redux into app
+const redux = require('redux')
+// init state
+const initialState = {
+    count: 0
+}
+// fn to determine what to do
+function reducer(state = initialState, action) {
+    switch(action.type) {
+        case "INCREMENT":
+            return {
+                count: state.count + 1
+            }
+        case "DECREMENT":
+            return {
+                count: state.count - 1
+            }
+        default:
+            return state
+    }
+}
+// create store, pass in reducer
+const store = redux.createStore(reducer)
+// subscribe to store
+store.subscribe(() => {
+    console.log(store.getState())
+})
+// update state
+store.dispatch({type: "INCREMENT"}) // 1
+store.dispatch({type: "INCREMENT"}) // 2
+store.dispatch({type: "DECREMENT"}) // 1
+</pre>
+
+                    <h2>Redux Actions</h2>
+                    <p>Actions are simply Objects:</p>
+<pre>
+// action object must have a `type`,
+// whose value describes the change you want to make.
+// convention is for `type` values to use
+// all uppercase and underscores
+const action = {
+    type: "ADD_ON"
+}
+</pre>
+                    <p>Not common to create action object directly, usually use an Action Creator, which is just a function that return the action you want to create:</p>
+<pre>
+function increment() {
+    return {
+        type: "INCREMENT"
+    }
+}
+</pre>
+
+                    <h2>Redux Reducer</h2>
+                    <p>Reducer is a function that returns new state, by taking the old state and an action.</p>
+                    <p>The action describes "how" the reducer should convert the old state in a new state.</p>
+<pre>
+// create reducer, with intial state
+function reducer( state = {count:0}, action ) {
+    // return new sstate based on the incoming action.type
+    switch(action.type) {
+        case: "INCREMENT":
+            return {
+                count: state.count + 1
+            }
+        ...
+        default:
+            return state
+    }
+}
+</pre>
+                    <aside>Note that we NEED a default case, because will run once when initialized, and will not have an action yet.</aside>
+
+                    <h2>Redux Store</h2>
+                    <p>Note that everything above is just plain JS, not touching Redux at all.</p>
+                    <p>To start "managing" state, need to create Redux Store, by passing our reducer function:</p>
+<pre>
+// create Redux store
+const store = redux.createStore(reducer)
+</pre>
+                    <h3>Subscribe</h3>
+<pre>
+// subscribe to store
+store.subscribe(() => {
+    console.log(store.getState())
+})
+</pre>
+                    <h3>Dispatch</h3>
+                    <p>The restaurant server, that sends your action (your order) to the reducer (the chef).</p>
+<pre>store.dispatch({type: "INCREMENT"}) // 1</pre>
+                    <p>Ideally don't use hard-coded "magic strings" like this. Instead, you would pass the `increment` function to the dispatcher:</p>
+<pre>store.dispatch(increment()) // 1</pre>
+                    <aside>This is why we want to use Action Creators, so we can pass functions to handle the objects.</aside>
+                    <p>So, walking through this again:</p>
+                    <ol>
+                        <li>We ask the dispatcher to do something: "I want yout to increment the state"</li>
+                        <li>The function we pass (`increment()`) returns an object with a `type: "INCREMENT"`, which gets sent to the reducer.</li>
+                        <li>The reducer checks the `type`, determines what action it should take, then makes that change: "increment the count by 1"</li>
+                        <li>And because the store is watching the reducer, it updates the state.</li>
+                    </ol>
+
+                    <h2>Dynamic Action Creator</h2>
+                    <p>Can also make action creators more robust/dynamic, by passing a `payload` (name is not special) along with the `type`:</p>
+<pre>
+// update function to receive any amount
+function increment(amount) {
+    return {
+        type: "INCREMENT",
+        payload: amount
+    }
+}
+// update reducer to receive amount from action object
+case "INCREMENT":
+    return {
+        count: state.count + action.payload
+    }
+// now pass any number you want into dispatcher
+store.dispatch(increment(13))
+
+// in fact, if we changed the function name,
+// we could sue the same fn for decrementing:
+function changeCount(amount) {
+    return {
+        type: "CHANGE_COUNT",
+        payload: amount
+    }
+}
+...
+case "CHANGE_COUNT":
+    return {
+        count: state.count + action.payload
+    }
+...
+store.dispatch(changeCount(13))
+store.dispatch(changeCount(-13))
+</pre>
+
+                    <h2>More Complex State</h2>
+                    <p>It is unlikely that you will have such a simple state.</p>
+                    <p>If you have an object:</p>
+<pre>
+// set init state object
+const initialState = {
+    count: 0,
+    favoriteThings: []
+}
+// create action creators for both...
+function updateCount(amount){
+    return {
+        type: 'UPDATE_COUNT',
+        payload: amount
+    }
+}
+function addFavoriteThing(thing){
+    return {
+        type: 'ADD_FAVORITE_THING',
+        payload: thing
+    }
+}
+function removeFavoriteThing(thing){
+    return {
+        type: 'REMOVE_FAVORITE_THING',
+        payload: thing
+    }
+}
+// setup reducer
+function reducer(state = initialState, action) {
+    switch(action.type) {
+        case 'UPDATE_COUNT':
+            /* NOTE: must spread old state first */
+            return {
+                ...state,
+                count: state.count + action.payload
+            }
+        case 'ADD_FAVORITE_THING':
+            return {
+            /* NOTE: must spread old state first
+               AND spread old favoriteThings before pushing new */
+                ...state,
+                favoriteThings: [...state.favoriteThings, action.payload]
+            }
+        case 'REMOVE_FAVORITE_THING':
+            return {
+                ...state,
+                favoriteThings: state.favoriteThings.filter(thing => thing !== action.payload)
+            }
+        default:
+            return state
+    }
+}
+// create store
+const store = redux.createStore(reducer)
+store.subscribe(() => {
+    console.log(store.getState())
+})
+// dispatch state updates
+store.dispatch(updateCount(2)) 
+// {count: 2, favoriteThings: []}
+store.dispatch(updateCount(-1)) 
+// {count: 1, favoriteThings: []}
+store.dispatch(addFavoriteThing('rain drops on roses')) 
+// {count: 1, favoriteThings: ['rain drops on roses']}
+store.dispatch(addFavoriteThing('whiskers on kittens')) 
+// {count: 1, favoriteThings: ['rain drops on roses','whiskers on kittens']}
+store.dispatch(removeFavoriteThing('rain drops on roses')) 
+// {count: 1, favoriteThings: ['whiskers on kittens']}
+</pre>
+                    <h2>Combined Reducers</h2>
+                    <p>When your state object gets complicated enough, the code for action creators and reducers can get pretty out of hand...</p>
+<pre>
+const initialState = {
+    count: 0,
+    favoriteThings: [],
+    youtubeVideo: {
+        title: "",
+        viewCount: 0,
+        votes: {
+            up: 0,
+            down: 0
+        }
+    }
+}
+...
+case "UPVOTE_VIDEO":
+    return {
+        ...state,
+        youtubeVideo: {
+            ...state.youtubeVideo,
+            votes: {
+                ...state.youtubeVideo.votes,
+                up: state.youtubeVideo.votes.up + 1
+            }
+        }
+    }
+</pre>
+                    <p>Combined reducers allow us to have multiple reducers, each handling different parts of state.</p>
+                    <aside>Might also want to create a separate `redux` directory that includes separate JS files for each "part" of the state (`count`, `favoriteThings`, and `youTubeVideos`), and each file contains its own action creator and reducer for that part of state.</aside>
+<pre>
+/redux
+    count.js
+    favoriteThings.js
+    youTubeVideo.js
+</pre>
+<pre>
+// action creators are the same as above...
+// but a new reducer is added to each file,
+// which can have now a specific function and variable name,
+// and the return is much simpler since each state is much simpler
+/* Note that all action creators and reducers need to export */
+/* count.js */
+export default function countReducer(count = 0, action) {
+    switch(action.type) {
+        case 'CHANGE_COUNT':
+            return count + action.payload
+    }
+        default:
+            return count
+}
+/* favoriteThings.js */
+export default function favoriteThingsReducer(favoriteThings = [], action) {
+    switch(action.type) {
+        case "ADD_FAVORITE_THING":
+            return [...favoriteThings, action.payload]
+        case "REMOVE_FAVORITE_THING": {            
+            const updatedArr = favoriteThings.filter(thing => thing.toLowerCase() !== action.payload.toLowerCase())
+            return updatedArr
+        }
+        default:
+            return favoriteThings
+    }
+}
+/* youTubeVideo.js */
+export default function youTubeVideoReducer(youTubeVideo = initialState, action) {
+    switch(action.type) {
+        case "INCREMENT_VIEW_COUNT":
+            return {
+                ...youTubeVideo,
+                viewCount: youTubeVideo.viewCount + 1
+            }
+        case "SET_YOUTUBE_TITLE":
+            return {
+                ...youTubeVideo,
+                title: action.payload
+            }
+        case "UPVOTE_VIDEO":
+            return {
+                ...youTubeVideo,
+                votes: {
+                    ...youTubeVideo.votes,
+                    up: youTubeVideo.votes.up + 1
+                }
+            }
+        case "DOWNVOTE_VIDEO":
+            return {
+                ...youTubeVideo,
+                votes: {
+                    ...youTubeVideo.votes,
+                    down: youTubeVideo.votes.down + 1
+                }
+            }
+        default:
+            return youTubeVideo
+    }
+}
+</pre>
+                    <p>This removes a LOT of code from our main `index.js`, and we can now implement combined reducers.</p>
+                    <p>First, create a new `index.js` in `/redux` to server as the "single state tree" (the global store) for all reducers; this will essentially recreate the `initialState` object that we had when all of this was in a single file:</p>
+<pre>
+/redux
+    count.js
+    favoriteThings.js
+    index.js
+    youTubeVideo.js
+</pre>
+<pre>
+/* index.js */
+// get redux
+const redux = require('redux')
+// get methods from redux
+const {combineReducers, createStore} = redux
+// import each reducer
+import countReducer from './count'
+import favoriteThingsReducer from './favoriteThings'
+import youTubeVideoReducer from './youTubeVideo'
+
+// combine above reducers into a single state tree
+const rootReducer = combineRecuers({
+    count: countReducer,
+    favoriteThings: favoriteThingsReducer,
+    youTubeVideo: youTubeVideoReducer
+})
+
+// create, subscribe & export global store
+const store = createStore(rootReducer)
+store.subscribe(() => {
+    console.log(store.getState())
+})
+export default store
+</pre>
+                    <p>Now all of our Redux stuff happens in the `/redux`, and the main `index.js` can simply import all of that:</p>
+<pre>
+/* main index.js */
+import store from './redux'
+// note that we do not need to reference `index`,
+// as React will automatically look for `index` files...
+
+// then we can import our creator actions
+import {changeCount} frrom '.redux/count'
+
+// and use it
+store.dispatch(changeCount(42))
+// {count: 42, favoriteThings: [], youTubeVideo: {title: "", viewCount: 0, votes: {up: 0, down: 0}}}
+// when we passed `changeCount`, 
+// the store called `rootReducer`,
+// which ran all of the individual reducers.
+// `countReducer` updated its value,
+// and the other two just rerturned their `default` case,
+// so they remained untouched.
+</pre>
+                    
+                    <h2>Redux, with React:</h2>
+                    <p>Redux is split into parts, including core and different bindings, in a separate dependencies. The React binding is `react-redux`.</p>
+                    <p>This binding offers its own Provider component, so:</p>
+<pre>
+// import all dependencies
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {Provider} from 'react-redux'
+// import App
+import App frrom './App'
+// and setup React app, passing our imported `store` to the Redux `Provider`
+ReactDOM.render(
+    &lt;Provider store={store}>
+        &lt;App />
+    &lt;/Provider>,
+    document.getElementById('root')
+)
+</pre>
+                    <p>This means we have access to `store` throughout our entire `App`, by using `connect()`.</p>
+
+                    <h2>connect()</h2>
+                    <p>`connect` is a higher order component, receiving 2 params:<br>
+                        1) parts of global state component should have access to, and<br>
+                        2) actions you want component to be able to dispatch.
+                    </p>
+                    <p>`connect` then returns a function, and you pass the component you want to connect into that function; when called, creates a new component, passing the global state & "dispatchables" to it:</p>
+<pre>
+// 1st param is a fn that returns parts of state,
+// 2nd param is an obj of actions component can do,
+// then immediately pass component into returned fn:
+connect('state parts', 'actions')(Component)
+</pre>
+                    <p>Setup:</p>
+<pre>
+import React from 'react'
+import {connect} from 'react-redux'
+import {increment, decrement} from './redux'
+</pre>
+                    <p>Component:</p>
+<pre>
+
+// create fn to pass parts of global state component should have acces to
+// convention names fn as `mapStateToProps`, because that is what it does
+// `state` will be the `store` passed down by the Redux Provider
+// if state was more complex, could pass only parts
+function mapStateToProps(state) {
+    return {
+        count: state
+    }
+}
+
+// this can be a function, but convention uses an object
+// make sure these actions are being exported in redux file,
+// and are being imported at top of this file,
+const mapDispatchToProps = {
+    increment, 
+    decrement
+}
+
+// props will be two params passed from `connect`,
+// so we can consume them in our UI
+function App(props) {
+    return (
+        &lt;div>
+            &lt;h1>Count: {props.count}</h1>
+            &lt;button onClick={props.increment}> + &lt;/button>
+            &lt;button onClick={props.decrement}> - &lt;/button>
+        &lt;/div>
+    )
+}
+
+// connect passes props and actions to component
+export default connect(mapStateToProps, mapDispatchToProps)(App)
+</pre>
+                    <aside>Note, for something so simple as above, that export could also be simplified, dropping the need for `mapStateToProps` and `mapDispatchToProps`:</aside>
+<pre>export default connect(state => ({count: state}), {increment, decrement})(App)</pre>
+                    <p>Connect can be much more complex (https://react-redux.js.org/api/connect#connect), but functionality can also be handled by Hooks, so transitioning to that...</p>
+
+                    <h2>connect() > Hooks: `useSelector` and `useDispatch`</h2>
+                    <p>Redux 7.1 added `useSelector` Hook.</p>
+                    <p>`connect` does a lot, consuming state and actions, and passing them to a component.</p>
+                    <p>`useSelector` replaces the first `connect` param: the state:</p>
+<pre>
+import {useSelector} from 'react-redux'
+function App(props) {
+    const count = useSelector(state => state)
+    ...
+    &lt;h1>Count: {props.count}</h1>
+    ...
+}
+</pre>
+                    <p>`useSelector` can also "do things" with the state before returning it:</p>
+<pre>
+// return only part of the state
+const faves = useSelector(state => state.favoriteThings)
+// do some process with the state
+const json = useSelector(state => JSON.parse(state.data))
+</pre>
+                    <p>`useDispatch` replaces the second `connect` param: the actions:</p>
+<pre>
+import {useSelector, useDispatch} from 'react-redux'
+function App(props) {
+    const count = useSelector(state => state)
+    const dispatch = useDispatch()
+    ...
+    &lt;button onClick={() => dispatch(increment()}> + &lt;/button>
+    &lt;button onClick={() => dispatch(decrement()}> - &lt;/button>
+    ...
+}
+</pre>
+                    <aside>There is some thinking that says `connect` has merits over the above Hooks, so food for thought:<br>
+                        https://thoughtbot.com/blog/using-redux-with-react-hooks<br>
+                        https://react-redux.js.org/api/hooks#usage-warnings
+                    </aside>
+
+                    <h2>Redux-Thunk</h2>
+                    <p>https://github.com/reduxjs/redux-thunk#installation</p>
+                    <p>Idea is about functions that return functions.</p>
+                    <p>Current action creators are really simple, just returning basic functionality.</p>
+                    <p>If we needed to do something more complex, like fetching an API, the reducer will not wait for that.</p>
+                    <p>Redux-Thunk is about the action creator doing something first, then returning the action to the reducer:</p>
+<pre>
+// first, Thunk is considered "middleware",
+// so need to import new method from redux:
+import redux, {createStore, applyMiddleware} from 'redux'
+// then import Thunk
+import thunk from 'redux-thunk'
+
+// action creator that fetches from an API
+export function fetchAPI() {
+    // pass the actual dispatch to an anonymous function
+    return (dispatch) => {
+        // call the API
+        fetch('/something/awesome')
+            .then(response => JSON.parse(response))
+            // then return the data to the actual dispatch
+            .then(data => dispatch(data))
+    }
+}
+
+// note `createStore` needs to call `applyMiddleware`,
+// and that needs to receive `thunk`
+const store = createStore(reducer, applyMiddleware(thunk))
+</pre>
+                    <p>What happened before: clicking the button dispatches an action, that action immediately notifies the reducer, and the reducer does something.</p>
+                    <p>What happens now: clicking the button dispatches an action, that action calls the API, waits for the return, then notifies the reducer, which then does something.</p>
+                    <p>`thunk` also receives one more param: the `getState` function, in case we need to know something about the current state:</p>
+<pre>
+export function fetchAPI() {
+    // pass the actual dispatch, and getState, to an anonymous function
+    return (dispatch, getState) => {
+        const currentPage = getState()
+        // call the API, using the current state
+        fetch(`/something/awesome/?page=${currentPage + 1}`)
+            .then(response => response.json())
+            // then return the data to the actual dispatch
+            .then(data => dispatch({
+                type: 'INCREMENT',
+                payload: data
+            }))
+    }
+}
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Strategies</summary>
+                    <ul>
+                        <li>Break app into components</li>
+                        <li>Look for patterns where state might be required</li>
+                    </ul>
+<pre>
+//
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    https://edabit.com/
+                    https://app.codesignal.com/signup
+                    https://www.pramp.com/
+<pre>
+//
+</pre>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+
+</html>

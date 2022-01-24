@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Sass</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="../css/normalize.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" href="../css/stackoverflow-dark.min.css" />
+	</head>
+
+	<body>
+		<h1>Sass</h1>
+
+		<h2>Resources</h2>
+
+		<ul>
+			<li>
+				<a href="http://sass-lang.com/guide">Sass Guide</a>
+			</li>
+			<li>
+				<a href="https://www.taniarascia.com/learn-sass-now/">Learn Sass Now</a>
+			</li>
+			<li>
+				<a href="https://www.taniarascia.com/getting-started-with-grunt-and-sass/">Grunt and Sass</a>
+			</li>
+		</ul>
+
+		<h2>Notes</h2>
+		<button>Toggle Details</button>
+
+		<ul>
+			<li>
+				<details>
+					<summary>Glossary</summary>
+					<dl>
+						<dt>Variable</dt>
+							<dd><code>$variableName</code></dd>
+						<dt>Nesting</dt>
+							<dd><pre>
+section {
+	h1 {
+		...
+	}
+}
+/* section h1 {...} */
+							</pre></dd>
+						<dt>Partial</dt>
+							<dd>file name starts with "_", not compiled to .css, only imported into other files: <code>_partial.scss</code></dd>
+						<dt>Module</dt>
+							<dd>Include one partial inside another, importing all variables, mixins, functions, etc., namespaced.</dd>
+						<dt>Operator</dt>
+							<dd>Perform math within SCSS files using +, -, *, /, and %.</dd>
+						<dt><code>@import</code></dt>
+							<dd>compiles partials into single file</dd>
+						<dt><code>@mixin</code></dt>
+							<dd>Essentially a function, to prevent repetitious code.</dd>
+						<dt><code>@extend</code></dt>
+							<dd>Use similar code, but add overrides.</dd>
+						<dt><code>@use</code></dt>
+							<dd>Import and namespace Partial into another.</dd>
+					</dl>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Sass vs. SCSS</summary>
+					<ul>
+						<li>
+							Sass - Syntactically Awesome StyleSheets: .sass
+							extension
+						</li>
+						<li>SCSS - Sassy CSS: .scss extension</li>
+					</ul>
+					<p>
+						SCSS is easier to get started with, and follows the same
+						patterns as CSS.
+					</p>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Create and use variables</summary>
+					<pre>
+$primary-color: #343434;
+
+p {
+	color: $primary-color;
+}
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Nesting</summary>
+					<pre>
+// code like this:
+section {
+	h1 {
+		color: $header-color;
+	}
+	p {
+		color: $primary-color;
+	}
+}
+// will output code like this:
+section h1 { color: #444; }
+section p { color: #343434; }
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Mixins</summary>
+					<pre>
+// code like this:
+@mixin alert($color: $alert-color-default) {
+	background: $color;
+	box-shadow: 0 0 1px $color;
+}
+// can be used like this:
+.default { 
+	@include alert;
+ }
+.danger {
+	@include alert($color: $alert-color-danger);
+}
+.info {
+	@include alert($color: $alert-color-info);
+}
+// and will output like this:
+.default { 
+	background: #eee;
+	box-shadow: 0 0 1px #eee;
+ }
+.danger {
+	background: #f48888;
+	box-shadow: 0 0 1px #f48888;
+}
+.info {
+	background: #88c2f4;
+	box-shadow: 0 0 1px #88c2f4;
+}
+
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Convert scss to css</summary>
+					<pre>
+// convert to css
+sass style.scss:style.css
+// add auto refresh
+sass --watch style.scss:style.css
+// add minifier
+sass -watch style.scss:style.min.css --style compressed
+// watch all files in a directory and output to another directory
+
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Organizing files</summary>
+					<p>Whether in <code>src</code> / <code>dist</code> folders or some other naming convention, break into simple, logical folders.</p>
+					<p>All "modular" SCSS files should be partials, so only one main SCSS file.</p>
+					<pre>
+css/
+	main.css
+sass/
+	main.scss
+	base/
+		_variables.scss
+		_mixins.scss
+		_reset.scss
+	components/
+		_typography.scss
+		_grid.scss
+		_buttons.scss
+		_navigation.scss
+		_sections.scss
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary><code>@import</code> Partial</summary>
+					<pre>
+// do not need file extension
+@import 'base/variables';
+@import 'base/mixins';
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary><code>@use</code> Module</summary>
+					<pre>
+// _base.scss
+$primary-color: black;
+
+// style.scss
+@use 'base';
+.widget {
+	color: base.$primary-color;
+}
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Extending</summary>
+					<pre>
+// declare base CSS
+%message-core {
+	border: 1px solid #f00;
+	background-color: #fdd;
+}
+.error {
+	@extend %message-core;
+}
+.serious-error {
+	@extend %message-core;
+	border-width: 5px;
+}
+// creates:
+.error, .serious-error {
+	border: 1px solid #f00;
+	background-color: #fdd;
+}
+.serious-error {
+	border-width: 5px;
+}
+
+// Q: Advantage over mixin?
+// A: Extend split statements across multiple declarations.
+//    Mixins repeat statements across multiple declarations.
+// Example: a Mixin for the above would create CSS like this:
+.error {
+	border: 1px solid #f00;
+	background-color: #fdd;
+}
+.serious-error {
+	border: 1px solid #f00;
+	background-color: #fdd;
+	border-width: 5px;
+}
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Operators</summary>
+					<pre>
+width: 300px / 960px * 100%;
+					</pre>
+				</details>
+			</li>
+		</ul>
+
+		<script src="../js/highlight.min.js"></script>
+		<script>
+			// add listener to `Toggle Details` button
+			document
+				.querySelectorAll('h2 + button')[0]
+				.addEventListener('click', () => {
+					document
+						.querySelectorAll('details > summary')
+						.forEach((el) => el.click());
+				});
+			// add highlighting
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('code, pre').forEach((el) => {
+					hljs.highlightElement(el);
+				});
+			});
+		</script>
+	</body>
+</html>

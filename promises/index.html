@@ -1,0 +1,246 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Promises</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+    <body>
+        
+        <h1>Promises</h1>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://caniuse.com/?search=promises">Can I Use <strong>Promises</strong>?</a><br/>
+                * Note: Only IE6-11 and Opera Mini <strong>completely</strong> lack support.
+            </li>
+            <li>
+                <a href="https://kangax.github.io/compat-table/es6/">Kangax: CanIUse for ES6</a>
+            </li>
+            <li>
+                <a href="https://classroom.udacity.com/courses/ud898">Udacity - Promises</a>
+            </li>
+            <li>
+                <a href="https://www.codecademy.com/courses/learn-intermediate-javascript/lessons/promises/exercises/constructing-promises">CodeAcademy - Promises</a>
+            </li>
+            <li>
+                <a href="https://www.codecademy.com/learn/learn-intermediate-javascript/modules/javascript-promises/cheatsheet">CodeAcademy - Promises Cheatsheet</a>
+            </li>
+            <li>
+                <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">JavaScript Promises - Jake Archibald</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <p>Objects that represent the eventual outcome of an asynchronous operation.</p>
+        <p>Think of Promises like `try` / `catch` wrappers for async actions.</p>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>Vocab</summary>
+                    <dl>
+                        <dt>Pyramid of Doom</dt>
+                            <dd>collection of old-school nested callback functions; hard to write, nearly impossible to debug</dd>
+                        <dt>wrapping</dt>
+                            <dd>a Promise is a `try` / `catch` wrapper for code that will finish at an unpredictable time</dd>
+                        <dt>thening</dt>
+                            <dd>callback portion</dd>
+                        <dt>chaining</dt>
+                            <dd>adding followup steps</dd>
+                        <dt>Executor function</dt>
+                            <dd>function fed into Promise when defined, receives `resolve` and `rejected`, passed from JS</dd>
+                        <dt>pending</dt>
+                            <dd>still waiting...</dd>
+                        <dt>fulfilled / resolved</dt>
+                            <dd>the Promise worked, alles klar</dd>
+                        <dt>rejected</dt>
+                            <dd>it didn't work...</dd>
+                        <dt>settled</dt>
+                            <dd>either fulfilled or rejected, but definitely done</dd>
+                        <dt>handlers</dt>
+                            <dd>functions passed to `.then` and `.catch`</dd>
+                        <dt>composition</dt>
+                            <dd>chain multiple promises together, when order of operations is necessary ("this" must complete before doing "that")</dd>
+                        <dt>concurrency</dt>
+                            <dd>run multiple promises concurrently, when all that matters is all resolve ("this" and "that" can happen at the same time)</dd>
+                    </dl>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>When to use?</summary>
+                    <ul>
+                        <li>anything Ajax-related</li>
+                        <li>NOT if handling intensive, main-thread work; Promises work in the main thread, so nothing gained there</li>
+                        <li>working with Workers (as they are also async)</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>How to use?</summary>
+                    <pre>
+// can execute right away
+new Promise( () => (resolve, reject) { ... });
+// or store as a variable, to be interacted with later
+const myPromise = new Promise( () => (resolve, reject) { ... });
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>How it works</summary>
+                    <pre>
+// setup to run right away...
+new Promise( () => (resolve, reject) {
+    // create an image element
+    const img = document.createElement('img');
+        // add a source
+        img.src = 'image.jpg';
+        // if it loads properly, pass the `resolve` function
+        img.onload = resolve;
+        // if it fails, pass the `reject` function
+        img.onerror = reject;
+    // append the image to the body
+    document.body.appendChild(img);
+})
+// if the image loads, above `.onload(resolve)` tells Promise to execute the `finishLoading` function
+.then(finishLoading)
+// if the image fails, above `.onerror(reject)` tells Promise to execute the `errorHandling` function
+.catch(errorHandling);
+
+// you can also pass values to the `resolve()` and `reject()` functions: 
+    resolve(myVar);
+    reject({key1:value1,key2,value2});
+// these passed values do NOT get passed to the `then`/`catch` functions, but to the *functions* that *they* call (finishLoading and errorHandling, above)
+
+// NOTE: an error in the Promise code itself will also trigger the Promise's `catch`
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Lesson 1.8 - Wrap a <code>setTimeout</code></summary>
+                    <p><a href="exercise-1.8.html">Exercise 1.8</a></p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Lesson 1.9 - Wrap a <code>readystatechange</code></summary>
+                    <p><a href="exercise-1.9.html">Exercise 1.9</a></p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Lesson 1.10 - Start Exoplanet Project</summary>
+                    <p>This took a big leap forward, requiring Node, Git & Gulp...</p>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Multiple Promises in order: Chaining</summary>
+                    <pre>
+// call initial Promise
+checkInventory(order)
+.then((resolvedValueArray) => {
+    // if sufficient inventory for order, process payment:
+    return processPayment(resolvedValueArray);
+})
+.then((resolvedValueArray) => {
+    // if payment succeeds, process order for shipping:
+    return shipOrder(resolvedValueArray);
+})
+.then((successMessage) => {
+    // if everything worked, send success message
+    console.log(successMessage);
+})
+.catch((errorMessage) => {
+    // if failed, send error message
+    console.log(errorMessage);
+});
+
+// each function above needs to return a Promise
+const checkInventory = (order) => {
+    return new Promise ((resolve, reject) => {
+        ...
+        if (inStock) {
+            resolve([order, total]);
+        } else {
+            reject(`The order could not be completed...`);
+        }     
+    });
+};
+const processPayment = (responseArray) => {
+    const order = responseArray[0];
+    const total = responseArray[1];
+    return new Promise ((resolve, reject) => {
+        ...
+        if (hasEnoughMoney) {
+            resolve([order, trackingNum]);
+        } else {
+            reject(`Cannot process order...`);
+        }
+    });
+}
+onst shipOrder = (responseArray) => {
+    const order = responseArray[0];
+    const trackingNum = responseArray[1];
+    return new Promise ((resolve, reject) => {
+        resolve(`The order has been shipped...`);
+    });
+};
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Multiple Promises simultaneously: Concurrency (<code>Promise.all()</code>)</summary>
+                    <ul>
+                        <li>If multiple Promises need to happen,</li>
+                        <li>but the order doesn't matter,</li>
+                        <li>only that ALL succeed, or one fails.</li>
+                    </ul>
+                    <pre>
+// declare multiple Promises that can happen in any order
+// (`checkAvailability` returns a Promise)
+const checkSunglasses = checkAvailability('sunglasses','Favorite Supply Co.');
+const checkPants      = checkAvailability('pants','Favorite Supply Co.');
+const checkBags       = checkAvailability('bags','Favorite Supply Co.');
+
+// pass all to `Promise.all()`
+Promise.all([checkSunglasses, checkPants, checkBags])
+    .then(onFulfill)
+    .catch(onReject);
+
+// NOTE: if ONE Promise fails, `onReject` gets called, even if others succeeded
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+                    </pre>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+</html>

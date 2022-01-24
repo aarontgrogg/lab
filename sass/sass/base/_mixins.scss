@@ -1,0 +1,8 @@
+// code like this:
+@mixin alert($color: $alert-color-default) {
+	background: rgba($color, .65);
+    border-width: 1px 1px 1px 4px;
+    border-style: solid;
+    border-color: $color;
+	box-shadow: 0 4px 4px rgba($color, .5);
+}

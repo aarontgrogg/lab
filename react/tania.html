@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>React - Tania Rascia</title>
+        <!-- add React, React DOM and Babel -->
+        <script src="https://unpkg.com/react@^16/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16.13.0/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    </head>
+    <body>
+        <!-- add root element, with `noscript`, cause we're cool like that -->
+        <div id="root">
+            <noscript>You need JavaScript for this page.</noscript>
+        </div>
+        <!-- add Babel script block, so we can code in ES6 and support older browsers -->
+        <script type="text/babel">
+            class App extends React.Component {
+                render() {
+                    return <h1>Hello World!</h1>
+                }
+            }
+            ReactDOM.render(<App/>, document.getElementById('root'));
+        </script>
+    </body>
+</html>

@@ -1,0 +1,378 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Node</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+    <body>
+        
+        <h1>Node</h1>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://www.youtube.com/watch?v=TlB_eWDSMt4">Node.js Tutorial for Beginners</a>
+            </li>
+            <li>
+                <a href="https://nodejs.org/dist/latest-v14.x/docs/api/">Node.js Documentation</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>History</summary>
+                    <ul>
+                        <li>2009: Ryan Dahl, Google V8 > C++ = Node</li>
+                        <li>Node is a runtime environment for running JS</li>
+                        <li>Chrome & Node = same runtime engine</li>
+                        <li>Not programming language (it's just JS)</li>
+                        <li>Node is non-blocking/async</li>
+                        <li>Node is single-thread-driven</li>
+                        <li>Ideal for I/O-intensive apps</li>
+                        <li>NOT for CPU-intensive apps</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Process</summary>
+                    <ul>
+                        <li>Thread receives request</li>
+                        <li>Thread passes to (database)</li>
+                        <li>Does not wait for response, opens itself for next request</li>
+                        <li>When database is ready, puts message in Events Queue</li>
+                        <li>Thread sees message, reacts to it</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Glossary</summary>
+                    <dl>
+                        <dt>REPL</dt>
+                            <dd>“REP-UL”, Read-Eval-Print Loop</dd>
+                        <dt>mkdir dir-name</dt>
+                            <dd>Make Directory, creates directory called "dir-name"</dd>
+                        <dt>pwd</dt>
+                            <dd>Print Working Directory, shows current working directory</dd>
+                        <dt>cd dir-name</dt>
+                            <dd>Change Directory, navigate to directory named "dir-name"</dd>
+                        <dt>cd /</dt>
+                            <dd>Go to root directory</dd>
+                        <dt>cd or cd ~</dt>
+                            <dd>Go to home directory; cd /var/www = directly to /var/www; cd ~/Desktop = Desktop of home;</dd>
+                        <dt>cd ..</dt>
+                            <dd>Go "up" one directory</dd>
+                        <dt>cd -</dt>
+                            <dd>Go "back" one directory</dd>
+                        <dt>ls</dt>
+                            <dd>List contents of current directory</dd>
+                        <dt>cp foo bar</dt>
+                            <dd>Copy file "foo" and name it "bar"</dd>
+                        <dt>cp -r dir1 dir2</dt>
+                            <dd>Recursively copy directory "dir1" and name it "dir2"</dd>
+                        <dt>mv foo bar</dt>
+                            <dd>Move file "foo" and name it "bar"; mv foo ~/Desktop</dd>
+                        <dt>rm foo</dt>
+                            <dd>Remove file called "foo"</dd>
+                        <dt>rmdir foo</dt>
+                            <dd>Remove directory called "foo"</dd>
+                        <dt>subl path/to/file</dt>
+                            <dd>open file in Sublime</dd>
+                        <dt>Module</dt>
+                            <dd>each JS file within a Node app is a scoped closure</dd>
+                        <dt>Module Wrapper Function</dt>
+                            <dd>each Module is called within an IIFE, creating closure</dd>
+                    </dl>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Setup</summary>
+                    <ul>
+                        <li>brew node install</li>
+                        <li>new versions come with NPM</li>
+                        <li>node --v</li>
+                        <li>npm --v</li>
+                        <li></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Modules</summary>
+                    <ul>
+                        <li>In Node, `global` replaces `window`</li>
+                        <li>But variables in files do NOT hoist to the global level</li>
+                        <li>Variables live ONLY in the file (Module) where they are created</li>
+                        <li>Every file in a Node app is considered a Module</li>
+                        <li>Modules are scoped, private, closures</li>
+                        <li>If you want to use something across modules, must export/import</li>
+                        <li>Every Node app must contain one "main" module (usually app.js)</li>
+                        <li>From within app.js, can console.log(module),</li>
+                        <li>appears global, but not, prints JSON with all details of this app so far</li>
+                        <li>(Each module actually fires within an IIFE, receives `exports`, `require`, `module`, `__filename`, and `__dirname`, so all of these, and all functions you declare within each module, are scoped within an IIFE, referred to as the <strong>Module Wrapper Function</strong>)
+                        <li>To export from one module to another, define function as you would (like `log`, below), then export via `module`:<br>
+                            <pre>
+function log(message) {
+    console.log(message);
+}
+module.exports.log = log;
+// can also rename as exporting:
+module.exports.logger = log;
+                            </pre>
+                        </li>
+                        <li>To import from another module, use `require`:<br>
+                            <pre>
+// don't need `.js`, Node assumes it is a JS file
+require('./logger');
+// or can set it to a variable:
+const logger = require('./logger');
+// and can call that function:
+logger.log('My message');
+                            </pre>
+                        </li>
+                        <li>Can also export just a function/method, rather than entire object:<br>
+                            <pre>
+function log(message) {
+    console.log(message);
+}
+module.exports = log; // note, removed `.logger` from `module.exports`
+
+// then import just the fn:
+const log = require('./logger');
+// and call it without any object reference:
+log('My message');
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Modules</summary>
+                    <ul>
+                        <li>https://nodejs.org/ > Docs > LTS</li>
+                        <li>Built-in functionality, no need to create own</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Module: Path</summary>
+                    <ul>
+                        <li>https://nodejs.org/dist/latest-v14.x/docs/api/path.html</li>
+                        <li>Pass file object, get all path-related details as JSON</li>
+                        <li>
+                            <pre>
+const path = require('path'); // assume built-in module, or looks for related path/file
+const pathObj = path.parse(__filename); // built-in variable in Module Function Wrapper
+console.log(pathObj); // { root: '/', dir: '/dir/to/file', base: 'app.js', ext: '.js', name: 'app' }
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Module: OS</summary>
+                    <ul>
+                        <li>https://nodejs.org/dist/latest-v14.x/docs/api/os.html</li>
+                        <li>Find details about system OS</li>
+                        <li>
+                            <pre>
+const os = require('os'); // assume built-in module, or looks for related path/file
+const totalMem = os.totalmem(); // total memory available to system
+const freeMem  = os.freemem(); // total FREE memory available to system
+console.log(`Free/Total Memory: ${freeMem} / ${totalMem}`); // Free/Total Memory: 63324160 / 17179869184
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Module: File System</summary>
+                    <ul>
+                        <li>https://nodejs.org/dist/latest-v14.x/docs/api/fs.html</li>
+                        <li>Work with file system in Node</li>
+                        <li>
+                            <pre>
+const fs = require('fs');
+const filesSync = fs.readdirSync('./');
+console.log(filesSync); // array of all files in above dir
+                            </pre>
+                        </li>
+                        <li>Note almost all methods have an async and a sync version (i.e. `access` and `accessSync`)</li>
+                        <li>`async` versions also receives a callback, which receives error or success messages:
+                            <pre>
+const files = fs.readdir('./', function(error, files){
+    if (error) {
+        console.log('Error:', error);
+    } else {
+        console.log('Success:', files);
+    }
+});
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Module: Events</summary>
+                    <ul>
+                        <li>https://nodejs.org/dist/latest-v14.x/docs/api/events.html</li>
+                        <li>Events are a core building block in Node</li>
+                        <li>Signal something has happened in your app</li>
+                        <li>Can then extend to add own functionality</li>
+                        <li>
+                            <pre>
+// requiring 'events' returns the EventEmitter class
+const EventEmitter = require('events'); // returns the EventEmitter class
+const emitter = new EventEmitter(); // create an instance of EventEmitter
+                            </pre>
+                        </li>
+                        <li>EventEmitter object contains a series of methods
+                            <pre>
+emitter.emit('messageLogged'); // 'emit' triggers an event
+                            </pre>
+                        </li>
+                        <li>Can also add listeners, that react to your emit calls
+                            <pre>
+// can use `.addListener()` or `.on`, like: `.on('eventName', callbackFunction)`
+emitter.on('messageLogged', function(){
+    console.log(`Message Logged`);
+});
+                            </pre>
+                        </li>
+                        <li>Events can also receive Event Arguments
+                            <pre>
+// convention uses `arg` or `e`
+emitter.on('messageLogged', (arg) => {
+    console.log(`Message Logged: ${arg}`);
+});
+// best practice passes arguments as an Object
+emitter.emit('messageLogged', { id: 1, url: 'https://www.google.com' });
+                            </pre>
+                        </li>
+                        <li>Unlikely to interact directly with Emitter, instead create class that <em>extends</em> Emitter...
+                            <pre>
+/* in logger.js */
+// require the events module, returns the EventEmitter class
+const EventEmitter = require('events');
+/* don't need this anymore:
+const emitter = new EventEmitter();
+*/
+// create new class that extends the EventEmitter object
+class Logger extends EventEmitter {
+    // add custom method
+    log (message) {
+        // do something
+        console.log(message);
+        // raise event to confirm action taken (note use of `this`, uses `emit` from parent object)
+        this.emit('messageLogged', { id: 1, url: 'https://www.google.com' });
+    }
+}
+// export class for use outside this file
+module.exports = Logger;
+
+/* in app.js */
+// require custom Logger
+const Logger = require('./logger');
+// create an instance of Logger
+const logger = new Logger();
+// add a listener
+logger.on('messageLogged', (arg) => {
+    console.log(`Listener called: ${arg}`);
+});
+// log message
+logger.log('My Message');
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Built-In Module: HTTP</summary>
+                    <ul>
+                        <li>https://nodejs.org/dist/latest-v14.x/docs/api/http.html</li>
+                        <li>Allows you to create a web service for websites or apps</li>
+                        <li>
+                            <pre>
+const http = require('http');
+const server = http.createServer(); // returns EventEmitter
+                            </pre>
+                        </li>
+                        <li>Can specify which port to listen to
+                            <pre>
+server.listen(3000); // setup `server` to listen to port 3000
+// if you add a listener first, you can get notified of new connection
+// callback receives a Web Socket
+server.on('connection', ('socket') => {
+    console.log(`Listening);
+});
+server.listen(3000);
+                            </pre>
+                        </li>
+                        <li>Stand up server, print short message
+                            <pre>
+const http = require('http');
+// create new server, with callback
+const server = http.createServer((request, response) => {
+    if (request.url === '/') {
+        response.write('Hello World!');
+        response.end();
+    }
+    // can react to another URL path
+    if (request.url === '/api/courses') {
+        // return JSON array of course IDs
+        response.write(JSON.stringify([1, 2, 3]));
+        response.end();
+    }
+});
+server.on('connection', (socket) => {
+    console.log('Request made: ', socket);
+});
+server.listen(3000);
+console.log('Server started');
+// start service in Terminal: node http.js
+// in browser, use: http://127.0.0.1:3000/
+// stop service in Terminal: ctrl+c
+                            </pre>
+                        </li>
+                        <li>In the real world, using above would be crazy, trying to map every endpoint. Instead, use Express.</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>...</summary>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre, code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ES6 - Promises - Lesson 1.8</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="../css/normalize.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+</head>
+
+<body>
+
+    <h1>ES6 Promises - Lesson 1.8</h1>
+
+    <h1>Did the promise finish?</h1>
+    <div class="completion">Not yet</div>
+    <script>
+        function wait(ms) {
+            /*
+            Your code goes here!
+
+            Instructions:
+            (1) Wrap this setTimeout in a Promise. resolve() in setTimeout's callback.
+            (2) console.log(this) inside the Promise and observe the results.
+            (3) Make sure wait returns the Promise too!
+             */
+            return new Promise(function(resolve) {
+                console.log('before setTimeout', this);
+                window.setTimeout(function() {
+                    console.log('inside setTimeout', this);
+                    resolve();
+                }, ms);
+                console.log('after setTimeout', this);
+            });
+        };
+
+        /*
+        Uncomment these lines when you want to test!
+        You'll know you've done it right when the message on the page changes.
+         */
+        const milliseconds = 2000;
+        wait(milliseconds).then(finish);
+
+
+        // This is just here to help you test.
+        function finish() {
+            const completion = document.querySelector('.completion');
+            completion.innerHTML = "Complete after " + milliseconds + "ms.";
+        };
+    </script>
+</body>
+
+</html>

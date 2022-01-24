@@ -1,0 +1,482 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>WPO</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+
+    <body>
+
+        <h1>WPO</h1>
+
+        <hr>
+
+        <section>
+
+            <h2><abbr title="Bottom-Line Up Front">BLUF</abbr></h2>
+
+            <p>You'll find details for all of these below, but here are the bullets...</p>
+            
+            <ol>
+                <li>HTTP2</li>
+                <li>Cache-Control header, not Expire</li>
+                <li>CDN</li>
+                <li><code>preconnect</code> to third-party domains</li>
+                <li><code>preload</code> hints at important files coming up later in HTML</li>
+                <li><code>prefetch</code> resources for next page load
+                <li><code>prerender</code> pages likely to navigate to</li>
+                <li>Split CSS into components/<code>@media</code> sizes, load conditionally</li>
+                <li>Inline critical CSS, load full CSS after</li>
+                <li>Replace JS libraries with native HTML, CSS and JS, when possible</li>
+                <li><code>async</code> / <code>defer</code> attributes for JS, especially 3rd party</li>
+                <li>Split JS into components, load conditionally</li>
+                <li>Avoid Data-URIs unless very small code</li>
+                <li>WOFF2 before WOFF</li>
+                <li><code>font-display: swap</code></li>
+                <li>WEBP before JPG/PNG</li>
+                <li>Multiple crops for various screen sizes / connection speeds</li>
+                <li><code>srcset</code> / <code>sizes</code> attributes for automated size swap</li>
+                <li><code>media</code> attribute for manual size swap</li>
+                <li><code>loading="lazy"</code> for below-the-fold images</li>
+                <li>WEBM before MP4</li>
+                <li><code>preload="none"</code> for all <code>video</code> elements</li>
+                <li><code>width</code> / <code>height</code> attributes on media and embeds, use CSS to make responsive</li>
+                <li>Optimize all media assets</li>
+                <li>Reserve space for delayed-loading content, like ads, 3rd-party widgets</li>
+                <li>Lazy-load below the fold content</li>
+                <li>Create flat/static versions of dynamic site content</li>
+                <li>Minify / compress text-based files</li>
+                <li><code>requestIdleCallback</code>, <code>requestAnimationFrame</code> and <code>IntersectionObserver</code> to reduce CPU load /find better time to run tasks</li>
+                <li>Service Worker to cache / reduce requests, swap content</li>
+            </ol>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Resources</h2>
+
+            <ul>
+                <li>
+                    <a href="https://classroom.udacity.com/courses/ud884">Udacity</a>
+                </li>
+                <li>
+                    <a href="https://hpbn.co/"><em>High Performance Browser Networking</em>, Ilya Grigorik</a>
+                </li>
+                <li>
+                    <a href="https://developers.google.com/web/tools/lighthouse">Lighthouse</a>
+                </li>
+                <li>
+                    <a href="https://developers.google.com/speed/pagespeed/insights">PageSpeed Insights (PSI)</a>
+                </li>
+                <li>
+                    <a href="https://www.webpagetest.org/">WebPageTest</a>
+                </li>
+                <li>
+                    <a href="https://web.dev/">Web.dev</a>
+                </li>
+                <li>
+                    <a href="https://requestmap.webperf.tools/">Request Map Generator</a> - check 3rd party script costs
+                </li>
+                <li>
+                    <a href="https://www.thirdpartyweb.today/">Third-Party Web</a> - visualize 3rd party script loading
+                </li>
+                <li>
+                    <a href="https://github.com/GoogleChrome/lighthouse/blob/master/docs/plugins.md">Lighthouse Custom Plugins</a> - add custom metrics to your Lighthouse run
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=5fLW5Q5ODiE&ab_channel=GoogleChromeDevelopers">Improving Load Performance - DevTools</a>
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=YJGCZCaIZkQ&ab_channel=GoogleChromeDevelopers">Speed at Scale</a>
+                </li>
+                <li>
+                    <a href="https://developers.google.com/web/fundamentals/performance/speed-tools/">Google Speed Test Overview</a> - Learn about all Google speed tools
+                </li>
+                <li>
+                    <a href="https://csstriggers.com/">CSS Triggers</a> - What CSS triggers Layout, Paint or Composite
+                </li>
+                <li>
+                    <a href="https://scottjehl.thinkific.com/courses/take/lfwp/lessons/10023485-an-introduction-from-scott">Lightning-Fast Web Performance</a> - Scott Jehl
+                    <aside>
+                        /Sites/wpo/lfwp
+                    </aside>
+                </li>
+                <li>
+                    <a href="https://www.udemy.com/course/optimizing-web-performance-and-critical-rendering-path/">Optimizing web performance and critical rendering path</a> - Udemy
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/learning/learning-enterprise-web-application-performance">Learning Enterprise Web Application Performance</a> - Maximiliano Firtman
+                </li>
+                <li>
+                    <a href="https://frontendmasters.com/courses/web-perf/">Web Performance Fundamentals</a> - Todd Gardner
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Notes</h2>
+
+            <ul>
+                <li>
+                    <details>
+                        <summary>Glossary</summary>
+                        <dl>
+                            <dt>CLS (Cumulative Layout Shift)</dt>
+                                <dd>Visible layout sift</dd>
+                            <dt>CRP (Critical Rendering Path)</dt>
+                                <dd>Steps a browser must complete to render page</dd>
+                            <dt>CRUX (Google Chrome User Experience)</dt>
+                                <dd>Perf data gathered from RUM within Chrome</dd>
+                            <dt>CWV (Core Web Vitals)</dt>
+                                <dd>
+                                    <p>Three metrics that score a page load:</p>
+                                    <ol>
+                                        <li>How fast the page loads (LCP); ideally &lt; 2.5s</li>
+                                        <li>How fast a user can interact (FID); ideally &lt; 100ms</li>
+                                        <li>How stable the page content is (CLS); ideally &lt; 0.1</li>
+                                    </ol>
+                                </dd>
+                            <dt>DSA (Dynamic Site Acceleration)</dt>
+                                <dd>possible to cache some dynamic content, or store on edge server</dd>
+                            <dt>FCP (First Contentful Paint)</dt>
+                                <dd>First paint is complete</dd>
+                            <dt>FID (First Input Delay)</dt>
+                                <dd>time between a user interacting with the page, and that interaction actually happening</dd>
+                            <dt>FP (First Paint)</dt>
+                                <dd>First paint, at all</dd>
+                            <dt>LCP (Largest Contentful Paint)</dt>
+                                <dd>Time for largest page element to render</dd>
+                            <dt>PoP (Points of Presence)</dt>
+                                <dd>CDN data centers</dd>
+                            <dt>Rel mCvR (Relative Mobile Conversion Rate)</dt>
+                                <dd>Desktop Conversion Rate / Mobile Conversion Rate</dd>
+                            <dt>RUM (Real User Monitoring)</dt>
+                                <dd>Not similuated; data from real users</dd>
+                            <dt>SI (Speed Index)</dt>
+                                <dd>How quickly the page content is visible</dd>
+                            <dt>TBT (Total Blocking Time)</dt>
+                                <dd>Time between FCP and TTI</dd>
+                            <dt>TTFB (Time to First Byte)</dt>
+                                <dd>Time until the first byte is received by the browser</dd>
+                            <dt>TTI (Time to Interactive)</dt>
+                                <dd>Time until the entire page is interactive</dd>
+                            <dt>Tree Shaking</dt>
+                                <dd>Removing dead code from code base</dd>
+                            <dt>term</dt>
+                                <dd>def</dd>
+                        </dl>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>3 cardinal rules</summary>
+                        <ol>
+                            <li>Reduce bytes: the fewer bytes, the faster the download</li>
+                            <li>Reduce critical resources: HTML = 1, each CSS += 1, each JS += 1 (unless `async` or `defer`)</li>
+                            <li>Reduce CRP length: the browser can download CSS/JS at same time, but each HTTP request maxes at 8kb, so if:<br>
+<pre>
+HTML    5kb
+CSS     4kb
+JS      2kb
+-----------
+TOTAL  11kb
+</pre>
+                            CRP length = 2 (HTML, CSS/JS)</li>
+                        </ol>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Analysis Process</summary>
+                        <ol>
+                            <li>Field data - Find out who your users are, what devices they use, what network, etc., determine key indicators, goals you want to achieve</li>
+                            <li>Lab data - Determine improvements needed to achieve goals and resolve problems, and work to resolve them.</li>
+                            <li>Field data - Test improvements, make sure also solving problems in the wild.</li>
+                        </ol>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Performing an Audit</summary>
+                        <ol>
+                            <li>Open site in Incognito</li>
+                            <li>Open DevTools</li>
+                            <li>Go to Lighthouse tab</li>
+                            <li>Set Device to Mobile, Audits to Performance only, and Throttling to Fast 3G (good baseline)</li>
+                            <li>Run audit</li>
+                            <li>Look for issues</li>
+                            <li>Fix <strong>one</strong> issue</strong></li>
+                            <li>Re-run audit</li>
+                            <li>Evaluate audit for that <strong>one</strong> change</li>
+                            <li>Determine if change was improvement, keep or revert</li>
+                            <li>Repeat from step 7</li>
+                        </ol>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Performance Budget</summary>
+                        <p>Many types of budgets:</p>
+                        <ol>
+                            <li>Time: &lt; 2s TTI</li>
+                            <li>Resources: &lt; 150kb JS</li>
+                            <li>Score: &gt; 90 Lighthouse score</li>
+                        </ol>
+                        <p>Walmart blocks pull requests that increase code base more than 1%. Twitter analyzes all PRs against numerous metrices that can also block releases.</p>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Techniques</summary>
+                        <h3>Server</h3>
+                        <ul>
+                            <li>http2<br>
+                                reimagined version created in 2015<br>
+                                primarily focused on mobile, server-intensive graphics/videos<br>
+                                based on Google's SPDY protocol<br>
+                                focused on compression, multiplexing, prioritization<br>
+                                key differences:
+                                <ol>
+                                    <li>binary, instead of textual</li>
+                                    <li>fully multiplexed, instead of ordered and blocking</li>
+                                    <li>can use one connection for parallelism</li>
+                                    <li>uses header compression to reduce overhead</li>
+                                    <li><s>allows servers to “push” responses proactively into client caches</s> This is being removed from spec</li>
+                                </ol>
+                                all major browsers supported, not IE&lt;11, IE11 on Win10 only 
+                            </li>
+                            <li>http3<br>
+                                not wide adoption yet, but growing<br>
+                                key diff, so far: uses QUIC instead of TCP; faster, more secure
+                            </li>
+                        </ul>
+
+                        <h3>Database</h3>
+                        <ul>
+                            <li>cache queries</li>
+                            <li>when possible, create static cached pages</li>
+                        </ul>
+
+                        <h3>CDN</h3>
+                        <ul>
+                            <li>distributed assets = shorter latency, quicker return</li>
+                            <li>load balance increases capacity and reliability</li>
+                            <li>automated caching patterns</li>
+                            <li>can automate compression?</li>
+                            <li>dynamic content acceleration?</li>
+                        </ul>
+                        
+                        <h3>Frontend</h3>
+                        <ul>
+                            <li>Overall:
+                                <ol>
+                                    <li>minify, compress, cache (HTML, CSS, JS)<br>
+                                    - remove comments & white-space<br>
+                                    - use Brotli or Gzip<br>
+                                    - use caching headers
+                                    </li>
+                                    <li>reduce render-blocking CSS<br>
+                                    - reduce CSS<br>
+                                    - inline critical CSS<br>
+                                    - move media-related CSS to separate file, use media queries to load or not
+                                    </li>
+                                    <li>reduce parser-blocking JS<br>
+                                    - move non-DOM/-CSSOM-related JS to end of page<br>
+                                    - add `async` when it can wait while other things download<br>
+                                    - add `defer` when it can wait until after parsing
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>Use media attribute on `link` tags to load conditionally:
+<pre>
+&lt;link rel="stylesheet" href="./css/main-print.css" media="print">
+&lt;link rel="stylesheet" href="./css/main-landscape.css" media="orientation: landscape">
+&lt;link rel="stylesheet" href="./css/main-wide.css" media="(min-width: 40em)">
+</pre>
+                            </li>
+                            <li>"async" non-critical CSS<br>
+                                not possible to *actually* set CSS as `async`, but can fake it for non-critical CSS:<br>
+<pre>&link rel="stylesheet" href="style.css" media="print" onload="this.media='all'"></pre>
+                                Any <code>link</code> with a <code>media</code> attribute will load async, so can set it for <code>print</code>, then use an <code>onload</code> event to swap it to <code>all</code>, or whatever else might be needed...
+                            </li>
+                            <li>Move any non-DOM or -CSSOM-related scripts, can go to bottom of page
+                            </li>
+                            <li>`async` tells the browser not to block DOM rendering while waiting for the file to download; it will be processed as soon it finishes downloading, with no regard to the order in which it appeared in the DOM, meaning files that were referenced later, could be processed first:
+<pre>&lt;script src="script.js" async>&lt;/script></pre>
+                            </li>
+                            <li>`defer` tells the script to wait until finished parsing the DOM/CSSOM, but also maintain order, meaning process in the order they appeared in the DOM, basically on DOM-ready:
+<pre>&lt;script src="script.js" defer>&lt;/script></pre>
+                            </li>
+                            <li>Browsers might have "preload scanner" that looks ahead during parser-blocking, to try to preload critical resources
+<pre>
+&lt;script src="script-1.js">&lt;/script>
+&lt;script src="script-2.js">&lt;/script>
+</pre>
+                            While waiting for `script-1.js` to arrive and be parsed, will preload & "queue" `script-2.js`
+                            </li>
+                            <li>lazy loading images<br>
+                                lots of libraries, move `src` to `data-src`, add `class`, use "Intersection Observer" (all but IE), JS move `data-src` back to `src`<br>
+                                    https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API
+                                    https://css-tricks.com/a-few-functional-uses-for-intersection-observer-to-know-when-an-element-is-in-view/
+                                    Be sure to also watch for new elements added to the page:
+                                    https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver
+                                also upcoming `loading="lazy"` attr for images & iframes
+                                    https://addyosmani.com/blog/lazy-loading/
+                                options:
+                                <pre>
+                                    // use a js library
+                                    &lt;img src="placeholder.jpg" data-src="image.jpg" class="lazy-loading" alt="..."/>
+                                    // let the browser do it, if it can, otherwise normal
+                                    &lt;img src="image.jpg" loading="lazy" alt="..."/>
+                                    // or a combo
+                                    &lt;img data-src="image.jpg" loading="lazy" class="lazy-loading" alt="..."/>
+                                    // then feature-detect native lazy loading,
+                                    if ( 'loading' in HTMLImageElement.prototype ) {
+                                        // if available, move `data-src` to `src`
+                                    } else {
+                                        // otherwise add js library script
+                                    }
+                                </pre>
+                                Note: do NOT lazy-load above-the-fold images, can cause CLS
+                            </li>
+                            <li>responsive images<br>
+                                mostly via `src-set`, various pixel-densities<br>
+                                Twitter only serves up to 2x, unless fullscreen or zoomable<br>
+                                also use CDN with image optimization as a service
+                            </li>
+                            <li>lazy loading content<br>
+                                fetch above-the-scroll on load, lazy load the rest, as needed
+                            </li>
+                            <li>defer 3rd party JS/embeds<br>
+                                ads, libraries, plugins, etc.<br>
+                                The Telegrpah created working group of ads, marketing, tech.<br>
+                                results = deferred ALL scripts, no penalty, +47 Lighthouse, +6s TTI<br>
+                                switch default YouTube embed to load only on interaction!
+                            </li>
+                            <li>replace, update or defer scripts<br>
+                                look for smaller alternatives to current libraries / tree shake<br>
+                                updated libraries are often smaller<br>
+                                if you HAVE to have it, defer it until after page load<br>
+                                Tokopedia replaced just their home page with a super lightweight page, then lazy loaded everything for their full site using SW!
+                            </li>
+                            <li>code splitting<br>
+                                split code into components, load only what is needed, as needed<br>
+                                saves on download and js run-time execution
+                            </li>
+                            <li><code>font-display: swap</code><br>
+                                tells browser to display text while downloading font, then swap when ready (no IE)<br>
+                                creates FOUT, but better than NO text...?
+                            </li>
+                            <li>Notes:<br>
+                                - do not Gzip already compressed assets (JPGs, etc.), can create even larger files<br>
+                                - neither `async` nore `defer` work for inline script elements, they process as encountered
+                            </li>
+                        </ul>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Improve CWV</summary>
+                        <a href="https://www.youtube.com/watch?v=AQqFZ5t8uNc&ab_channel=GoogleChromeDevelopers" target="_blank">Optimize for Core Web Vitals</a> - Addy Osmani
+
+                        <figure>
+                            <a href="https://twitter.com/addyosmani/status/1223191694788702208" target="_blank" rel="noopener">
+                                <img src="https://www.contentkingapp.com/media/content/contentking-core-web-vitals-ticker-with-web-vitals@1x.avif" width="600" height="345" alt="Web Vital Metrics visualized in the order they occur">
+                            </a>
+                            <figcaption>
+                                <a href="https://twitter.com/addyosmani/status/1223191694788702208" target="_blank" rel="noopener">Addy Osmani's visualization of Web Vital Metrics in the order they occur</a>
+                            </figcaption>
+                        </figure>
+<pre>
+/** add width/height attributes to images, videos, iframes, embeds, etc. **/
+// modern browsers use `aspect-ratio` based on an element's width and height attributes:
+img {
+    aspect-ratio: attr(width) / attr(height);
+}
+/* still works with `srcset`, as long as all variants have same aspect-ratio */
+// then use CSS to make responsive
+img {
+    width | max-width: 100%;
+    height: auto;
+}
+/* adding a background-color similar to image background-color helps with 'perceived' performance */
+
+/** reserve space for delayed-loading content, like ads, API calls, etc. **/
+// again, add dimensions to containers so no shift when ad finally arrives
+// move dynamic-content fetchs (API calls, etc.) to server, possibly caching results?
+
+/** additional image-related improvements **/
+// don't serve TOO high of resolution images; human cannot perceive diff beyond 2x
+// make sure sizes match container
+// use CDN
+// serve .webp (can swap via SW)
+// add lazy-loading
+
+/** inline critical CSS, defer non-critical CSS/JS **/
+// build process, manual, whatever
+// maybe create array of non-critical CSS and append via JS?
+
+/** reduce server response time **/
+// DNS, preconnect
+// HTTP2 server push: push to browser before explicitly requested, but not cache-aware, so need to use SW or something
+</pre>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Reporting</summary>
+<pre>
+// Google BigQuery, export to Sheets, add charts
+// Google Data Studio, fully interactive, customizable dashboard
+// Akamai mPulse uses CrUX data to show RUM to customers (WebPageTest is considered Lab Data)
+// Lighthouse API
+// possible to link CrUX with GA, to map cause/effect?
+</pre>
+                    </details>
+                </li>
+                <li>
+                    <details>
+                        <summary>Summary</summary>
+                        <pre>
+                        </pre>
+                    </details>
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Summary</h2>
+
+            ...
+
+        </section>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+
+</html>

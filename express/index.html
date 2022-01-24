@@ -1,0 +1,406 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Express</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+    <body>
+        
+        <h1>Express</h1>
+
+        <p>Node-based web server</p>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://www.youtube.com/watch?v=pKd0Rpw7O48">Building RESTful Services with Express</a>
+            </li>
+            <li>
+                <a href="https://www.npmjs.com/package/express">https://www.npmjs.com/package/express</a>
+            </li>
+            <li>
+                <a href="https://expressjs.com/">https://expressjs.com/</a> > API reference > version
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=GZvSYJDk-us">API for Beginners</a>
+            </li>
+            <li>
+                <a href="https://www.youtube.com/watch?v=vjf774RKrLc">Build A Restful API With Node.js Express & MongoDB</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>History</summary>
+                    <ul>
+                        <li>2009: Ryan Dahl, Google V8 > C++ = Node</li>
+                        <li>Node is a runtime environment for running JS</li>
+                        <li>Chrome & Node = same runtime engine</li>
+                        <li>Not programming language (it's just JS)</li>
+                        <li>Node is non-blocking/async</li>
+                        <li>Node is single-thread-driven</li>
+                        <li>Ideal for I/O-intensive apps</li>
+                        <li>NOT for CPU-intensive apps</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Process</summary>
+                    <ul>
+                        <li>User makes request via API, like:<br>
+                            aarontgrogg.com/api/customers/1
+                        </li>
+                        <li>System find customer info</li>
+                        <li>System returns customer info as JSON object</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Glossary</summary>
+                    <dl>
+                        <dt>REST</dt>
+                            <dd>Representational State Transfer, convention for building CRUD services</dd>
+                        <dt>CRUD</dt>
+                            <dd>Create, Read, Update, Delete</dd>
+                        <dt>RESTful Services / API</dt>
+                            <dd></dd>
+                        <dt>term</dt>
+                            <dd>definition</dd>
+                        <dt>term</dt>
+                            <dd>definition</dd>
+                    </dl>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Setup</summary>
+                    <ul>
+                        <li># new app</li>
+                        <li>mkdir new-app</li>
+                        <li>cd new-app</li>
+                        <li>npm init --yes</li>
+                        <li># install express</li>
+                        <li>npm i express</li>
+                        <li></li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>RESTful API</summary>
+                    <ul>
+                        <li>User makes request via API, like:<br>
+                            aarontgrogg.com/api/customers
+                        </li>
+                        <li>`customers` is considered the "resource"</li>
+                        <li>Request methods:<br>
+                            POST   = creating new data (Create)<br>
+                            GET    = fetch existing data (Read)<br>
+                            PUT    = updating existing data (Update)<br>
+                            DELETE = deleting existing data (Delete)
+                        </li>
+                        <li>Examples:<br>
+                            POST /api/customers (create new customer, include `{data}`)<br>
+                            GET /api/customers (return all customers)<br>
+                            GET /api/customers/1 (return only customer with ID = 1)<br>
+                            PUT /api/customers/1 (update customer with ID = 1, include `{data}`)<br>
+                            DELETE /api/customers/1 (delete customer with ID = 1)
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Express</summary>
+                    <ul>
+                        <li>Express is a web server framework (many out there, Express is most popular)</li>
+                        <li>Using Express:
+                            <pre>
+const express = require('express');
+// create new express instance; convention calls it `app`
+const app = express();
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Methods</summary>
+                    <ul>
+                        <li>Basic Methods:
+                            <pre>
+app.post();
+app.get();
+app.put();
+app.delete();
+                            </pre>
+                        </li>
+                        <li>Using `GET:
+                            <pre>
+// receives `url` and callback
+app.get('/', (req, res) => {
+    // do something
+});
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Comparing Node http.js & Express</summary>
+                    <ul>
+                        <li>Node http.js
+                            <pre>
+const http = require('http');
+const server = http.createServer((req, res) => {
+    if (req.url === '/') {
+        res.write('Hello World!');
+        res.end();
+    }
+    if (req.url === '/api/courses') {
+        res.write(JSON.stringify([1, 2, 3]));
+        res.end();
+    }
+});
+                            </pre>
+                        </li>
+                        <li>Express
+                            <pre>
+const express = require('express');
+const app = express();
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+app.get('/api/courses', (req, res) => {
+    res.send([1, 2, 3]);
+});
+                            </pre>
+                        </li>
+                        <li>Initially not <em>incredibly</em> better, but instead of a series of `if` statements, we have a series of route declarations</li>
+                        <li>Eventually, routes can be moved to separate files, i.e. all `/courses` routes could be moved to `courses.js`</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Nodemon (Node Monitor)</summary>
+                    <p>If you use `nodemon app.js` instead of `node app.js`, Nodemon will watch for changes to any file within that directory, and automatically apply them!</p>
+                    <ul>
+                        <li>First install Nodemon, globally
+                            <pre>npm i -g nodemon</pre>
+                        </li>
+                        <li>Then open files using Nodemon
+                            <pre>nodemon app.js</pre>
+                        </li>
+                        <li>Any changes to any file Nodemon is monitoring, will now be applied the next time something is requested from that app, without having to ctrl+c and restart the app...</li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Environment Variables</summary>
+                    <p>Node environment variables can be found in the global `process.env` object.</p>
+                    <ul>
+                        <li>Something like `port` can be found like this:
+                            <pre>const port = process.env.PORT || 3000;</pre>
+                        </li>
+                        <li>Can also <em>set</em> variables like:
+                            <pre>export PORT = 5000;</pre>
+                        </li>
+                        <li>Can also <em>set</em> variables like:
+                            <pre>export PORT = 5000;</pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Route Parameters</summary>
+                    <p>When we receive a request for something like:<br>
+                        <code>/api/course/1</code><br>
+                        how do we get the "1" from the URL, so we can look up that course?
+                    </p>
+                    <ul>
+                        <li>We specify the parameter in the `.get` route:
+                            <pre>
+// /api/course/1
+app.get('/api/course/:id', (req, res) => {
+    res.send(req.params.id); // 1
+});
+                            </pre>
+                        </li>
+                        <li>Can also use multiple parameters:
+                            <pre>
+// /api/posts/2018/8
+app.get('/api/posts/:year/:month', (req, res) => {
+    res.send(req.params); // { year: 2018, month: 8 }
+});
+                            </pre>
+                        </li>
+                        <li>Can also use querystring parameters:
+                            <pre>
+// /api/posts/2018/8?sortBy=name
+app.get('/api/posts/:year/:month', (req, res) => {
+    res.send(req.query); // { sortBy: name }
+});
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Using `GET`</summary>
+                    <ul>
+                        <li>Respond with either all course (/api/courses) or a single course (/api/course/1):
+                            <pre>
+// for demo only
+const courses = [
+    { id: 1, name: 'Course 1' },
+    { id: 2, name: 'Course 2' },
+    { id: 3, name: 'Course 3' }
+];
+// setup express
+const express = require('express');
+const app = express();
+// return all courses
+app.get('/api/courses', (req, res) => {
+    res.send(courses);
+});
+// return single course
+app.get('/api/courses/:id', (req, res) => {
+    // get specific course from array
+    const course = courses.find(c => c.id === parseInt(req.params.id));
+    res.send(course);
+});
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Using `POST`</summary>
+                    <ul>
+                        <li>Receive new course info and add to `courses` array:
+                            <pre>
+// for demo only
+const courses = [
+    { id: 1, name: 'Course 1' },
+    { id: 2, name: 'Course 2' },
+    { id: 3, name: 'Course 3' }
+];
+// setup express
+const express = require('express');
+const app = express();
+// allow parsing of req.body (adds middleware that allow parsing of JSON)
+app.use(express.JSON());
+// add new course
+app.post('/api/courses', (req, res) => {
+    // define new course
+    const course = {
+        id: course.length + 1, // since not using database
+        name = req.body.name   // pull from JSON body
+    }
+    // push into `courses`
+    courses.push(course);
+    // echo back to user, so they know the `id
+    res.send(course);
+});
+/* test using PostMan app on Mac */
+                            </pre>
+                        </li>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Input Validation</summary>
+                    <ul>
+                        <li>Never trust the user to enter correct data!
+                            <pre>
+app.post('/api/courses', (req, res) => {
+    // first verify valid name received
+    if ( !req.body.name || req.body.name.length < 3 ) {
+        // convention is return a 400 status (Bad Request) and error message
+        res.status(400).send('Name is required and must be more than 3 characters.');
+        // prevent rest of function from firing
+        return;
+    }
+    // rest of function...
+});
+                            </pre>
+                        </li>
+                        <li>For more robust validation, try Joi:
+                            https://www.npmjs.com/package/joi
+                            <pre>
+// install
+npm i joi
+
+// require in module
+const Joi = require('joi'); // returns instance object
+                            </pre>
+                        </li>
+                        <li>Once installed & added to module, need to create a schema
+                            <pre>
+app.post('/api/courses', (req, res) => {
+    // setup validation schema for `body.name`
+    const schema = Joi.object({
+        name: Joi.string().min(3).required()
+    });
+    // push both the req.body through the schema.validation
+    const result = schema.validate(req.body);
+    // `result` will have EITHER `value` OR `error`
+    if (result.error) {
+        // return 400 (Bad Request) and error message (provided by Joi)
+        res.status(400).send(result.error.details[0].message);
+        // prevent rest of function from continuing
+        return;
+    }
+    // rest of function...
+});
+                            </pre>
+                        </li>
+                    </ul>
+                    </ul>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Project: Vidly</summary>
+                    <a href="https://www.youtube.com/watch?v=pKd0Rpw7O48&t=57m22s">https://www.youtube.com/watch?v=pKd0Rpw7O48&t=57m22s</a>
+                    <ul>
+                        <li>Create a service for managing genres</li>
+                        <li>Get a list of all genres</li>
+                        <li>Create a new genre</li>
+                        <li>Update existing genre</li>
+                        <li>Delete existing genre</li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre, code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+</html>

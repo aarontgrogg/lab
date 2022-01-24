@@ -1,0 +1,567 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Lightning-Fast Web Performance - WPO</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+
+    <body>
+
+        <h1>Lightning-Fast Web Performance</h1>
+
+        <section>
+
+            <h2>Resources</h2>
+
+            <ul>
+                <li>
+                    <a href="https://scottjehl.thinkific.com/courses/take/lfwp/lessons/">Lightning-Fast Web Performance</a>
+                </li>
+                <li>
+                <a href="https://whatdoesmysitecost.com/">What Does My Site Cost?</a>
+                </li>
+                <li>
+                    <a href="https://wpostats.com/">WPO Stats</a>
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Why performance matters?</h2>
+
+            <ul>
+                <li>
+                    Varying device capabilities, screen sizes, network speeds
+                </li>
+                <li>
+                    Speed improves UX, search results, and accessibility, as users with poor connection speed can finally access and consume your content
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Metrics</h2>
+
+            <ul>
+                <li>
+                    How do we define "fast", or "loaded"?
+                </li>
+                <li>
+                    UX performance:<br>
+                    1) Is anything happening?<br>
+                    2) Is it useful?<br>
+                    3) Is it usable?
+                </li>
+                <li>
+                    TTFB (Time to First Byte): Time between requesting page and getting first bits
+                    <ul>
+                        <li>
+                            Bandwidth is no longer usually the problem; it is usually latency; even at near light speed, it takes time to travel around the world
+                        </li>
+                        <li>
+                            Server time also affects TTFB; static is fastest, dynamic is slower
+                        </li>
+                        <li>
+                            Remember the above is "per request"; 3rd party, etc.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    LCP (Largest Contentful Paint): When the primary imagery becomes visible to the user
+                    <ul>
+                        <li>
+                            CSS, JS files, custom font files, large images, can all slow LCP
+                        </li>
+                        <li>
+                            Remember, each asset can request additional assets, creating a snowball effect
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    TTI (Time to Interactive): When the user can finally interact with the UI
+                    <ul>
+                        <li>
+                            HTML has been downloaded, elements are shown, but necessary JS is not ready yet, so even though the user can *see* something, they cannot use it
+                        </li>
+                        <li>
+                            Again, speed of download and processing affects this
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Fully Loaded: Once all assets have been fully downloaded
+                    <ul>
+                        <li>
+                            Many assets continue to download, even after the TTFB, LCP, FID and TTI
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Tools to Analyze Metrics</h2>
+
+            <ul>
+                <li>
+                    <a href="https://www.webpagetest.org/">Webpage Test</a>
+                    <ul>
+                        <li>
+                            Actual run-tests, in real browsers on real devices
+                        </li>
+                        <li>
+                            Dulles has a lot of mobile devices
+                        </li>
+                        <li>
+                            Browser options vary depending on Location
+                        </li>
+                        <li>
+                            Advanced Settings vary depending on Browser
+                        </li>
+                        <li>
+                            Advanced Settings tabs allow Disable JS, set UA string, custom headers, inject JS, send username/password, add Script steps to automate actions on the page, block requests that match substrings or domains, set SPOF to see what happens if assets completely fail to load
+                        </li>
+                        <li>
+                            "Performance Runs" displays median runs, if you do multiple runs, for both first and repeat runs
+                        </li>
+                        <li>
+                            Waterfalls for all runs
+                            <ul>
+                                <li>
+                                    Note color codes
+                                </li>
+                                <li>
+                                    Start Render, First Paint, etc. draw vertical lines down the entire waterfall
+                                </li>
+                                <li>
+                                    wait, dns, etc. show steps of connection</li>
+                                <li>
+                                    light | dark color for html, js, etc. indicate request | download time for each asset
+                                </li>
+                                <li>
+                                    Click each row for details about each request in a scrollable overlay; also downloadable as JSON
+                                </li>
+                                <li>
+                                    JS execution tells how long each file takes to process
+                                </li>
+                                <li>
+                                    Bottom of waterfall, Main Thread is flame chart showing how hard the browser was working across the entire timeline
+                                </li>
+                                <li>
+                                    To right of each waterfall is filmstrip to help view TTFB, LCP; Timeline compares filmstrip with waterfall, so you see how waterfall becomes visible
+                                </li>
+                                <li>
+                                    Check all tabs across top (Performance Review, Content Breakdown, Processing Breakdown, etc.)
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://pagespeed.web.dev/">PageSpeed Insights</a>
+                    <ul>
+                        <li>
+                            Pure lab testing, no real devices, just assumptions based on the code
+                        </li>
+                        <li>
+                            First split for Mobile & Desktop, then nice score up front, including grades on the CWVs, followed by things that you could try to improve these scores, and finally things that went well
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Browser DevTools
+                    <ul>
+                        <li>
+                            All modern browsers have one, but all vary slightly
+                        </li>
+                        <li>
+                            Firefox's Performance tab shows flamechart, inspectable; Network shows all network activity
+                        </li>
+                        <li>
+                            Chrome has the above, but also offers an Audit tab that run Lighthouse in your browser, so you can run against localhost sites, so you can test before pushing to a live server
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="https://www.browserstack.com/">BrowserStack</a>
+                    <ul>
+                        <li>
+                            Test real browsers on remote servers
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Goals and Budgets</h2>
+
+            <ul>
+                <li>
+                    A goal is a target that you set and work toward, such as "TTFB should be under 300ms" or "LCP should be under 2s"
+                </li>
+                <li>
+                    A budget is a limit you set and try to stay undeer, such as "no more than 200kb of JS per page" or "hero image must be under 100kb"
+                </li>
+                <li>
+                    How to choose goals?
+                    <ul>
+                        <li>
+                            Might want to compare against competition, or look for statistics / best practices
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    How to create budgets?
+                    <ul>
+                        <li>
+                            Similar to goals, can compare against competition or research stats, or look for problem areas and set limits to control them
+                        </li>
+                        <li>
+                            For existing projects, starting budget can be "no worse than it is right now"...
+                        </li>
+                        <li>
+                            For new sites, can still create "talking points" for a team, to help set limits on a project
+                        </li>
+                        <li>
+                            Budgets can change as the site changes; Reach a new goal? Adjust budget to reflect that
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    How to stick to budgets?
+                    <ul>
+                        <li>
+                            <a href="https://github.com/GoogleChrome/lighthouse-ci">Lighthouse CI</a> integrates with GitHub to test changes during builds, stopping deployments
+                        </li>
+                        <li>
+                            <a href="https://www.speedcurve.com/">Speedcurve</a> dashboard sets budgets, monitors, and notifies team of failures
+                        </li>
+                        <li>
+                            <a href="https://calibreapp.com/">Calibre</a> estimates how 3rd party add-ons will affect site, or with ad-blockers
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    What if a change breaks the budgets?
+                    <ul>
+                        <li>
+                            Optimize feature to get back under budget
+                        </li>
+                        <li>
+                            Remove some other feature
+                        </li>
+                        <li>
+                            Don't add the new feature
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </section>
+
+        <hr>
+
+        <section>
+
+            <h2>Making Things Faster</h2>
+
+            <ul>
+                <li>
+                    Optimize
+                    <ul>
+                        <li>
+                            <a href="https://optimage.app/">OptImage</a>, desktop app, limited optimizations per month for free, or buy subscription; handles multiple image foramts, including WEBP
+                            <aside>
+                                Note, WEBP is finally <a href="https://caniuse.com/?search=webp">available in iOS Safari but is only slowly coming to desktop Safari (and will never come to IE)</a>, so might want to consider working around that. <a href="https://www.askapache.com/htaccess/serving-webp-images-for-png-jpg/">Can swap via Apache module</a>
+                            </aside>
+                            <aside>
+                                Should also look into <a href="https://jakearchibald.com/2020/avif-has-landed/">AVIF</a>. <a href="https://caniuse.com/?search=avif">Support is thin</a>, though.
+                            </aside>
+                        </li>
+                        <li>
+                            Can also do during build time, many options
+                        </li>
+                        <li>
+                            Can also do during run-time, like <a href="https://cloudinary.com/">Cloudinary</a>, works as media repo, though has costs of new latency and possible point of failure
+                        </li>
+                        <li>
+                            If must serve your own videos, mp4 is most universal, but larger files; webm is better compression, but not same support. So, create both, serve webm if you can, mp4 if you cannot. <a href="https://handbrake.fr/">Handbrake</a> and <a href="http://www.mirovideoconverter.com/">MiroVideo</a> Converter are good optimizers/converters, including various video dimensions.
+                        </li>
+                        <li>
+                            Reducing fonts is called "subsetting",where you remove parts you don't use (characters, etc.) <a href="https://www.fontsquirrel.com/">FontSquirrel</a> is a manual version of this, <a href="https://github.com/filamentgroup/glyphhanger">glyphhanger</a> is an automated tool. WOFF2 is best, but no IE11; WOFF provides support for that.
+                            <aside>
+                                Variable fonts are *coming*, and can be WOFF2.
+                            </aside>
+                            Can also use web fonts, like Google, but adds 3rd party latency and instability.
+                        </li>
+                        <li>
+                            In any case, always best to download & serve fonts from own domain; Google also allows this...
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Minify
+                    <ul>
+                        <li>
+                            Can do manually, but pretty tiresome for things like CSS and JS, which you edit often, so usually handled during build or deployment
+                        </li>
+                        <li>
+                            JS can also obfiscate to minify beyond just whitespace
+                        </li>
+                        <li>
+                            UnCSS also looks for code that your site isn't using and removes it; online version, and build version
+                        </li>
+                        <li>
+                            JS Tree Shaking tries to do the same thing for JS. Webpack can do this.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Compress
+                    <ul>
+                        <li>
+                            Gzip compresses and decompresses files on the fly, as requested, deflating before sending, inflating again in the browser.
+                        </li>
+                        <li>
+                            Brotli also processes at run-time, and is usually better than Gzip, but size difference is negligible.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Deliver faster: TTFB
+                    <ul>
+                        <li>
+                            CDNs, optimize TLS, static sites, caching plugins (WP), SSR (Gatsby, Jekyll), SSR w/ hydration (React, Svelte)
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Deliver faster: LCP
+                    <ul>
+                        <li>
+                            Remove blockers: JS
+                            <ul>
+                                <li>
+                                    async, defer, move to bottom
+                                </li>
+                                <li>
+                                    module
+                                </li>
+                                <li>
+                                    conditionally append
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Deliver faster: CSS
+                    <ul>
+                        <li>
+                            No way to make CSS async, but files with `media="print"` *do* load async, so can kind of abuse that:
+                            <pre>&link rel="stylesheet" href="style.css" media="print" onload="this.media='all'"></pre>
+                        </li>
+                        <li>
+                            Add critical CSS in-page, load full CSS later.
+                        </li>
+                        <li>
+                            Can also break CSS into sections, so that Home Page-specific CSS is only loaded on that page, Contact Us-specific CSS only on that page, etc.
+                        </li>
+                        <li>
+                            Or split CSS based on `@media` queries. Makes use of the same `media` trick above: even if not needed right now, will still download, but async, then will be ready if it is needed later.
+                        </li>
+                        <li>
+                            "<a href="https://www.filamentgroup.com/lab/enhancing-optimistically.html" target="_blank" rel="noopener noreferrer">Enhancing optimistically</a>" is an approach for when you want to add something to the page via JS (a carousel, etc.), but know something could go wrong...To prepare for this, you add a CSS class to the `html` that mimics how the page will look after your JS loads, but also prepare a fallback just in case it doesn't.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Deliver faster: Preload
+                    <ul>
+                        <li>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload</a>
+                        </li>
+                        <li>
+                            Can use the `link` element to tell the browser "you will need this soon, so try to download it as soon as you can":
+<pre>
+&lt;head>
+    ...
+    &lt;link rel="preload" href="style.css" as="style">
+    &lt;link rel="preload" href="main.js" as="script">
+    ...
+    &lt;link rel="stylesheet" href="style.css">
+&lt;/head>
+&lt;body>
+    ...
+    &lt;script src="main.js" defer>&lt;/script>
+&lt;/body>
+</pre>
+                            Note you can preload several types of files, all via the `link` element, the `rel` should be "preload", the `href` is the URL, and it also needs an `as` attribute; a `type` attribute is also acceptable for things like MIME types.
+<pre>
+&lt;link rel="preload" href="video.mp4" as="video" type="video/mp4">
+</pre>
+                            Can also include a `crossorigin` for CORS:
+<pre>
+&lt;link rel="preload" href="fonts/zantroke.woff2" as="font" type="font/woff2" crossorigin>
+</pre>
+                            And `media` attributes:
+<pre>
+&lt;link rel="preload" href="image-big.png" as="image" media="(min-width: 600px)">
+</pre>
+                            Similar `rel` values include:
+                            <ul>
+                                <li>
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prefetch" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prefetch</a><br>
+                                    `prefetch` for resources that will be used in the next page load
+                                </li>
+                                <li>
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prerender" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prerender</a><br>
+                                    `prerender` renders a page in the background, speeding up its load if the user navigates to it
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Render Faster: LCP
+                    <ul>
+                        <li>
+                            <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preconnect" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preconnect</a><br>
+                            Pre-/fetch assets as quickly as possible. Similar to the "pre"s above, `preconnect` pre-fetches that connection (DNS, etc.)
+<pre>
+&lt;link rel="preconnect" href="https://www.google.com">
+</pre>
+                        </li>
+                        <li>
+                            Size images properly. Be sure to use `width` and `height` attributes as `aspect-ratio` hints to the browser, then can use CSS to make it responsive:
+<pre>
+&lt;img src="/image.jpg" width="600" height="400" alt=""/>
+</pre>
+                            Can also use `srcset` and `sizes` to offer multiple image sizes in the same `img` element. The browser will determine which makes the most sense based on the environment:
+<pre>
+&lt;img src="/image-sm.jpg" 
+    srcset="/image-sm.jpg 300w, /image-lg.jpg 800w"
+    sizes="100vw (max-width: 500px), 50vw"
+    width="300" height="200" alt=""
+/>
+</pre>
+                            Can do similar stuff using the `picture` element, but with greater control, forcing which image size is used on which screen size, or different crops for different screens, or even which image format is offered.
+                            <aside>
+                                Data-URIs *can* be good, but typically bloat the page, prevent caching, and delay the rendering of the content below it.
+                            </aside>
+                            Lazy loading is a huge help, either via a library or just using <code>loading="lazy"</code> inside the `img` element.<br>
+                            For `video` elements, be sure to add <code>preload="none"</code>, really important for performance, can offer multiple <code>source></code> elements, in order of preference, and add a <code>poster</code> attribute:
+<pre>
+&lt;video controls playsinline poster="poster.jpg" preload="none">
+    &lt;source src="video.webm" type="video/webm">
+    &lt;source src="video.mp4" type="video/mp4m">
+&lt;/video>
+</pre>
+                            <code>source</code> elements can also have `media` attributes to offer different size videos for different screen sizes.
+                        </li>
+                        <li>
+                            Progressively load fonts. Mobile browsers will typically wait 3s, hoping the desired font is ready before showing the text.<br>
+                            <code>font-display: swap</code> allows us to show the backup font stack until the font arrives, then it will *swap*...<br>
+                            Some logic for using JS to load fonts include: using a Promise to fetch, load and re-paint multiple font faces at the same time; checking the user preference for data saving; checking the effective connection speed before downloading.
+                        </li>
+                        <li>
+                            Enhance with JS without jank. Careful fetching content, a la React, etc. even placeholder sections are "meaningless".
+                        </li>
+                        <li>
+                            Load 3rd party without blocking. async, move it down the page, etc.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Render Faster: TTI / TBT / FID
+                    <ul>
+                        <li>
+                            Frameworks, in order to improve LCP, have started sending *some* initial HTML, but that HTML is not interactive yet, then they fetch & replace that HTML with the same HTML, via JS, which then makes it interactive...
+                        </li>
+                        <li>
+                            We cannot likely remove all JS, but we might be able to reduce it, like <a href="https://vanillajstoolkit.com/reference/" target="_blank" rel="noopener noreferrer">replacing frameworks with vanilla JS</a>, and <a href="https://www.filamentgroup.com/lab/select-css.html" target="_blank" rel="noopener noreferrer">replacing JS enhancements with native HTML & CSS</a> (details, dialog, datalist, scroll-snap-points, etc.).
+                        </li>
+                        <li>
+                            For existing projects, unlikely to rebuild everything. Tree-shaking and code-splitting can help; rollup.js, webpack, etc. offer automated methods.
+                        </li>
+                        <li>
+                            <code>requestIdleCallback</code>, <code>requestAnimationFrame</code> and <code>IntersectionObserver</code> are good built-in methods that let us tax the CPU less, or find better times to run some tasks.
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    Re-Render Faster: Return visits
+                    <ul>
+                        <li>
+                            Caching Headers
+                            <ul>
+                                <li>
+                                    Previously, we used the `expires` header with a specific date. Today we use `Cache-Control` which are much more powerful & flexible.
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Pre-Fetch and Pre-Render
+                            <ul>
+                                <li>
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prefetch" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prefetch</a><br>
+                                    `prefetch` for resources that will be used in the next page load
+                                </li>
+                                <li>
+                                    <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prerender" target="_blank" rel="noopener noreferrer">https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/prerender</a><br>
+                                    `prerender` renders a page in the background, speeding up its load if the user navigates to it
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            Service Worker
+                            <ul>
+                                <li>
+                                    Caching & routing on the client site, so pages don't need to even *ask* the server for it, just using exactly what is already in the browser cache.
+                                </li>
+                                <li>
+                                    Can also pull inline content (CSS, SVG icons, etc.) and push into a cached "file": <a href="https://www.filamentgroup.com/lab/inlining-cache.html" target="_blank" rel="noopener noreferrer">https://www.filamentgroup.com/lab/inlining-cache.html</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+        </section>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+
+</html>

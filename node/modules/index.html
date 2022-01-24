@@ -1,0 +1,202 @@
+<!doctype html>
+<html class="no-js">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Modules - Node</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../../css/normalize.css">
+        <link rel="stylesheet" href="../../css/main.css">
+        <link rel="stylesheet" href="../../css/stackoverflow-dark.min.css">
+    </head>
+    <body>
+        
+        <h1>Node</h1>
+
+        <h2>Resources</h2>
+
+        <ul>
+            <li>
+                <a href="https://nodejs.org/dist/latest-v14.x/docs/api/">Node.js Documentation</a>
+            </li>
+            <li>
+                <a href="https://www.codecademy.com/courses/learn-intermediate-javascript/articles/implementing-modules-in-node">Implementing Modules in Node</a>
+            </li>
+        </ul>
+
+        <h2>Notes</h2>
+
+        <ul>
+            <li>
+                <details>
+                    <summary>Run Module in Node</summary>
+                    <pre>
+/* Terminal */
+// create & open new file called water-limits.js
+$ touch water-limits.js && subl water-limits.js
+
+/* water-limits.js */
+// create function to accept temp in F, convert, and output, temp in C
+function celsiusToFahrenheit(temp){
+    return temp * (9/5) + 32;
+}
+
+// define two variables for C water limits
+const freezingPointC = 0;
+const boilingPointC  = 100;
+
+// define two variables for calculating F water limits
+const freezingPointF = celsiusToFahrenheit(freezingPointC);
+const boilingPointF  = celsiusToFahrenheit(boilingPointC);
+
+// log F water limits
+console.log(`The freezing point of water in F is: ${freezingPointF}`);
+console.log(`The boiling point of water in F is: ${boilingPointF}`);
+
+/* Terminal */
+// open file in Node, read output
+$ node water-limits.js
+The freezing point of water in F is: 32
+The boiling point of water in F is: 212
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Pass arguments to Module</summary>
+                    <pre>
+/* Terminal */
+// create & open new file called: celsius-to-fahrenheit.js
+$ touch celsius-to-fahrenheit.js && subl celsius-to-fahrenheit.js
+
+/* celsius-to-fahrenheit.js */
+// create function to accept temp in F, convert, and output, temp in C
+function celsiusToFahrenheit(temp){
+    return temp * (9/5) + 32;
+}
+
+// define variable that accepts the 3rd item in the `process.argv` object
+const input  = process.argv[2];
+
+// define variable that converts input value to F
+const output = celsiusToFahrenheit(input);
+
+// log input C temp and converted F temp;
+console.log(`${input} degrees C = ${output} degrees F`);
+
+/* Terminal */
+// open file in Node, pass C temp, read output F temp
+$ node celsius-to-fahrenheit.js 100
+100 degrees C = 212 degrees F
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary><code>export</code> functions within Module</summary>
+                    <pre>
+/* Terminal */
+// create & open new file called: celsius-to-fahrenheit.js
+$ touch converters.js && subl converters.js
+
+/* converters.js */
+// create function to accept temp in F, convert, and output, temp in C
+function celsiusToFahrenheit(temp){
+    return temp * (9/5) + 32;
+}
+function fahrenheitToCelsius(temp){
+    return (temp - 32) * (5/9);
+}
+
+// export both functions, even changing name if you want
+module.exports.CtoF = celsiusToFahrenheit;
+module.exports.FtoC = fahrenheitToCelsius;
+
+// NOTE: also possible to define & export function in one step
+module.exports.FtoC = function(temp){
+    return (temp - 32) * (5/9);
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary><code>require</code> Module</summary>
+                    <pre>
+/* Terminal */
+// create & open new version of water-limits.js
+$ touch water-limits-2.js && subl water-limits-2.js
+
+/* water-limits-2.js */
+// require (import) converters.js in this module
+const converters = require('./converters.js');
+
+// define two variables for C water limits
+const freezingPointC = 0;
+const boilingPointC  = 100;
+
+// define two variables for calculating F water limits, using imported functions
+const freezingPointF = converters.CtoF(freezingPointC);
+const boilingPointF  = converters.CtoF(boilingPointC);
+
+// log F water limits
+console.log(`The freezing point of water in F is: ${freezingPointF}`);
+console.log(`The boiling point of water in F is: ${boilingPointF}`);
+
+/* Terminal */
+// open file in Node, read output
+$ node water-limits-2.js
+The freezing point of water in F is: 32
+The boiling point of water in F is: 212
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary><code>require</code> only part of a Module, via Object Destructuring</summary>
+                    <pre>
+/* Terminal */
+// create & open new version of: celsius-to-fahrenheit.js
+$ cp celsius-to-fahrenheit.js celsius-to-fahrenheit-2.js && subl celsius-to-fahrenheit-2.js
+
+/* celsius-to-fahrenheit-2.js */
+// import only the C > F function
+const { celsiusToFahrenheit } = require('./converters.js');
+
+// define variable that accepts the 3rd item in the `process.argv` object
+const input  = process.argv[2];
+
+// define variable that converts input value to F
+const output = celsiusToFahrenheit(input);
+
+// log input C temp and converted F temp;
+console.log(`${input} degrees C = ${output} degrees F`);
+
+/* Terminal */
+// open file in Node, pass C temp, read output F temp
+$ node celsius-to-fahrenheit.js 100
+100 degrees C = 212 degrees F
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>...</summary>
+                    <ul>
+                        <li></li>
+                    </ul>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('pre, code').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+</html>

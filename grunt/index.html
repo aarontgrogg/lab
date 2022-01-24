@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="no-js">
+	
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Grunt</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="stylesheet" href="../css/normalize.css" />
+		<link rel="stylesheet" href="../css/main.css" />
+		<link rel="stylesheet" href="../css/stackoverflow-dark.min.css" />
+	</head>
+
+	<body>
+		<h1>Grunt</h1>
+
+		<h2>Resources</h2>
+
+		<ul>
+			<li>
+				<a href="http://gruntjs.com/">Grunt JS</a>
+			</li>
+			<li>
+				<a href="https://www.taniarascia.com/getting-started-with-grunt-and-sass/">Getting Started with Grunt and Sass</a>
+			</li>
+		</ul>
+
+		<h2>Notes</h2>
+		<button>Toggle Details</button>
+
+		<ul>
+			<li>
+				<details>
+					<summary>Glossary</summary>
+					<dl>
+						<dt>Preprocessor</dt>
+							<dd>Converts Sass (or Less) to standard CSS</dd>
+						<dt>Task Runner</dt>
+							<dd>Automates processes</dd>
+						<dt>Local vs. Global</dt>
+							<dd>Grunt should be installed globally. NPM should be installed both globally and locally, for each project.</dd>
+						<dt>term</dt>
+							<dd>def</dd>
+                    </dl>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Requirements</summary>
+					<p>Grunt runs on Ruby, and requires Node NPM.</p>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Installation</summary>
+					<pre>
+// check if already installed
+sass -v
+// tell Ruby to install Sass
+sudo gem install sass
+// make sure Node is installed
+brew install node
+// install Grunt, globally
+npm install -g grunt-cli
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Create new project</summary>
+					<pre>
+// first four entries are obvious
+// `devDependencies` will be unique for each project; tells NPM wat to install
+{
+	"name": "startgrunt",
+	"version": "0.0.1",
+	"description": "Learning Grunt and Sass",
+	"license": "MIT",
+	"devDependencies": {
+		"grunt": "~0.4.5",
+		"grunt-contrib-sass": "latest",
+		"grunt-contrib-cssmin": "latest",
+		"grunt-contrib-uglify": "latest",
+		"grunt-contrib-watch": "latest"
+	}
+}
+// if need to add something later, can do manually
+npm install --save-dev grunt-postcss
+
+// then add NPM locally for this project
+npm install
+// NPM will install dependencies, when done, project directory will have `node_modules` directory
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Gruntfile.js</summary>
+					<pre>
+// create Gruntfile.js
+code Gruntfile.js
+
+// add the following to Gruntfile.js:
+// load Grunt
+module.exports = function (grunt) {
+
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		// create Tasks
+		// Sass: compile .scss files to .css files
+		sass: {
+			dist: {
+				options: {
+					sourcemap: 'none'
+				},
+				// take any file in the 'src/sass' directory (`cwd`),
+				// with the extension of '.scss' (`src`),
+				// and compile into a same-named file in the 'src/css' directory (`dest`),
+				// with the extension '.css' (`ext`)
+				files: [{
+					expand: true,
+					cwd: 'src/sass',
+					src: ['**/*.scss'],
+					dest: 'src/css',
+					ext: '.css'
+				}]
+			}
+		},
+		// CSSMin: minify resulting CSS files
+		cssmin: {
+			target: {
+				// take any file in the 'src/css' directory (`cwd`),
+				// with the extension of '.css', but NOT .min.css (`src`),
+				// and minify into a same-named file in the 'css' directory (`dest`),
+				// with the extension '.min.css' (`ext`)
+				files: [{
+					expand: true,
+					cwd: 'src/css',
+					src: ['*.css', '!*.min.css'],
+					dest: 'css',
+					ext: '.min.css'
+				}]
+			}
+		},
+		// UglifyJS: minify JS files
+		uglify: {
+			build: {
+				// take any file in the 'src/js' directory (`cwd`),
+				// with the extension of '.js', but NOT .min.js (`src`),
+				// and minify to 'script.min.js' in the 'js' directory (`dest`)
+				src: ['src/js/*.js', '!*.min.js'],
+				dest: 'js/script.min.js'
+			}
+		},
+		// Watch: If something changes, do all that stuff above
+		watch: {
+			css: {
+				files: 'src/**/*.scss',
+				tasks: ['sass', 'cssmin']
+			},
+			js: {
+				files: 'src/**/*.js',
+				tasks: ['uglify']
+			}
+		}
+	});
+
+	// load Plugins (each identified in `package.json`);
+	grunt.loadNpmTasks('grunt-contrib-sass');
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-watch');
+
+	// register Tasks (only `watch`; this will trigger others)
+	grunt.registerTask('default', ['watch']);
+
+} // module.exports
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>Run Grunt</summary>
+					<pre>
+// tell grunt to start
+grunt
+// should tell you that the "watch" task is waiting
+// if you make changes to any `.scss` file in the `src` directory, all the CSS tasks should run
+// if you make changes to any `.js` file in the `src` directory, all the JS tasks should run
+					</pre>
+				</details>
+			</li>
+			<li>
+				<details>
+					<summary>...</summary>
+					<pre>
+
+					</pre>
+				</details>
+			</li>
+		</ul>
+
+		<script src="../js/highlight.min.js"></script>
+		<script>
+			// add listener to `Toggle Details` button
+			document
+				.querySelectorAll('h2 + button')[0]
+				.addEventListener('click', () => {
+					document
+						.querySelectorAll('details > summary')
+						.forEach((el) => el.click());
+				});
+			// add highlighting
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('code, pre').forEach((el) => {
+					hljs.highlightElement(el);
+				});
+			});
+		</script>
+	</body>
+</html>

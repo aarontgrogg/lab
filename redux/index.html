@@ -1,0 +1,433 @@
+<!doctype html>
+<html class="no-js">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Redux</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/stackoverflow-dark.min.css">
+    </head>
+
+    <body>
+
+        <h1>Redux</h1>
+
+        <details>
+            <summary>Primer</summary>
+            <ul>
+                <li>State management library</li>
+                <li>Works for React, Angular, Vue, etc. (even Vanilla JS)</li>
+                <li>When data changes and the UI needs to change</li>
+                <li>inspired by Flux (also from FB), but easier to use</li>
+                <li>central repo of all states throughout the app: Store</li>
+                <li>so easy to access from anywhere in the app,</li>
+                <li>has its own DevTools tab,</li>
+                <li>that tracks what changed, when, why, etc.: Time Travel Debugging</li>
+                <li>allows you to click history items, which update the UI to that state</li>
+                <li>Log Rocket offeres persistent log for even user app experiencec!</li>
+                <li>Predictable, centralized, easy debugging, preserved state, undo/redo</li>
+                <li>probably only needed for complex state management:<br>
+                <a href="https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367">https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary>Glossary</summary>
+            <dl>
+                <dt>Store</dt>
+                    <dd>Collection of states, "single source of truth"</dd>
+                <dt>Webpack</dt>
+                    <dd>JS bundler</dd>
+                <dt>Functional Programming</dt>
+                    <dd>Decomposing a problem into a bunch of small, reusable functions; they do not change or mutate data; should be more concise, easier to debug, easier to test, more scalable</dd>
+                <dt>Higher-order function</dt>
+                    <dd>Function that takes a function as an argument, returns a function, or both, going "higher" than simple strings, booleans, etc.; ex: `.map` or `setTimeout`, which take a function as an argument</dd>
+                <dt>Currying</dt>
+                    <dd>Deconstructing functions to accept only a single parameter; curryied functions return a function that receive additional parameters</dd>
+                <dt>Pure Function</dt>
+                    <dd>Always returns the same result for the same parameters, so, no random, no current date/time, no global state (DOM; files, db, etc.), as any of those could change the output; ex. `const tomorrow = date() + 1`; tomorrow that value will be different</dd>
+                <dt>Immutability</dt>
+                    <dd>Value cannot be changed</dd>
+                <dt>Store</dt>
+                    <dd>JS Object that stores all states throughout project</dd>
+                <dt>Actions</dt>
+                    <dd>Events that happen throughout your project; minimum `type` and `description`</dd>
+                <dt>Reducer</dt>
+                    <dd>Function with two params: current state and action; used to copy existing state, update it, then replace previous state</dd>
+                <dt>Action Creators</dt>
+                    <dd>Functons that perform the `dispatch` process. Again, makes code base more maintainable.</dd>
+                <dt>term</dt>
+                    <dd>def</dd>
+            </dl>
+        </details>
+
+        <details>
+            <summary>Resources</summary>
+            <ul>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=poQXNp9ItL4&ab_channel=ProgrammingwithMosh">Learn Redux from Scratch - Mosh</a>
+                </li>
+                <li>
+                    <a href="url">title</a>
+                </li>
+            </ul>
+        </details>
+
+        <h3>Notes</h3>
+        <ul>
+            <li>
+                <details>
+                    <summary>Webpack</summary>
+                    <p>Tutorial: <a href="https://www.youtube.com/watch?v=poQXNp9ItL4&ab_channel=ProgrammingwithMosh">https://www.youtube.com/watch?v=poQXNp9ItL4&ab_channel=ProgrammingwithMosh</a></p>
+                    <p>Demo: <a href="http://localhost:9000/">http://localhost:9000/</a></p>
+                    <pre>
+// uses Webpack to bundle JS
+// `webpack.config.js`:
+    // entry point to app
+    entry: "./src/index.js", 
+    // bundle target is `/dist/app.js`
+    output: {
+        filename: "app.js",
+        path: path.resolve(__dirname, "dist")
+    },
+    // creates dev server based on `dist` folder, on port 9000
+    devServer: {
+        contentBase: path.join(__dirname, "dist"),
+        port: 9000
+    },
+    mode: "development"
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Functional Programming</summary>
+                    <p>Use many small, concise functions to complete a task</p>
+                    <pre>
+// instead of doing multiple things in one line
+const output = '&lt;div>' + input.trim() + '&lt;/div';
+// break each "piece" into its own function
+const trim = str => str.trim();
+const wrapInDiv = str => `&lt;div>${str}&lt;/div>`;
+// each functiona bove is very easy to test & debug, as they only perform a single task, so only one thing to test
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Currying</summary>
+                    <pre>
+// but to use above functions, looks like this:
+const output = wrapInDiv(trim(str));
+// requires reading right-to-left, and easy to miscount ()
+// and what if we want to expand `wrapInDiv` to receive element type (span, div, etc.)?
+
+// fn below receives 2 parameters, returns 1
+const wrap = (elem, str) => `&lt;${elem}>${str}&lt;/${elem}>`;
+const output = wrap('div', trim(str));
+// but this is messy, and prevents passing that fn as a higher-order fn
+
+// so Curry it: break into a fn that receives 1st param, and returns a fn that receives 2nd param
+const wrap = elem => str => `&lt;${elem}>${str}&lt;/${elem}>`;
+// aka:
+const wrap = function(elem) {
+    return function(str) {
+        `&lt;${elem}>${str}&lt;/${elem}>`;
+    }
+}
+// the `wrap` fn passes `elem` to another fn that receives `str` which returns both as 1 string...
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Pure Functions</summary>
+                    <pre>
+// this is NOT pure, as it relies on global `minAge`, which could change in the future (ex. "18 > 21")
+function isEligible(age) {
+    return age > minAge
+}
+// instead, should pass `minAge` to fn as well
+function isEligible(age, minAge) {
+    return age > minAge
+}
+// "self-documenting", as everything this fn needs, is in its param list
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Immutability</summary>
+                    <pre>
+/* Not a hard-and-fast law in all JS, but imperative in Redux, as it relies on immutability to maintain state */
+
+// if you want to change, something, create a copy and change that
+let str1 = `Hello`;
+let str2 = `${str1} World!`;
+
+/* pros */
+// predictabile = always same value
+// faster change detection = easier to compare two values, without having to compare all nodes
+// concurrency = 
+
+/* cons */
+// performance = with large objects, harmful to copy
+// memory = because creating many variables
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Updating Objects</summary>
+                    <pre>
+// can copy & update objects using the spread operator
+const person = { name: "Aaron" }
+const dupe   = {...person, name: "Thomas" }
+console.log(person.name) // Aaron
+console.log(dupe.name)   // Thomas
+
+// but be careful when copying objects, as nested objects remain "connected"
+const person = { name: "Aaron", address: { city: "New York"} }
+const dupe   = {...person }
+dupe.address.city = 'Hohenecken'
+console.log(person.address.city) // Hohenecken
+console.log(dupe.address.city) // Hohenecken
+// would need update during copy
+const dupe   = {...person, address: { city: "Hohenecken"} }
+
+// can get pretty nasty quickly, can use libraries to handle better
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Updating Arrays</summary>
+<pre>
+const numbers = [1, 2, 3]
+// adding "0" to start
+const added1 = [0, ...numbers] // [0, 1, 2, 3]
+// adding "4" to end
+const added2 = [...numbers, 4] // [1, 2, 3, 4]
+// removing "2"
+const removed = numbers.filter(n => n !== 2) // [1, 3]
+// updating: "2" > "20"
+const updated = numbers.map(n => n (n === 2 ? 20 : n)) // [1, 20, 3]
+</pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Enforcing Immutability</summary>
+                    <p>Libraries available, including Immutable (from FB, some problems?) and Immer (used in this tutorial)</p>
+                    <pre>
+// Immutable
+
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Add Redux to project</summary>
+                    <pre>
+// npm i redux
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Actions</summary>
+                    <pre>
+// minimum requirements:
+{
+    type: 'ADD_BUG',
+    description: 'Some useful information'
+}
+// 1 convention says to use ALL_CAPS with underscore
+// but you can use whatever you want
+// you can also add as many key/values as you need, like:
+{
+    type: 'ADD_BUG',
+    description: 'Some useful information',
+    id: 123456,
+    logged_in: true,
+    username: {
+        first_name: 'Aaron',
+        last_name: 'Grogg'
+    }
+}
+// Flux has a nice convention, where only the `type` and `payload` are at the top level, and all else goes inside `payload`, like:
+{
+    type: 'ADD_BUG',
+    payload: {
+        description: 'Some useful information',
+        id: 123456,
+        logged_in: true,
+        username: {
+            first_name: 'Aaron',
+            last_name: 'Grogg'
+        }
+    }
+}
+// this allows for nice, consistent data structures throughout project
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Reducer</summary>
+                    <p>Take in current state, determine action taken, copy existing state, update copy, replace previous state with updated state.</p>
+                    <p>Can also </p>
+                    <pre>
+// reducer.js
+export default function reducer (state, action) {
+    if ( action-type === 'bugAdded' ) {
+        return [
+            ...state,
+            {
+                id: ++lastId,
+                description: action.payload.description,
+                resolved: false
+            }
+        ]
+    } else if ( action.type === 'bugRemoved' ) {
+        return state.filter(bug => bug.id !== action.payload.id)
+    } else {
+        return state
+    }
+}
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Store</summary>
+                    <pre>
+// store.js
+import { createStore } from 'redux'
+import reducer from './reducer'
+export default store = createStore(reducer)
+
+// index.js
+import store from './store'
+// store has following methods:
+.dispatch() // perform an action
+.subscribe() // monitor store, so you can react to changes
+.getState()
+.replaceReducer()
+.Symbol(observable)
+// note there is no `setState`; this is handled via the `reducer`
+
+// subscribe to store, to monitor for changes
+const unsubscribe = store.subscribe(() => {
+    // do something when stuff changes...
+    // re-render UI, etc.
+    console.log('Store changed', store.getState())
+})
+/* Note: important to create `unsubscribe` based on `subscribe` (like how `clearTimout` is created for `setTimeout`), to prevent memory leaks if store is removed from the UI; when removing from UI, you would call:
+unsubscribe();
+*/
+
+// adding to the store
+store.dispatch({
+    type: 'bugAdded',
+    payload: {
+        description: 'Bug 1'
+    }
+})
+// 'Store changed', [{
+                        id: 1
+                        description: 'Bug 1'
+                        resolved: false
+                    }]
+
+// removing from the store
+store.dispatch({
+    type: 'bugRemoved',
+    payload: {
+        id: 1
+    }
+})
+// 'Store changed', []
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Action Types</summary>
+                    <p>Best practice is to move "Action Types" into constants in a separate file, so they can be more easily maintained.</p>
+                    <pre>
+// actionType.js
+export const BUG_ADDED = 'bugAdded'
+export const BUG_REMOVED = 'bugRemoved'
+
+// reducer.js
+import * as actions from './actionTypes'
+// Note using '*' to say 'import everything, but into an `actions` object'
+export default function reducer (state, action) {
+    if ( action-type === actions.BUG_ADDED ) {
+        ...
+    } else if ( action.type === actions.BUG_REMOVED ) {
+        ...
+    }
+}
+
+// index.js
+import * as actions from './actionTypes'
+store.dispatch({
+    type: actions.BUG_ADDED,
+    ...
+})
+store.dispatch({
+    type: actions.BUG_REMOVED,
+    ...
+})
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Action Creators</summary>
+                    <pre>
+// it is likely we will need to disaptch actions from multiple places throughout our project
+// rather than having to repeat the `store.dispatch(...)` everywhere, better to create functions that perform these steps, then include them where needed
+
+// actions.js
+import * as actions from './actionTypes'
+export const bugAdded = description => ({
+    return {
+        type: actions.BUG_ADDED,
+        payload: {
+            description: 'Bug 1'
+    }
+})
+
+// then you can call that throughout the code base as:
+import { bugAdded } from './actions'
+store.dispatch(bugAdded('Bug 1'))
+                    </pre>
+                </details>
+            </li>
+            <li>
+                <details>
+                    <summary>Summary</summary>
+                    <pre>
+                    </pre>
+                </details>
+            </li>
+        </ul>
+
+        <script src="../js/highlight.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('code, pre').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+    </body>
+
+</html>

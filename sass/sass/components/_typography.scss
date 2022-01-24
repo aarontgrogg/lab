@@ -1,0 +1,11 @@
+html {
+    font-family: $base-font-family;
+    font-size: $base-font-size;
+    color: $base-font-color;
+}
+section {
+    h1 {
+        color: $header-font-color;
+        font-size: $header-font-size;
+    }
+}
